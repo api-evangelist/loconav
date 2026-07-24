@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Alerts Subscriptions API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Alerts Subscriptions
+paths:
+  /integration/api/v1/vehicles/{vehicle_uuid}/alerts/subscriptions:
+    get:
+      operationId: getAlertSubscriptions
+      summary: Get Alert Subscriptions
+      tags:
+      - Alerts Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      parameters:
+      - name: vehicle_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

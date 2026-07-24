@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Vehicles API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Vehicles
+  description: '<p>Loconav''s Vehicle APIs offer developers a powerful toolkit for real-time fleet management. The Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats API delivers live statistics.</p>
+
+    <p>These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and analytics, enhancing operational efficiency and decision-making.</p>
+
+    '
+paths:
+  /integration/api/v1/vehicles:
+    get:
+      operationId: listVehicles
+      summary: List Vehicles
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The List Vehicles API enables users to retrieve a paginated list of vehicles along with their details like vehicle number, device details, subscription details and more.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>vehicleNumber</code> (string, optional): The vehicle number for filtering</p>
+
+        </li>
+
+        <li><p><code>deviceSerialNumber</code>(string, optional): The Device serial Number (IMEI) number</p>
+
+        </li>
+
+        <li><p><code>page</code> (integer): The page number for pagination. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): The number of vehicles to be included per page. Default is 10.</p>
+
+        </li>
+
+        <li><p><code>vehicleNumbers</code> (string, optional):The vehicle numbers for filtering.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuids</code> (string, optional): The vehicleUuids for filtering.</p>
+
+        </li>
+
+        <li><p><code>fetchMobilizationDetails</code>(boolean,optional): Vehicle Mobilzation Status</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>Each vehicle entry includes the following details:</p>
+
+        <ul>
+
+        <li><p><code>number</code> (string): Vehicle registration number.</p>
+
+        </li>
+
+        <li><p><code>deviceId</code> (string): Unique identifier for the associated device.</p>
+
+        </li>
+
+        <li><p><code>displayNumber</code> (string): Display name or identifier for the vehicle.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier for the vehicle.</p>
+
+        </li>
+
+        <li><p><code>status</code> (boolean): Current status of the vehicle.</p>
+
+        </li>
+
+        <li><p><code>current_device</code> (object): Details about the associated device.</p>
+
+        </li>
+
+        <li><p><code>subscription</code> (object): Details about the subscription, including expiration date.</p>
+
+        </li>
+
+        <li><p><code>vehicleType</code> (string): Type or category of the vehicle.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (integer): Timestamp indicating when the vehicle record was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (integer): Timestamp indicating when the vehicle'
+  /integration/api/v1/vehicles/{vehicleId}/score_card:
+    get:
+      operationId: getVehicleScoreCard
+      summary: Get Vehicle Score card
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Vehicle Score card API provides detailed insights into the behavior and performance of a vehicle within a specified time range. Fleet managers can utilize this information to assess driver efficiency, safety, and overall performance.</p>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>
+
+        <li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>
+
+        </ul>
+
+        <h3 id="response-fields">Response Fields</h3>
+
+        <ul>
+
+        <li><code>runningTime</code>: Time the vehicle spent in motion (unit: minutes).</li>
+
+        <li><code>distance</code>: Total distance covered by the vehicle (unit: km).</li>
+
+        <li><code>stoppageTime</code>: Time the vehicle spent in stoppage (unit: minutes).</li>
+
+        <li><code>idleDuration</code>: Duration of engine idling (unit: minutes).</li>
+
+        <li><code>idlingEventsCount</code>: Number of idling events.</li>
+
+        <li><code>overspeedDuration</code>: Duration of overspeeding (unit: minutes).</li>
+
+        <li><code>overspeedEventsCount</code>: Number of overspeed events.</li>
+
+        <li><code>suddenBrakingEventsCount</code>: Number of sudden braking events.</li>
+
+        <li><code>suddenAccelerationEventsCount</code>: Number of sudden acceleration events.</li>
+
+        <li><code>sharpTurnEventsCount</code>: Number of sharp turn events.</li>
+
+        <li><code>seatBeltEventsCount</code>: Number of seat belt events.</li>
+
+        <li><code>totalEvents</code>: Total number of events.</li>
+
+        <li><code>overallScore</code>: Overall driver score (unit: points, ranging from 0 to 100).</li>
+
+        <li><code>distanceMetric</code>: Total distance covered metric (unit: km).</li>
+
+        <li><code>fuelConsumption</code>: Fuel consumption during the specified period (unit: liters).</li>
+
+        <li><code>mileage</code>: Vehicle mileage information (unit: km/h).</li>
+
+        <li><code>totalDuration</code>: Total duration of the specified period (unit: minutes).</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <l'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}:
+    get:
+      operationId: getVehicleDetails
+      summary: Get Vehicle Details
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/live_share_link:
+    get:
+      operationId: getLiveShareLink
+      summary: Get Live Share Link
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Live Share Link API allows users to retrieve a shareable link for real-time tracking of a specific vehicle. This link can be shared with others to provide live updates on the vehicle''s location and status.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which the live share link is requested.</li>
+
+        </ul>
+
+        <h3 id="response-structure">Response Structure</h3>
+
+        <ul>
+
+        <li><code>shareLink</code> (string): The generated shareable link for live tracking of the vehicle. This is a public link and can be open in any browser.</li>
+
+        </ul>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><code>200 OK</code>: The request was successful, and the shareable link is provided.</li>
+
+        <li><code>404 Not Found</code>: The requested vehicle was not found.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

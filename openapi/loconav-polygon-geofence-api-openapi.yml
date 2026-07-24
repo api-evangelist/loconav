@@ -1,0 +1,360 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Polygon (Geofence) API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Polygon (Geofence)
+  description: '<p>A geofence is a virtual boundary, often a <strong>rectangular bounding box</strong>, created using mapping software with specified latitude and longitude coordinates. Integrated with fleet management and telematics, geofences trigger real-time alerts if a GPS-equipped vehicle or equipment moves beyond authorized limits, enhancing security and asset monitoring.</p>
+
+    <hr />
+
+    <p><strong>Use Cases</strong></p>
+
+    <ol>
+
+    <li><strong>Security and Alerts:</strong> Geofences can be established around construction sites where valuable equipment is stationed. If any equipment equipped with a GPS tracker is detected leaving the predefined area, immediate alerts are triggered, helping prevent theft and aiding in the recovery of the asset.</li>
+
+    <li><strong>Delivery Route Compliance:</strong> For logistics and delivery services, geofences can be set along specified routes or delivery zones. If a delivery vehicle deviates from the planned route or enters unauthorized areas, real-time alerts ensure adherence to planned schedules and prevent potential route deviations or unauthorized stops.</li>
+
+    </ol>
+
+    '
+paths:
+  /integration/api/v1/polygons/{polygonId}:
+    get:
+      operationId: getPolygon
+      summary: Get Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Polygon Details API allows users to retrieve information about a specific polygon defined in the system. Polygons are used for geofencing and defining specific areas of interest for tracking and monitoring purposes.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>polygonId</code> (string, required): The unique identifier of the polygon for which details are requested.</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><code>id</code> (integer): The unique identifier of the polygon.</li>
+
+        <li><code>name</code> (string): The name or identifier of the polygon.</li>
+
+        <li><code>coordinates</code> (array of strings): The center coordinates of the polygon in latitude and longitude format.</li>
+
+        <li><code>radius</code> (integer): The radius of the polygon (if applicable).</li>
+
+        <li><code>polygonCoordinates</code> (array of objects): The coordinates of the polygon vertices, defining its shape.<ul>
+
+        <li><code>lat</code> (string): Latitude of the vertex.</li>
+
+        <li><code>long</code> (string): Longitude of the vertex.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><code>200 OK</code>: The request was successful, and the polygon details are provided.</li>
+
+        <li><code>422 Unprocessable Entity</code>: The requested polygon was not found.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: polygonId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updatePolygon
+      summary: Update Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Update Polygon API allows users to modify the attributes of an existing polygon. Users can update the polygon''s name, location, radius and active status.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>polygonId</code> (integer): Unique identifier for the polygon to be updated.</li>
+
+        </ul>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The updated name of the polygon.</li>
+
+        <li><code>lat</code> (float): The updated latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (float): The updated longitude of the center point of the polygon.</li>
+
+        <li><code>distanceUnit</code> (string): The unit of measurement for the radius (e.g., "m" for meters).</li>
+
+        <li><code>radius</code> (integer): The updated radius of the polygon.</li>
+
+        <li><code>active</code> (boolean): The updated status indicating whether the polygon is active or not.</li>
+
+        </ul>
+
+        <h2 id="updated-polygon-structure">Updated Polygon Structure</h2>
+
+        <p>The updated polygon includes the following details:</p>
+
+        <ul>
+
+        <li><code>id</code> (integer): Unique identifier for the polygon.</li>
+
+        <li><code>name</code> (string): The updated name of the polygon.</li>
+
+        <li><code>lat</code> (string): The updated latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (string): The updated longitude of the center point of the polygon.</li>
+
+        <li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>
+
+        <li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</li>
+
+        <li><code>radius</code> (integer): The updated radius of the polygon.</li>
+
+        <li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              polygon:
+                name: test_polygon5
+                lat: 90
+                distanceUnit: m
+                radius: 100
+                active: true
+                long: 85.882186
+      parameters:
+      - name: polygonId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/polygons:
+    get:
+      operationId: listPolygons
+      summary: List Polygons
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The List Polygons API retrieves a paginated list of polygons based on specified query parameters. Users can filter the results by polygon name and active status.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>page</code> (integer): Page number for pagination.</li>
+
+        <li><code>perPage</code> (integer): Number of items per page.</li>
+
+        <li><code>name</code> (string): Filter by polygon name (optional).</li>
+
+        <li><code>active</code> (boolean): Filter by active status (optional).</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>Each polygon in the list includes the following details:</p>
+
+        <ul>
+
+        <li><code>id</code> (integer): Unique identifier for the polygon.</li>
+
+        <li><code>name</code> (string): The name of the polygon.</li>
+
+        <li><code>lat</code> (string): Latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (string): Longitude of the center point of the polygon.</li>
+
+        <li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>
+
+        <li><code>address</code> (string): Address associated with the polygon.</li>
+
+        <li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</li>
+
+        <li><code>radius</code> (integer): Radius of the polygon.</li>
+
+        <li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>
+
+        <li><code>geofenceCategory</code> (string): Category associated with the geofence, if available.</li>
+
+        </ul>
+
+        <h2 id="pagination-information">Pagination Information</h2>
+
+        <ul>
+
+        <li><code>page</code> (integer): Current page number.</li>
+
+        <li><code>perPage</code> (integer): Number of items per page.</li>
+
+        <li><code>count</code> (integer): Total number of polygons available.</li>
+
+        </ul>
+
+        <h2 id="bounding-box">Bounding Box</h2>
+
+        <p>The bounding box is a rectangular area defined by four coordinates. In the response, it is represented as an array of latitude and longitude pairs. The bounding box encompasses th'
+    post:
+      operationId: createPolygon
+      summary: Create Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Create Polygon API allows users to define and create geofence polygons with specified attributes. These polygons can be utilized for location-based services, such as monitoring and triggering events when a tracked asset enters or exits the defined area.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>name</code> (string): The name of the polygon.</p>
+
+        </li>
+
+        <li><p><code>lat</code> (float): Latitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>long</code> (float): Longitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>distanceUnit</code> (string): Unit of measurement for the radius (e.g., "m" for meters).</p>
+
+        </li>
+
+        <li><p><code>radius</code> (integer): Radius of the polygon.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): Unique identifier for the created polygon.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the polygon.</p>
+
+        </li>
+
+        <li><p><code>lat</code> (string): Latitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>long</code> (string): Longitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>
+
+        </li>
+
+        <li><p><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</p>
+
+        </li>
+
+        <li><p><code>radius</code> (integer): Radius of the polygon.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="bounding-box">Bounding Box</h2>
+
+        <p>The bounding box is a rectangular area defined by four coordinates. In the response, it is represented as an array of latitude and longitude pairs. The bounding box encompasses the outer edges of the circular polygon, allowing for simplified spatial queries and calculations.</p>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              polygon:
+                name: test_polygon4
+                lat: 10
+                distanceUnit: m
+                radius: 100
+                active: true
+                long: 85.882186
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

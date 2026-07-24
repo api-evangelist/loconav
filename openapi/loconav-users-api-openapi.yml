@@ -1,0 +1,115 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Users API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Users
+paths:
+  /integration/api/v1/user:
+    get:
+      operationId: getUserDetails
+      summary: Get User Details
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The User Details API allows users to retrieve detailed information about the currently authenticated user in the LocoNav system. This information includes the user''s name, email, phone numbers, role, and account details.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="response-fields">Response Fields</h3>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the user.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the user.</p>
+
+        </li>
+
+        <li><p><code>email</code> (string): The email address of the user.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): The timestamp of when the user account was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): The timestamp of when the user account was last updated.</p>
+
+        </li>
+
+        <li><p><code>phoneNumbers</code> (string): The phone numbers associated with the user.</p>
+
+        </li>
+
+        <li><p><code>role</code> (string): The role of the user in the system.</p>
+
+        </li>
+
+        <li><p><code>account</code> (object): An object containing details about the user''s account.</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>email</code> (string): The email address of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): The timestamp of when the user''s account was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): The timestamp of when the user''s account was last updated.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates if the user''s account is active.</p>
+
+        </li>
+
+        <li><p><code>alertsPusher</code> (boolean): Indicates if the user has alerts pusher enabled.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

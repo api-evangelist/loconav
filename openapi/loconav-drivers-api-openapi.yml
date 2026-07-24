@@ -1,0 +1,493 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Drivers API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Drivers
+  description: '<p>Efficient driver management is essential for the optimal operation of a fleet.</p>
+
+    <p>Leveraging the capabilities of LocoNav REST APIs, fleet managers can seamlessly create, update, and retrieve detailed information about drivers. The system allows for precise retrieval of driver details based on their names, enabling informed decision-making.</p>
+
+    <p>Moreover, fleet managers can maintain the accuracy of their driver roster by securely deleting off-record drivers. This suite of features empowers fleet managers to maintain a well-organized and high-performing team, enhancing overall fleet management effectiveness.</p>
+
+    '
+paths:
+  /integration/api/v1/drivers/{driverId}:
+    get:
+      operationId: getDriver
+      summary: Get Driver
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Details API allows users to retrieve detailed information about a specific driver in the LocoNav system. This information includes the driver''s personal details, contact information, license details, guarantor information, and uploaded documents.</p>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>driverId</code> (integer, required): The unique identifier of the driver for which details are requested.</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the driver.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the driver.</p>
+
+        </li>
+
+        <li><p><code>phoneNumber</code> (string): The phone number of the driver.</p>
+
+        </li>
+
+        <li><p><code>aadharNumber</code> (string): The Aadhar number of the driver (if available).</p>
+
+        </li>
+
+        <li><p><code>vehicleNumber</code> (string): The vehicle number assigned to the driver.</p>
+
+        </li>
+
+        <li><p><code>licenseNumber</code> (string): The driver''s license number.</p>
+
+        </li>
+
+        <li><p><code>guarantorName</code> (string): The name of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>guarantorPhoneNumber</code> (string): The phone number of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>licenseIssueDate</code> (integer): The timestamp of the driver''s license issue date.</p>
+
+        </li>
+
+        <li><p><code>licenseValidFrom</code> (integer): The timestamp of the start date of the driver''s license validity.</p>
+
+        </li>
+
+        <li><p><code>licenseValidUpto</code> (integer): The timestamp of the end date of the driver''s license validity.</p>
+
+        </li>
+
+        <li><p><code>driverCountryCode</code> (string): The country code of the driver.</p>
+
+        </li>
+
+        <li><p><code>guarantorCountryCode</code> (string): The country code of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>rfidTrackingId</code> (string): The RFID tracking ID associated with the driver (if available).</p>
+
+        </li>
+
+        <li><p><code>uploads</code> (object): An object containing uploaded documents related to the driver.'
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateDrivers
+      summary: Update Drivers
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Update Driver API allows users to update the information of an<br />existing driver profile identified by the driver''s unique identifier.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The updated name of the driver.</li>
+
+        <li><code>countryCode</code> (string): The updated country code associated with the driver''s phone number.</li>
+
+        <li><code>phoneNumber</code> (string): The updated phone number of the driver.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (object): Contains details of the updated driver if the operation was successful.<ul>
+
+        <li><code>id</code> (integer): Unique identifier for the updated driver.</li>
+
+        <li><code>name</code> (string): Updated name of the driver.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier of the driver to be updated.</li>
+
+        <li>The <code>countryCode</code> parameter should follow the ISO standard.</li>
+
+        <li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: demo
+              countryCode: IN
+              phoneNumber: '8259986926'
+    delete:
+      operationId: deleteDriver
+      summary: Delete Driver
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Delete Driver API enables users to remove a driver profile from the system using the driver''s unique identifier.</p>
+
+        <h2 id="request-param">Request Param</h2>
+
+        <p><code>{driverId}</code>: The unique identifier of the driver to be deleted.</p>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (string): Confirmation message indicating that the driver was deleted successfully.</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier of the driver to be deleted.</li>
+
+        <li>Deleting a driver profile is irreversible. Ensure that the correct driver identifier is provided before executing the request.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/drivers:
+    get:
+      operationId: listDriversFilter
+      summary: List drivers (Filter)
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Search Drivers API allows users to search for drivers by name. Users can provide a partial or full name of the driver to retrieve a list of matching drivers along with their associated phone numbers.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>name</code> (string): The name of the driver to search for. This parameter supports partial or full name matching.</p>
+
+        </li>
+
+        <li><p><code>page</code> (integer): The page number of the results to retrieve. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): The number of results per page. Default is 10.</p>
+
+        </li>
+
+        <li><p><code>getIdAndName</code> (boolean,optional) default true, for more details set it false</p>
+
+        </li>
+
+        <li><p><code>vehicleIds: comma seprated vehicle uuid''s</code></p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><p><code>values</code> (array): Array containing driver objects matching the search query.</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): Unique identifier for the driver.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): Name of the driver.</p>
+
+        </li>
+
+        <li><p><code>phone_number</code> (string): Phone number of the driver.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>pagination</code> (object): Pagination details.</p>
+
+        <ul>
+
+        <li><p><code>page</code> (integer): Current page number.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): Number of results per page.</p>
+
+        </li>
+
+        <li><p><code>more</code> (boolean): Indicates whether there are more pages of data available.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>metadata</code> (object): Additional metadata if available.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="note">Note</h2>
+
+        <ul>
+
+        <li>The <code>name</code> parameter supports partial or full name matching, allowing users to search for drivers based on various name combinations.</li>
+
+        </ul>
+
+        '
+    post:
+      operationId: createDrivers
+      summary: Create Drivers
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Create Driver API allows users to create a new driver profile by providing the driver''s name, country code, and phone number.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The name of the driver.</li>
+
+        <li><code>countryCode</code> (string): The country code associated with the driver''s phone number.</li>
+
+        <li><code>phoneNumber</code> (string): The phone number of the driver.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (object): Contains details of the created driver if the operation was successful.<ul>
+
+        <li><code>id</code> (integer): Unique identifier for the created driver.</li>
+
+        <li><code>name</code> (string): Name of the created driver.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>countryCode</code> parameter should follow the ISO standard.</li>
+
+        <li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>
+
+        </ul>
+
+        '
+  /integration/api/v1/driver_vehicle_assignments:
+    post:
+      operationId: vehicleAssignment
+      summary: Vehicle Assignment
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Vehicle Assignments API allows users to assign a driver to a specific vehicle in the LocoNav system. This association enables tracking and management of vehicles based on the assigned driver.</p>
+
+        <h3 id="request-body">Request Body</h3>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle to be assigned to the driver.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be assigned to the vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response">Response</h3>
+
+        <h4 id="successful-response-200-ok">Successful Response (200 OK)</h4>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><p><code>200 OK</code>: The driver was successfully assigned to the vehicle.</p>
+
+        </li>
+
+        <li><p><code>404 Not Found</code>: The specified vehicle was not found in the system.</p>
+
+        </li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              driverId: 29866
+  /integration/api/v1/driver_vehicle_unassignments:
+    put:
+      operationId: vehicleUnassignment
+      summary: Vehicle Unassignment
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Vehicle Unassignments API allows users to remove the association of a driver from a specific vehicle in the LocoNav system. This action disassociates the driver from the vehicle for tracking and management purposes.</p>
+
+        <h3 id="request-body">Request Body</h3>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle from which the driver will be unassigned.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be unassigned from the vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response">Response</h3>
+
+        <h4 id="successful-response-200-ok">Successful Response (200 OK)</h4>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><p><code>200 OK</code>: The driver was successfully unassigned from the vehicle.</p>
+
+        </li>
+
+        <li><p><code>422 Unprocessable Entity</code>: The specified driver is not currently assigned to the provided vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              driverId: 29866
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

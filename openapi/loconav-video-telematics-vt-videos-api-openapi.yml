@@ -1,0 +1,315 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Video Telematics VT / Videos API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Video Telematics VT / Videos
+paths:
+  /integration/api/v1/videos/{voidId}:
+    get:
+      operationId: getVideo
+      summary: Get Video
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Video Details API allows users to retrieve detailed information about a specific video recording, providing insights into the associated device, duration, format, creator type, and more.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth_token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>vodId</code> (string, required): The unique identifier of the video on demand (VOD).</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><p><code>vodId</code> (string): Unique identifier of the video on demand.</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of request, in this case "video". Possible values: <code>video</code> and <code>timelapse</code></p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>format</code> (string): Format of the video (e.g., "Road", "Driver View", etc.).</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): The method through which the video was created (e.g., "manual", "automated", etc.).</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the video.</p>
+
+        </li>
+
+        <li><p><code>extraData</code> (object): Additional data related to the video (if available).</p>
+
+        </li>
+
+        <li><p><code>status</code> (string): Status of the video (e.g., "processed", "pending", etc.).</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): Timestamp when the video was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): Timestamp when the video was last updated.</p>
+
+        </li>
+
+        <li><p><code>driver</code> (object): Information about the driver associated with the video.</p>
+
+        <ul>
+
+        <li><code>driverName</code> (string): Name of the driver.</li>
+
+        <li><code>driverId</code> (integer): Unique identifier of the driver.</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>video</code>'
+      parameters:
+      - name: voidId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/videos:
+    get:
+      operationId: listVideos
+      summary: List Videos
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>This API provides access to videos associated with specific vehicles.</p>
+
+        <h3 id="query-parameters">Query Parameters</h3>
+
+        <ul>
+
+        <li><p><code>perPage</code> (optional): Number of videos to retrieve per page. Default is 10.</p>
+
+        </li>
+
+        <li><p><code>page</code> (optional): Page number to retrieve. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>alertId</code> (optional): Alert Id received via Alerts Webhook</p>
+
+        </li>
+
+        <li><p><code>alertKind</code> (required with alertId): Alert Kind recevied via Alerts Webhook</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response-structure">Response Structure</h3>
+
+        <ul>
+
+        <li><p><code>values</code> (array): An array of video objects.</p>
+
+        <ul>
+
+        <li><p><code>vodId</code> (string): Unique identifier for the video on demand (VOD).</p>
+
+        </li>
+
+        <li><p><code>deviceId</code> (string): Device identifier associated with the video.</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of video request.</p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>format</code> (string): Format of the video.</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): Type of creator of the video.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the video.</p>
+
+        </li>
+
+        <li><p><code>extraData</code> (object): Additional data associated with the video.</p>
+
+        </li>
+
+        <li><p><code>status</code> (string): Status of the video.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): Timestamp indicating when the video was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): Timestamp indicating when the video was last updated.</p>
+
+        </li>
+
+        <li><p><code>driver</code> (object): Information about the driver associated with the video.</p>
+
+        <ul>
+
+        <li><p><code>driverName</code> (string): Name of the driver.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer): Unique identifier of the driver.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>video</code> (object): Information about the video'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: createVideoRequest
+      summary: Create Video Request
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>This API allows users to request the creation of a vehicle video. Users can specify various parameters such as format, resolution, request type, creator type, device ID, duration, and start time for the video.</p>
+
+        <h3 id="request-body"><strong>Request Body</strong></h3>
+
+        <ul>
+
+        <li><p><code>format</code> (string): Format of the video (e.g., "Road", "Driver", "Side-by-Side").</p>
+
+        </li>
+
+        <li><p><code>resolution</code> (string): Resolution of the video (e.g., "640x480").</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of video request (e.g., "video").</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): Type of creator (e.g., "auto" or "manual").</p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>startTime</code> (integer): Start time of the video recording.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response-structure"><strong>Response Structure</strong></h3>
+
+        <ul>
+
+        <li><code>vodId</code> (string): ID of the video-on-demand (VOD).</li>
+
+        <li><code>deviceId</code> (string): ID of the device recording the video.</li>
+
+        <li><code>requestType</code> (string): Type of video request (e.g., "video").</li>
+
+        <li><code>duration</code> (integer): Duration of the video in seconds.</li>
+
+        <li><code>format</code> (string): Format of the video (e.g., "Road").</li>
+
+        <li><code>creatorType</code> (string): Type of creator (e.g., "auto").</li>
+
+        <li><code>vehicleUuid</code> (string): UUID of the vehicle associated with the video.</li>
+
+        <li><code>extraData</code> (object): Additional data associated with the video.</li>
+
+        <li><code>status</code> (string): Status of the video creation process (e.g., "pending").</li>
+
+        <li><code>createdAt</code> (string): Timestamp of when the video was created.</li>
+
+        <li><code>updatedAt</code> (string): Timestamp of when the video was last updated.</li>
+
+        <li><code>driver.driverName</code> (string): Name of the driver associated with the video.</li>
+
+        <li><code>driver.driverId</code> (integer): ID of t'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              format: Road
+              resolution: 640x480
+              requestType: video
+              creatorType: auto
+              duration: 1
+              startTime: 1702555021
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

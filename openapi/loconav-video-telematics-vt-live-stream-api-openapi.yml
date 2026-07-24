@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Video Telematics VT / Live Stream API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Video Telematics VT / Live Stream
+paths:
+  /integration/api/v1/livestreams/{sessionId}:
+    get:
+      operationId: getLivesteam
+      summary: Get Livesteam
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API retrieves the live video stream for vehicle telematics. It requires the session ID of the livestream.</p>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>sessionId</code> (string): The session ID of the livestream.</li>
+
+        </ul>
+
+        <h2 id="request-headers">Request Headers</h2>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: Your user authentication token.</li>
+
+        <li><code>Content-Type</code>: application/json</li>
+
+        </ul>
+
+        <h2 id="response">Response</h2>
+
+        <p>The API returns a JSON object with the following fields:</p>
+
+        <ul>
+
+        <li><code>streamId</code> (string): The ID of the video stream.</li>
+
+        <li><code>backCamUrl</code> (string): URL for the back camera feed.</li>
+
+        <li><code>frontCamUrl</code> (string): URL for the front camera feed.</li>
+
+        <li><code>options</code> (array of strings): Available video options.</li>
+
+        <li><code>currentResolution</code> (string): Current video resolution.</li>
+
+        <li><code>sessionId</code> (string): The session ID of the livestream.</li>
+
+        <li><code>status</code> (string): Status of the livestream (e.g., "active").</li>
+
+        <li><code>keepAliveInterval</code> (integer): Interval for keeping the livestream alive.</li>
+
+        <li><code>totalSessionTime</code> (integer): Total duration of the livestream session. (time in seconds)</li>
+
+        <li><code>activeSessions</code> (integer): Number of active livestream sessions.</li>
+
+        <li><code>expiryNotificationBuffer</code> (integer): Buffer time for expiry notification.</li>
+
+        <li><code>afterExpiryBuffer</code> (integer): Buffer time after expiry.</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The livestream URLs (<code>backCamUrl</code> and <code>frontCamUrl</code>) should be used to access the video feeds.</li>
+
+        <li>Ensure that the session ID provided is valid and active.</li>
+
+        <li>Authentication token is required for accessing the livestream.</li>
+
+        <li>The response may contain additional fields not listed here.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateLivestream
+      summary: Update Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint facilitates the modification of a livestream session, allowing users to either update its resolution or extend its duration.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><p><strong><code>operation</code></strong> (string): Indicates operation whether to update resolution or extend the livestream session.</p>
+
+        <ul>
+
+        <li><p>Data Type: String</p>
+
+        </li>
+
+        <li><p>Options: "<strong>change_resolution</strong>" or "<strong>extend_duration</strong>"</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>resolution</code></strong> (string): Specifies the desired resolution for the livestream.</p>
+
+        <ul>
+
+        <li>Data Type: String</li>
+
+        <li>Options: "640x480", "1280x720", "1920x1080", "3840x2160"</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-body">Response Body</h2>
+
+        <ul>
+
+        <li><strong><code>success</code></strong> (boolean): Indicates whether the request was successful.<ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><strong><code>message</code></strong> (string): Message confirming the success of the livestream session update.<ul>
+
+        <li>Data Type: String</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              operation: extend_duration
+              resolution: 640x480
+  /integration/api/v1/livestreams:
+    post:
+      operationId: createLivestream
+      summary: Create Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>This API initiates a live video streaming session for a vehicle. Data will be returned if vehicle support Video or contains active VT device.</p>
+
+        <h2 id="request-body"><strong>Request Body</strong></h2>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string): The ID of the vehicle</p>
+
+        </li>
+
+        <li><p><code>resolution</code> (string): The desired resolution for the video stream. Options</p>
+
+        <ul>
+
+        <li>640x480</li>
+
+        <li>1280x720</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure"><strong>Response Structure</strong></h2>
+
+        <ul>
+
+        <li><p><code>success</code> (boolean): Indicates whether the request was successful or not.</p>
+
+        </li>
+
+        <li><p><code>data</code> (object): Contains the details of the live video streaming session.</p>
+
+        <ul>
+
+        <li><code>streamId</code> (string): The ID of the video streaming session.</li>
+
+        <li><code>backCamUrl</code> (string): URL for accessing the live stream from the back camera.</li>
+
+        <li><code>frontCamUrl</code> (string): URL for accessing the live stream from the front camera.</li>
+
+        <li><code>options</code> (array of strings): Available options for the video stream.</li>
+
+        <li><code>currentResolution</code> (string): The current resolution of the video stream.</li>
+
+        <li><code>sessionId</code> (string): The ID of the session.</li>
+
+        <li><code>status</code> (string): The status of the session (e.g., initiated, active).</li>
+
+        <li><code>keepAliveInterval</code> (integer): The interval (in seconds) for sending keep-alive signals.</li>
+
+        <li><code>totalSessionTime</code> (integer): The total duration of the session (in seconds).</li>
+
+        <li><code>activeSessions</code> (integer): The number of active sessions.</li>
+
+        <li><code>expiryNotificationBuffer</code> (integer): The buffer time (in seconds) for expiry notification.</li>
+
+        <li><code>afterExpiryBuffer</code> (integer): The buffer time (in seconds) after expiry.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes"><strong>Notes</strong></h2>
+
+        <ul>
+
+        <li>The <code>resolution</code> parameter specifies the'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: ff3fb6bf-1c1e-429d-b5ac-60afda6ee94f
+              resolution: 640x480
+  /integration/api/v1/livestreams/{streamId}:
+    delete:
+      operationId: deleteLivestream
+      summary: Delete Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint is used to delete a specific vehicle''s telematics livestream by providing its unique session ID.</p>
+
+        <h2 id="response-body">Response Body</h2>
+
+        <ul>
+
+        <li><p><strong><code>status</code></strong> (boolean): Indicates whether the request was successful.</p>
+
+        <ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>data</code></strong> (object): Additional data related to the deletion process.</p>
+
+        <ul>
+
+        <li><p><strong><code>success</code></strong> (boolean): Indicates whether the deletion was successful.</p>
+
+        <ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>message</code></strong> (string): A message confirming the success of the deletion operation.</p>
+
+        <ul>
+
+        <li>Data Type: String</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: streamId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Alert Subscriptions
+  description: '<p>With our Alert subscription APIs, you can manage the alerts effectively on a platform</p>
+
+    '
+paths:
+  /integration/api/v1/vehicles/alerts/subscriptions:
+    post:
+      operationId: createAlertSubscriptions
+      summary: Create Alert Subscriptions
+      tags:
+      - Alert Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      description: '<p>Each kind of alert will have different fields for alert_config, specific config is below :</p>
+
+        <p>“vehicle_numbers” : [], // array of vehicle number, wether this or id only one is processed, id first priority</p>
+
+        <p>in all kind either use vehicle id or number whichever applicable.</p>
+
+        <p><strong>Overspeed</strong><br />“kind”: “overspeed”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br />“speedLimit”: “200”,<br />“minDurationInMinutes”: “100”,<br />“minDurationInSeconds”: “10”<br />}<br /><strong>Entry_exit</strong><br />kind”: “entry_exit”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br />“polygonIds”: [],<br />“includeAllPolygons”: 0/1<br />}</p>
+
+        <p><strong>Sudden Braking</strong><br />“kind”: “sudden_braking”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,</p>
+
+        <p><strong>Sudden acceleration</strong><br />“kind”: “sudden_acceleration”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,</p>
+
+        <p><strong>Vehicle Idling Alert</strong><br />“Kind” : “vehicle_idle”,<br />“vehicleIds” : [],<br />“includeAll” : “0”,<br />“alertConfig” : {<br />“minDuration” : “10”<br />}</p>
+
+        <p><strong>Fatigue Alert</strong><br />“kind” : “fatigue”,<br />"vehicleIds" : [],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“fatigueDurationInMinutes” : “100”,<br />“stoppageTimeToIgnoreInMinutes” : “15”<br />}</p>
+
+        <p><strong>Antitheft Alert</strong><br />“kind” : “anti_theft”,<br />"vehicleIds" : ["2"],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“startTime” : “15:35”,<br />“endTime” : “15:45”<br />}</p>
+
+        <p><strong>Over rev Alert</strong><br />“kind” : “over_rev”,<br />"vehicleIds" : [],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“rpmValue” : “40”,<br />“minDurationInMinutes”: “100”,<br />“minDurationInSeconds”: “10”<br />}</p>
+
+        <p><strong>TowAway Alert</strong></p>
+
+        <p>“kind” : “tow_away”,</p>
+
+        <p>"vehicleIds" : []</p>
+
+        <p>}<'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              alertSubscriptions:
+              - kind: overspeed
+                vehicleIds:
+                - 67fd83f8-d9d2-438d-872c-586299aedc0f
+                includeAll: '0'
+              alertConfig:
+                speedLimit: '200'
+                minDurationInMinutes: '100'
+                minDurationInSeconds: '10'
+    put:
+      operationId: updateAlertSubscription
+      summary: Update Alert Subscription
+      tags:
+      - Alert Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      description: "<h3 id=\"update-vehicle-alert-subscriptions\">Update Vehicle Alert Subscriptions</h3>\n<p>This endpoint allows the user to update the alert subscriptions for vehicles.</p>\n<h4 id=\"request-body\">Request Body</h4>\n<ul>\n<li><p><code>alertSubscriptions</code> (array of objects) - An array containing the details of alert subscriptions.</p>\n<ul>\n<li><p><code>id</code> (number) - The ID of the alert subscription.</p>\n</li>\n<li><p><code>kind</code> (string) - The type of alert subscription.</p>\n</li>\n<li><p><code>vehicleIds</code> (array of strings) - An array of vehicle IDs for which the alert subscription is being updated.</p>\n</li>\n<li><p><code>alertConfig</code> (object) - The configuration for the alert subscription.</p>\n<ul>\n<li><p><code>minDurationInMinutes</code> (number) - The minimum duration in minutes for the alert.</p>\n</li>\n<li><p><code>minDurationInSeconds</code> (number) - The minimum duration in seconds for the alert.</p>\n</li>\n<li><p><code>speedLimit</code> (number) - The speed limit for the alert.</p>\n</li>\n<li><p><code>subUserIds</code> (array of numbers) - An array of user IDs for the alert subscription.</p>\n</li>\n<li><p><code>vehicleGroupIds</code> (array of numbers) - An array of vehicle group IDs for the alert subscription.</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4 id=\"response\">Response</h4>\n<ul>\n<li><p><code>status</code> (boolean) - Indicates the status of the request. <code>true</code> for success.</p>\n</li>\n<li><p><code>data</code> (string) - Additional data related to the request.</p>\n</li>\n</ul>\n<p>Example Response:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"><code class=\"language-json\">{\n    \"status\": true,\n    \"data\": \"\"\n}\n\n</code></pre>\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              alertSubscriptions:
+              - id: 2313
+                kind: overspeed
+                vehicleIds:
+                - e7eb2c16-c6d9-49ac-a1f1-7bf45a31c38c
+                alertConfig:
+                  minDurationInMinutes: 1
+                  minDurationInSeconds: 2
+                  speedLimit: 6
+                  subUserIds:
+                  - 5521
+                  - 4780
+                  - 6063
+                  - 6064
+                  vehicleGroupIds:
+                  - 3621
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.

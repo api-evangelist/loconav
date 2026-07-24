@@ -1,0 +1,263 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration Alert Subscriptions Vehicles / Telematics API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+security:
+- UserAuthentication: []
+tags:
+- name: Vehicles / Telematics
+  description: '<p>Thes APIs allows you to access telematics data for vehicles, enabling you to retrieve real-time information and history about their status, location, and various sensor readings.</p>
+
+    '
+paths:
+  /integration/api/v1/vehicles/telematics/last_known:
+    post:
+      operationId: lastKnown
+      summary: Last known
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Vehicle Last Known Status API allows users to retrieve the latest telemetry data for one or more vehicles, including information such as GPS coordinates, vehicle speed, ignition status, vehicle battery level and more.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>vehicleIds</code> (array, optional): An array of vehicle UUIDs for which the last known status is requested. If not provided, telemetry data for all vehicles is returned.</li>
+
+        <li><code>sensors</code> (array): An array specifying the sensors for which data is requested. Currently, only up to 3 sensors can be specified at a time.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>values</code> (array): Array containing telemetry data for each requested vehicle.<ul>
+
+        <li><code>vehicleNumber</code> (string): Vehicle registration number.</li>
+
+        <li><code>vehicleId</code> (string): Unique identifier for the vehicle.</li>
+
+        <li><code>sensors</code> (object): Telemetry data for the requested sensors.</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>pagination</code> (object): Pagination details.<ul>
+
+        <li><code>page</code> (integer): Current page number.</li>
+
+        <li><code>perPage</code> (integer): Number of vehicles per page.</li>
+
+        <li><code>count</code> (integer): Total count of vehicles in the response.</li>
+
+        <li><code>more</code> (boolean): Indicates whether there are more pages of data available.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="note">Note</h2>
+
+        <ul>
+
+        <li>If the <code>vehicleIds</code> parameter is not provided, telemetry data for all vehicles will be returned in a paginated form.</li>
+
+        <li>Only up to 3 sensors can be specified at a time in the <code>sensors</code> array.</li>
+
+        <li>If <code>sensors</code> are not passed, <code>GPS</code> sensors are returned by default</li>
+
+        <li><code>GPS</code> object is a <em>special</em> object which contains <strong>speed</strong>, <strong>ignition</strong>, <strong>orientation</strong>, <strong>currentLocationCoordinates</'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleIds:
+              - 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              sensors:
+              - gps
+              - vehicleBatteryLevel
+              - numberOfSatellites
+  /integration/api/v1/vehicles/{vehicleId}/distance_travelled:
+    get:
+      operationId: getDistanceTravelled
+      summary: Get Distance Travelled
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Vehicle Distance Travelled API allows users to retrieve the total distance travelled by a specific vehicle within a specified time range. This information can be valuable for tracking vehicle usage, analyzing efficiency, and managing maintenance schedules.</p>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>startTime</code> (integer, required): The start timestamp of the time range in Unix epoch format.</li>
+
+        <li><code>endTime</code> (integer, required): The end timestamp of the time range in Unix epoch format.</li>
+
+        </ul>
+
+        <p>Note:</p>
+
+        <ol>
+
+        <li>Difference between startTime and endTime should be less than a day.</li>
+
+        <li>History data is available till last 6 months.</li>
+
+        </ol>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><code>startTime</code> (integer): The start timestamp of the requested time range.</li>
+
+        <li><code>endTime</code> (integer): The end timestamp of the requested time range.</li>
+
+        <li><code>number</code> (string): The unique identifier or name of the vehicle.</li>
+
+        <li><code>distance</code> (object): An object containing the total distance travelled.<ul>
+
+        <li><code>unit</code> (string): The unit of measurement for the distance (e.g., "km" for kilometers).</li>
+
+        <li><code>value</code> (float): The total distance travelled by the vehicle within the specified time range.</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>vehicleUuid</code> (string): The unique identifier of the vehicle.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/timeline:
+    get:
+      operationId: getTimeline
+      summary: Get Timeline
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Vehicle Telematics Timeline API provides historical movement and event data for a specific vehicle within a specified time range. This documentation outlines the usage, request parameters, and response structure of the API.</p>
+
+        <p><strong>Timeline will consist of 2 main parts</strong></p>
+
+        <ol>
+
+        <li><code>Summary data</code> for the provided time</li>
+
+        <li><code>Timeline data</code> containing event details</li>
+
+        </ol>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>
+
+        <li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>
+
+        </ul>
+
+        <p>Note:</p>
+
+        <ol>
+
+        <li><p>Difference between startTime and endTime should be less than a day.</p>
+
+        </li>
+
+        <li><p>History data is available till last 6 months.</p>
+
+        </li>
+
+        </ol>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>The response consists of detailed information about the vehicle''s movement, location, and timeline events.</p>
+
+        <ul>
+
+        <li><code>startLocation</code>: Starting location object<ul>
+
+        <li><code>coordinates</code>: lat,long coordinates of the vehicle.</li>
+
+        <li><code>address</code> : Geo address of the vehicle at start location</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>endLocation</code>: Ending coordinates of the vehicle.<ul>
+
+        <li><code>coordinates</code>: lat,long coordinates of the vehicle</li>
+
+        <li><code>address</code>: Geo address of the vehicle at end location</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>motion</code>: Details about the vehicle''s motion, including distance, running time, stoppage time, offline time, and average speed.</li>
+
+        <li><code>timeline</code>: An array of timeline events, each providing information about a specific segment of the vehicle''s journey.</li>
+
+        </ul>
+
+        <h2 id="timeline-event-structure">Timeline Event Structure</h2>
+
+        <p>Each timeline event includes the following details:</p>
+
+        <ul>
+
+        <li><code>startLocation</code>: Starting location object<ul>
+
+        <li><cod'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.
