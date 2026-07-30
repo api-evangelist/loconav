@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/
+description: >-
+  Cross-cutting request/response semantics for the LocoNav Integration API,
+  captured from the published developer documentation and derived from the
+  OpenAPI.
+authentication:
+  style: api-key
+  header: User-Authentication
+  notes: >-
+    User-level token provisioned per user by a LocoNav SPOC; sent on the
+    User-Authentication header. Missing/invalid credentials return 401.
+pagination:
+  style: page-number
+  params:
+  - page
+  - perPage
+  notes: >-
+    All listing endpoints are paginated; a pagination object (page/perPage) must
+    be supplied to navigate pages.
+time:
+  format: epoch-seconds
+  notes: >-
+    Any endpoint using time ranges/parameters (startTime, endTime) requires
+    Epoch timestamps in seconds exclusively.
+idempotency:
+  supported: false
+  notes: No idempotency-key contract is documented.
+rate_limiting:
+  limit: 500
+  window_seconds: 60
+  algorithm: rolling-window
+  breach_status: 429
+  signal: 429 Too Many Requests
+error_envelope:
+  notes: >-
+    Success responses carry a success boolean and a data object; auth failures
+    return 401 Unauthorized. See errors/loconav-problem-types.yml.
+regions:
+  global: api.a.loconav.com
+  ksa: sa.loconav.com
+  oman: om.loconav.com
+  nepal: np.loconav.com
+cross_reference:
+  errors: errors/loconav-problem-types.yml
+  authentication: authentication/loconav-authentication.yml
+  rate_limits: rate-limits/loconav-rate-limits.yml
+  lifecycle: lifecycle/loconav-lifecycle.yml

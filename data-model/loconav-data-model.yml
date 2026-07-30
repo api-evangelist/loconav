@@ -1,0 +1,71 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/loconav-integration-openapi.yml
+description: Entity-relationship graph derived from the LocoNav Integration OpenAPI paths and id-reference
+  fields.
+entities:
+- name: Driver
+  path: /drivers
+  id_field: driverId
+  description: A driver profile (name, contact, license, guarantor, documents).
+- name: Vehicle
+  path: /vehicles
+  id_field: vehicleId / vehicle_uuid
+  description: A tracked vehicle/asset with telematics, scorecard, timeline and live location.
+- name: Trip
+  path: /trips
+  id_field: tripId
+  description: A planned or recorded journey for a vehicle, with a shareable track URL.
+- name: Polygon
+  path: /polygons
+  id_field: polygonId
+  description: A geofence polygon used for geofence alerts.
+- name: LiveStream
+  path: /livestreams
+  id_field: sessionId / streamId
+  description: A live video-telematics stream session for a vehicle.
+- name: Video
+  path: /videos
+  id_field: voidId (vodId)
+  description: A recorded video-on-demand clip requested from a vehicle device.
+- name: Alert
+  path: /alerts
+  id_field: id
+  description: A safety/telemetry alert event; also delivered via webhook.
+- name: AlertSubscription
+  path: /vehicles/{vehicle_uuid}/alerts/subscriptions
+  id_field: '-'
+  description: A vehicle-scoped subscription controlling which alerts fire.
+- name: User
+  path: /user
+  id_field: '-'
+  description: The authenticated API user.
+relationships:
+- from: Driver
+  type: has_many
+  to: Vehicle
+  via: driver_vehicle_assignments
+- from: Vehicle
+  type: has_many
+  to: Trip
+  via: vehicleId
+- from: Vehicle
+  type: has_many
+  to: Alert
+  via: vehicleId
+- from: Vehicle
+  type: has_many
+  to: Video
+  via: vehicleId
+- from: Vehicle
+  type: has_many
+  to: LiveStream
+  via: vehicleId
+- from: Vehicle
+  type: has_many
+  to: AlertSubscription
+  via: vehicle_uuid
+- from: Alert
+  type: belongs_to
+  to: Polygon
+  via: geofence (GeofenceAlert)

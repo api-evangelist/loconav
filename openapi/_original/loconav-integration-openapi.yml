@@ -1,0 +1,3104 @@
+openapi: 3.0.3
+info:
+  title: LocoNav Integration API
+  version: v1
+  description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream),
+    CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver
+    features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published
+    Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage);
+    time parameters use epoch seconds.'
+  contact:
+    name: LocoNav Developer Support
+    url: https://developers.loconav.com/
+servers:
+- url: https://api.a.loconav.com/integration/api/v1
+  description: Production
+tags:
+- name: Drivers
+  description: '<p>Efficient driver management is essential for the optimal operation of a fleet.</p>
+
+    <p>Leveraging the capabilities of LocoNav REST APIs, fleet managers can seamlessly create, update,
+    and retrieve detailed information about drivers. The system allows for precise retrieval of driver
+    details based on their names, enabling informed decision-making.</p>
+
+    <p>Moreover, fleet managers can maintain the accuracy of their driver roster by securely deleting
+    off-record drivers. This suite of features empowers fleet managers to maintain a well-organized and
+    high-performing team, enhancing overall fleet management effectiveness.</p>
+
+    '
+- name: Video Telematics VT
+  description: '<p>Video telematics APIs enable integration with video data captured by telematics systems
+    in vehicles. These APIs provide access to various functionalities related to managing and analyzing
+    video data, including live streaming, video recording, playback, and analytics.</p>
+
+    <p>Developers can use these APIs to build applications that leverage video footage for fleet management,
+    driver monitoring, safety analysis, and more. By integrating video telematics APIs into their systems,
+    businesses can enhance the efficiency, safety, and security of their<br />operations on the road.</p>
+
+    '
+- name: Video Telematics VT / Live Stream
+- name: Video Telematics VT / Videos
+- name: Alert Subscriptions
+  description: '<p>With our Alert subscription APIs, you can manage the alerts effectively on a platform</p>
+
+    '
+- name: Mobilization
+- name: Vehicles
+  description: '<p>Loconav''s Vehicle APIs offer developers a powerful toolkit for real-time fleet management.
+    The Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats
+    API delivers live statistics.</p>
+
+    <p>These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and
+    analytics, enhancing operational efficiency and decision-making.</p>
+
+    '
+- name: Vehicles / Telematics
+  description: '<p>Thes APIs allows you to access telematics data for vehicles, enabling you to retrieve
+    real-time information and history about their status, location, and various sensor readings.</p>
+
+    '
+- name: Alerts
+- name: Polygon (Geofence)
+  description: '<p>A geofence is a virtual boundary, often a <strong>rectangular bounding box</strong>,
+    created using mapping software with specified latitude and longitude coordinates. Integrated with
+    fleet management and telematics, geofences trigger real-time alerts if a GPS-equipped vehicle or equipment
+    moves beyond authorized limits, enhancing security and asset monitoring.</p>
+
+    <hr />
+
+    <p><strong>Use Cases</strong></p>
+
+    <ol>
+
+    <li><strong>Security and Alerts:</strong> Geofences can be established around construction sites where
+    valuable equipment is stationed. If any equipment equipped with a GPS tracker is detected leaving
+    the predefined area, immediate alerts are triggered, helping prevent theft and aiding in the recovery
+    of the asset.</li>
+
+    <li><strong>Delivery Route Compliance:</strong> For logistics and delivery services, geofences can
+    be set along specified routes or delivery zones. If a delivery vehicle deviates from the planned route
+    or enters unauthorized areas, real-time alerts ensure adherence to planned schedules and prevent potential
+    route deviations or unauthorized stops.</li>
+
+    </ol>
+
+    '
+- name: Trips
+- name: Users
+- name: FAQs
+  description: '<h4 id="q-how-do-i-authenticate-my-requests-to-the-apis">Q: How do I authenticate my requests
+    to the APIs?</h4>
+
+    <p>A: You can authenticate your requests by including an User auth token in the request headers. Refer
+    to the Authentication mechanism in API documentation for specific authentication methods and requirements.</p>
+
+    <h4 id="q-what-data-formats-are-supported-for-request-and-response-payloads">Q: What data formats
+    are supported for request and response payloads?</h4>
+
+    <p>A: The APIs support JSON format for request and response payloads. Refer to the API documentation
+    for details on supported data formats.</p>
+
+    <h4 id="q-is-there-any-limit-on-the-number-of-requests-i-can-make-to-the-apis">Q: Is there any limit
+    on the number of requests I can make to the APIs?</h4>
+
+    <p>A: Yes, there are rate limits enforced on API usage to prevent abuse and maintain system performance.
+    If you exceed the rate limits, you may receive a 429 Too Many Requests error. Refer to the API documentation
+    for information on rate limits and how to handle them.</p>
+
+    <h4 id="q-how-can-i-handle-pagination-for-listing-apis">Q: How can I handle pagination for listing
+    APIs?</h4>
+
+    <p>A: Listing APIs are paginated to manage large datasets efficiently. You can specify query parameters
+    such as page number and items per page to navigate through paginated results. Refer to the API documentation
+    for pagination parameters and usage instructions.</p>
+
+    <h4 id="q-what-should-i-do-if-i-encounter-errors-while-using-the-apis">Q: What should I do if I encounter
+    errors while using the APIs?</h4>
+
+    <p>A: If you encounter errors, first ensure that your request parameters and authentication credentials
+    are correct. Check the API documentation for information on error codes and descriptions to troubleshoot
+    the issue. If you''re unable to resolve the issue, contact support for assistance.</p>
+
+    <h4 id="q-can-i-receive-real-time-notifications-for-specific-events-using-webhooks">Q: Can I receive
+    real-time notifications for specific events using webhooks?</h4>
+
+    <p>A: Yes, you can subscribe to webhooks to receive real-time notifications for events such as alerts
+    (e.g., speeding, geofence entry/exit) and live location updates. Refer to the API documentation for
+    webhook endpoints for alerts and live location.</p>
+
+    <h4 id="q-how-can-i-ensure-data-security-and-privacy-when-using-the-apis">Q: How can I ensure data
+    security and privacy when using the APIs?</h4>
+
+    <p>A: APIs are accessed over HTTPS, ensuring that all data transmitted between your application and
+    our servers is encrypted. To maintain system stability and prevent abuse, we implement rate limiting
+    on our APIs. We use auth tokens to authenticate requests from clients. This ensures that only authorized
+    users or applications can access our API endpoints</p>
+
+    '
+- name: Alerts Subscriptions
+paths:
+  /integration/api/v1/drivers/{driverId}:
+    get:
+      operationId: getDriver
+      summary: Get Driver
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Details API allows users to retrieve detailed information about a specific driver
+        in the LocoNav system. This information includes the driver''s personal details, contact information,
+        license details, guarantor information, and uploaded documents.</p>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>driverId</code> (integer, required): The unique identifier of the driver for which details
+        are requested.</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the driver.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the driver.</p>
+
+        </li>
+
+        <li><p><code>phoneNumber</code> (string): The phone number of the driver.</p>
+
+        </li>
+
+        <li><p><code>aadharNumber</code> (string): The Aadhar number of the driver (if available).</p>
+
+        </li>
+
+        <li><p><code>vehicleNumber</code> (string): The vehicle number assigned to the driver.</p>
+
+        </li>
+
+        <li><p><code>licenseNumber</code> (string): The driver''s license number.</p>
+
+        </li>
+
+        <li><p><code>guarantorName</code> (string): The name of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>guarantorPhoneNumber</code> (string): The phone number of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>licenseIssueDate</code> (integer): The timestamp of the driver''s license issue date.</p>
+
+        </li>
+
+        <li><p><code>licenseValidFrom</code> (integer): The timestamp of the start date of the driver''s
+        license validity.</p>
+
+        </li>
+
+        <li><p><code>licenseValidUpto</code> (integer): The timestamp of the end date of the driver''s
+        license validity.</p>
+
+        </li>
+
+        <li><p><code>driverCountryCode</code> (string): The country code of the driver.</p>
+
+        </li>
+
+        <li><p><code>guarantorCountryCode</code> (string): The country code of the driver''s guarantor.</p>
+
+        </li>
+
+        <li><p><code>rfidTrackingId</code> (string): The RFID tracking ID associated with the driver (if
+        available).</p>
+
+        </li>
+
+        <li><p><code>uploads</code> (object): An object containing uploaded documents related to the driver.'
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateDrivers
+      summary: Update Drivers
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Update Driver API allows users to update the information of an<br />existing driver profile
+        identified by the driver''s unique identifier.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The updated name of the driver.</li>
+
+        <li><code>countryCode</code> (string): The updated country code associated with the driver''s
+        phone number.</li>
+
+        <li><code>phoneNumber</code> (string): The updated phone number of the driver.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (object): Contains details of the updated driver if the operation was successful.<ul>
+
+        <li><code>id</code> (integer): Unique identifier for the updated driver.</li>
+
+        <li><code>name</code> (string): Updated name of the driver.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier
+        of the driver to be updated.</li>
+
+        <li>The <code>countryCode</code> parameter should follow the ISO standard.</li>
+
+        <li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              name: demo
+              countryCode: IN
+              phoneNumber: '8259986926'
+    delete:
+      operationId: deleteDriver
+      summary: Delete Driver
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Delete Driver API enables users to remove a driver profile from the system using the driver''s
+        unique identifier.</p>
+
+        <h2 id="request-param">Request Param</h2>
+
+        <p><code>{driverId}</code>: The unique identifier of the driver to be deleted.</p>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (string): Confirmation message indicating that the driver was deleted successfully.</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier
+        of the driver to be deleted.</li>
+
+        <li>Deleting a driver profile is irreversible. Ensure that the correct driver identifier is provided
+        before executing the request.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: driverId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/drivers:
+    get:
+      operationId: listDriversFilter
+      summary: List drivers (Filter)
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Search Drivers API allows users to search for drivers by name. Users can provide a partial
+        or full name of the driver to retrieve a list of matching drivers along with their associated
+        phone numbers.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>name</code> (string): The name of the driver to search for. This parameter supports
+        partial or full name matching.</p>
+
+        </li>
+
+        <li><p><code>page</code> (integer): The page number of the results to retrieve. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): The number of results per page. Default is 10.</p>
+
+        </li>
+
+        <li><p><code>getIdAndName</code> (boolean,optional) default true, for more details set it false</p>
+
+        </li>
+
+        <li><p><code>vehicleIds: comma seprated vehicle uuid''s</code></p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><p><code>values</code> (array): Array containing driver objects matching the search query.</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): Unique identifier for the driver.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): Name of the driver.</p>
+
+        </li>
+
+        <li><p><code>phone_number</code> (string): Phone number of the driver.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>pagination</code> (object): Pagination details.</p>
+
+        <ul>
+
+        <li><p><code>page</code> (integer): Current page number.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): Number of results per page.</p>
+
+        </li>
+
+        <li><p><code>more</code> (boolean): Indicates whether there are more pages of data available.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>metadata</code> (object): Additional metadata if available.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="note">Note</h2>
+
+        <ul>
+
+        <li>The <code>name</code> parameter supports partial or full name matching, allowing users to
+        search for drivers based on various name combinations.</li>
+
+        </ul>
+
+        '
+    post:
+      operationId: createDrivers
+      summary: Create Drivers
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Create Driver API allows users to create a new driver profile by providing the driver''s
+        name, country code, and phone number.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The name of the driver.</li>
+
+        <li><code>countryCode</code> (string): The country code associated with the driver''s phone number.</li>
+
+        <li><code>phoneNumber</code> (string): The phone number of the driver.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the operation was successful.</li>
+
+        <li><code>data</code> (object): Contains details of the created driver if the operation was successful.<ul>
+
+        <li><code>id</code> (integer): Unique identifier for the created driver.</li>
+
+        <li><code>name</code> (string): Name of the created driver.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The <code>countryCode</code> parameter should follow the ISO standard.</li>
+
+        <li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>
+
+        </ul>
+
+        '
+  /integration/api/v1/driver_vehicle_assignments:
+    post:
+      operationId: vehicleAssignment
+      summary: Vehicle Assignment
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Vehicle Assignments API allows users to assign a driver to a specific vehicle in
+        the LocoNav system. This association enables tracking and management of vehicles based on the
+        assigned driver.</p>
+
+        <h3 id="request-body">Request Body</h3>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle to be assigned
+        to the driver.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be assigned
+        to the vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response">Response</h3>
+
+        <h4 id="successful-response-200-ok">Successful Response (200 OK)</h4>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><p><code>200 OK</code>: The driver was successfully assigned to the vehicle.</p>
+
+        </li>
+
+        <li><p><code>404 Not Found</code>: The specified vehicle was not found in the system.</p>
+
+        </li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              driverId: 29866
+  /integration/api/v1/driver_vehicle_unassignments:
+    put:
+      operationId: vehicleUnassignment
+      summary: Vehicle Unassignment
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Driver Vehicle Unassignments API allows users to remove the association of a driver from
+        a specific vehicle in the LocoNav system. This action disassociates the driver from the vehicle
+        for tracking and management purposes.</p>
+
+        <h3 id="request-body">Request Body</h3>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle from which
+        the driver will be unassigned.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be unassigned
+        from the vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response">Response</h3>
+
+        <h4 id="successful-response-200-ok">Successful Response (200 OK)</h4>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><p><code>200 OK</code>: The driver was successfully unassigned from the vehicle.</p>
+
+        </li>
+
+        <li><p><code>422 Unprocessable Entity</code>: The specified driver is not currently assigned to
+        the provided vehicle.</p>
+
+        </li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              driverId: 29866
+  /integration/api/v1/livestreams/{sessionId}:
+    get:
+      operationId: getLivesteam
+      summary: Get Livesteam
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API retrieves the live video stream for vehicle telematics. It requires the session ID
+        of the livestream.</p>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>sessionId</code> (string): The session ID of the livestream.</li>
+
+        </ul>
+
+        <h2 id="request-headers">Request Headers</h2>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: Your user authentication token.</li>
+
+        <li><code>Content-Type</code>: application/json</li>
+
+        </ul>
+
+        <h2 id="response">Response</h2>
+
+        <p>The API returns a JSON object with the following fields:</p>
+
+        <ul>
+
+        <li><code>streamId</code> (string): The ID of the video stream.</li>
+
+        <li><code>backCamUrl</code> (string): URL for the back camera feed.</li>
+
+        <li><code>frontCamUrl</code> (string): URL for the front camera feed.</li>
+
+        <li><code>options</code> (array of strings): Available video options.</li>
+
+        <li><code>currentResolution</code> (string): Current video resolution.</li>
+
+        <li><code>sessionId</code> (string): The session ID of the livestream.</li>
+
+        <li><code>status</code> (string): Status of the livestream (e.g., "active").</li>
+
+        <li><code>keepAliveInterval</code> (integer): Interval for keeping the livestream alive.</li>
+
+        <li><code>totalSessionTime</code> (integer): Total duration of the livestream session. (time in
+        seconds)</li>
+
+        <li><code>activeSessions</code> (integer): Number of active livestream sessions.</li>
+
+        <li><code>expiryNotificationBuffer</code> (integer): Buffer time for expiry notification.</li>
+
+        <li><code>afterExpiryBuffer</code> (integer): Buffer time after expiry.</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <li>The livestream URLs (<code>backCamUrl</code> and <code>frontCamUrl</code>) should be used
+        to access the video feeds.</li>
+
+        <li>Ensure that the session ID provided is valid and active.</li>
+
+        <li>Authentication token is required for accessing the livestream.</li>
+
+        <li>The response may contain additional fields not listed here.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateLivestream
+      summary: Update Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint facilitates the modification of a livestream session, allowing users to either
+        update its resolution or extend its duration.</p>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><p><strong><code>operation</code></strong> (string): Indicates operation whether to update
+        resolution or extend the livestream session.</p>
+
+        <ul>
+
+        <li><p>Data Type: String</p>
+
+        </li>
+
+        <li><p>Options: "<strong>change_resolution</strong>" or "<strong>extend_duration</strong>"</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>resolution</code></strong> (string): Specifies the desired resolution for
+        the livestream.</p>
+
+        <ul>
+
+        <li>Data Type: String</li>
+
+        <li>Options: "640x480", "1280x720", "1920x1080", "3840x2160"</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-body">Response Body</h2>
+
+        <ul>
+
+        <li><strong><code>success</code></strong> (boolean): Indicates whether the request was successful.<ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><strong><code>message</code></strong> (string): Message confirming the success of the livestream
+        session update.<ul>
+
+        <li>Data Type: String</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: sessionId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              operation: extend_duration
+              resolution: 640x480
+  /integration/api/v1/livestreams:
+    post:
+      operationId: createLivestream
+      summary: Create Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>This API initiates a live video streaming session for a vehicle. Data will be returned if vehicle
+        support Video or contains active VT device.</p>
+
+        <h2 id="request-body"><strong>Request Body</strong></h2>
+
+        <ul>
+
+        <li><p><code>vehicleId</code> (string): The ID of the vehicle</p>
+
+        </li>
+
+        <li><p><code>resolution</code> (string): The desired resolution for the video stream. Options</p>
+
+        <ul>
+
+        <li>640x480</li>
+
+        <li>1280x720</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure"><strong>Response Structure</strong></h2>
+
+        <ul>
+
+        <li><p><code>success</code> (boolean): Indicates whether the request was successful or not.</p>
+
+        </li>
+
+        <li><p><code>data</code> (object): Contains the details of the live video streaming session.</p>
+
+        <ul>
+
+        <li><code>streamId</code> (string): The ID of the video streaming session.</li>
+
+        <li><code>backCamUrl</code> (string): URL for accessing the live stream from the back camera.</li>
+
+        <li><code>frontCamUrl</code> (string): URL for accessing the live stream from the front camera.</li>
+
+        <li><code>options</code> (array of strings): Available options for the video stream.</li>
+
+        <li><code>currentResolution</code> (string): The current resolution of the video stream.</li>
+
+        <li><code>sessionId</code> (string): The ID of the session.</li>
+
+        <li><code>status</code> (string): The status of the session (e.g., initiated, active).</li>
+
+        <li><code>keepAliveInterval</code> (integer): The interval (in seconds) for sending keep-alive
+        signals.</li>
+
+        <li><code>totalSessionTime</code> (integer): The total duration of the session (in seconds).</li>
+
+        <li><code>activeSessions</code> (integer): The number of active sessions.</li>
+
+        <li><code>expiryNotificationBuffer</code> (integer): The buffer time (in seconds) for expiry notification.</li>
+
+        <li><code>afterExpiryBuffer</code> (integer): The buffer time (in seconds) after expiry.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="notes"><strong>Notes</strong></h2>
+
+        <ul>
+
+        <li>The <code>resolution</code> parameter specifies the'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleId: ff3fb6bf-1c1e-429d-b5ac-60afda6ee94f
+              resolution: 640x480
+  /integration/api/v1/livestreams/{streamId}:
+    delete:
+      operationId: deleteLivestream
+      summary: Delete Livestream
+      tags:
+      - Video Telematics VT / Live Stream
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint is used to delete a specific vehicle''s telematics livestream by providing
+        its unique session ID.</p>
+
+        <h2 id="response-body">Response Body</h2>
+
+        <ul>
+
+        <li><p><strong><code>status</code></strong> (boolean): Indicates whether the request was successful.</p>
+
+        <ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>data</code></strong> (object): Additional data related to the deletion process.</p>
+
+        <ul>
+
+        <li><p><strong><code>success</code></strong> (boolean): Indicates whether the deletion was successful.</p>
+
+        <ul>
+
+        <li>Data Type: Boolean</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><strong><code>message</code></strong> (string): A message confirming the success of the
+        deletion operation.</p>
+
+        <ul>
+
+        <li>Data Type: String</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: streamId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/videos/{voidId}:
+    get:
+      operationId: getVideo
+      summary: Get Video
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Video Details API allows users to retrieve detailed information about a specific video
+        recording, providing insights into the associated device, duration, format, creator type, and
+        more.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace
+        <code>{{auth_token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>vodId</code> (string, required): The unique identifier of the video on demand (VOD).</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><p><code>vodId</code> (string): Unique identifier of the video on demand.</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of request, in this case "video". Possible values:
+        <code>video</code> and <code>timelapse</code></p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>format</code> (string): Format of the video (e.g., "Road", "Driver View", etc.).</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): The method through which the video was created (e.g.,
+        "manual", "automated", etc.).</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the
+        video.</p>
+
+        </li>
+
+        <li><p><code>extraData</code> (object): Additional data related to the video (if available).</p>
+
+        </li>
+
+        <li><p><code>status</code> (string): Status of the video (e.g., "processed", "pending", etc.).</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): Timestamp when the video was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): Timestamp when the video was last updated.</p>
+
+        </li>
+
+        <li><p><code>driver</code> (object): Information about the driver associated with the video.</p>
+
+        <ul>
+
+        <li><code>driverName</code> (string): Name of the driver.</li>
+
+        <li><code>driverId</code> (integer): Unique identifier of the driver.</li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>video</code>'
+      parameters:
+      - name: voidId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/videos:
+    get:
+      operationId: listVideos
+      summary: List Videos
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>This API provides access to videos associated with specific vehicles.</p>
+
+        <h3 id="query-parameters">Query Parameters</h3>
+
+        <ul>
+
+        <li><p><code>perPage</code> (optional): Number of videos to retrieve per page. Default is 10.</p>
+
+        </li>
+
+        <li><p><code>page</code> (optional): Page number to retrieve. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>alertId</code> (optional): Alert Id received via Alerts Webhook</p>
+
+        </li>
+
+        <li><p><code>alertKind</code> (required with alertId): Alert Kind recevied via Alerts Webhook</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response-structure">Response Structure</h3>
+
+        <ul>
+
+        <li><p><code>values</code> (array): An array of video objects.</p>
+
+        <ul>
+
+        <li><p><code>vodId</code> (string): Unique identifier for the video on demand (VOD).</p>
+
+        </li>
+
+        <li><p><code>deviceId</code> (string): Device identifier associated with the video.</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of video request.</p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>format</code> (string): Format of the video.</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): Type of creator of the video.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the
+        video.</p>
+
+        </li>
+
+        <li><p><code>extraData</code> (object): Additional data associated with the video.</p>
+
+        </li>
+
+        <li><p><code>status</code> (string): Status of the video.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): Timestamp indicating when the video was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): Timestamp indicating when the video was last updated.</p>
+
+        </li>
+
+        <li><p><code>driver</code> (object): Information about the driver associated with the video.</p>
+
+        <ul>
+
+        <li><p><code>driverName</code> (string): Name of the driver.</p>
+
+        </li>
+
+        <li><p><code>driverId</code> (integer): Unique identifier of the driver.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>video</code> (object): Information about the video'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: createVideoRequest
+      summary: Create Video Request
+      tags:
+      - Video Telematics VT / Videos
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>This API allows users to request the creation of a vehicle video. Users can specify various
+        parameters such as format, resolution, request type, creator type, device ID, duration, and start
+        time for the video.</p>
+
+        <h3 id="request-body"><strong>Request Body</strong></h3>
+
+        <ul>
+
+        <li><p><code>format</code> (string): Format of the video (e.g., "Road", "Driver", "Side-by-Side").</p>
+
+        </li>
+
+        <li><p><code>resolution</code> (string): Resolution of the video (e.g., "640x480").</p>
+
+        </li>
+
+        <li><p><code>requestType</code> (string): Type of video request (e.g., "video").</p>
+
+        </li>
+
+        <li><p><code>creatorType</code> (string): Type of creator (e.g., "auto" or "manual").</p>
+
+        </li>
+
+        <li><p><code>duration</code> (integer): Duration of the video in seconds.</p>
+
+        </li>
+
+        <li><p><code>startTime</code> (integer): Start time of the video recording.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="response-structure"><strong>Response Structure</strong></h3>
+
+        <ul>
+
+        <li><code>vodId</code> (string): ID of the video-on-demand (VOD).</li>
+
+        <li><code>deviceId</code> (string): ID of the device recording the video.</li>
+
+        <li><code>requestType</code> (string): Type of video request (e.g., "video").</li>
+
+        <li><code>duration</code> (integer): Duration of the video in seconds.</li>
+
+        <li><code>format</code> (string): Format of the video (e.g., "Road").</li>
+
+        <li><code>creatorType</code> (string): Type of creator (e.g., "auto").</li>
+
+        <li><code>vehicleUuid</code> (string): UUID of the vehicle associated with the video.</li>
+
+        <li><code>extraData</code> (object): Additional data associated with the video.</li>
+
+        <li><code>status</code> (string): Status of the video creation process (e.g., "pending").</li>
+
+        <li><code>createdAt</code> (string): Timestamp of when the video was created.</li>
+
+        <li><code>updatedAt</code> (string): Timestamp of when the video was last updated.</li>
+
+        <li><code>driver.driverName</code> (string): Name of the driver associated with the video.</li>
+
+        <li><code>driver.driverId</code> (integer): ID of t'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              format: Road
+              resolution: 640x480
+              requestType: video
+              creatorType: auto
+              duration: 1
+              startTime: 1702555021
+  /integration/api/v1/vehicles/{vehicle_uuid}/alerts/subscriptions:
+    get:
+      operationId: getAlertSubscriptions
+      summary: Get Alert Subscriptions
+      tags:
+      - Alerts Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      parameters:
+      - name: vehicle_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/alerts/subscriptions:
+    post:
+      operationId: createAlertSubscriptions
+      summary: Create Alert Subscriptions
+      tags:
+      - Alert Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      description: '<p>Each kind of alert will have different fields for alert_config, specific config
+        is below :</p>
+
+        <p>“vehicle_numbers” : [], // array of vehicle number, wether this or id only one is processed,
+        id first priority</p>
+
+        <p>in all kind either use vehicle id or number whichever applicable.</p>
+
+        <p><strong>Overspeed</strong><br />“kind”: “overspeed”,<br />“vehicleIds” : [], // array of vehicle
+        ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br />“speedLimit”: “200”,<br />“minDurationInMinutes”:
+        “100”,<br />“minDurationInSeconds”: “10”<br />}<br /><strong>Entry_exit</strong><br />kind”: “entry_exit”,<br
+        />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br
+        />“polygonIds”: [],<br />“includeAllPolygons”: 0/1<br />}</p>
+
+        <p><strong>Sudden Braking</strong><br />“kind”: “sudden_braking”,<br />“vehicleIds” : [], // array
+        of vehicle ids<br />“includeAll” : “0”,</p>
+
+        <p><strong>Sudden acceleration</strong><br />“kind”: “sudden_acceleration”,<br />“vehicleIds”
+        : [], // array of vehicle ids<br />“includeAll” : “0”,</p>
+
+        <p><strong>Vehicle Idling Alert</strong><br />“Kind” : “vehicle_idle”,<br />“vehicleIds” : [],<br
+        />“includeAll” : “0”,<br />“alertConfig” : {<br />“minDuration” : “10”<br />}</p>
+
+        <p><strong>Fatigue Alert</strong><br />“kind” : “fatigue”,<br />"vehicleIds" : [],<br />"includeAll"
+        : "0",<br />“alertConfig” : {<br />“fatigueDurationInMinutes” : “100”,<br />“stoppageTimeToIgnoreInMinutes”
+        : “15”<br />}</p>
+
+        <p><strong>Antitheft Alert</strong><br />“kind” : “anti_theft”,<br />"vehicleIds" : ["2"],<br
+        />"includeAll" : "0",<br />“alertConfig” : {<br />“startTime” : “15:35”,<br />“endTime” : “15:45”<br
+        />}</p>
+
+        <p><strong>Over rev Alert</strong><br />“kind” : “over_rev”,<br />"vehicleIds" : [],<br />"includeAll"
+        : "0",<br />“alertConfig” : {<br />“rpmValue” : “40”,<br />“minDurationInMinutes”: “100”,<br />“minDurationInSeconds”:
+        “10”<br />}</p>
+
+        <p><strong>TowAway Alert</strong></p>
+
+        <p>“kind” : “tow_away”,</p>
+
+        <p>"vehicleIds" : []</p>
+
+        <p>}<'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              alertSubscriptions:
+              - kind: overspeed
+                vehicleIds:
+                - 67fd83f8-d9d2-438d-872c-586299aedc0f
+                includeAll: '0'
+              alertConfig:
+                speedLimit: '200'
+                minDurationInMinutes: '100'
+                minDurationInSeconds: '10'
+    put:
+      operationId: updateAlertSubscription
+      summary: Update Alert Subscription
+      tags:
+      - Alert Subscriptions
+      responses:
+        '200':
+          description: Successful response
+      description: "<h3 id=\"update-vehicle-alert-subscriptions\">Update Vehicle Alert Subscriptions</h3>\n\
+        <p>This endpoint allows the user to update the alert subscriptions for vehicles.</p>\n<h4 id=\"\
+        request-body\">Request Body</h4>\n<ul>\n<li><p><code>alertSubscriptions</code> (array of objects)\
+        \ - An array containing the details of alert subscriptions.</p>\n<ul>\n<li><p><code>id</code>\
+        \ (number) - The ID of the alert subscription.</p>\n</li>\n<li><p><code>kind</code> (string) -\
+        \ The type of alert subscription.</p>\n</li>\n<li><p><code>vehicleIds</code> (array of strings)\
+        \ - An array of vehicle IDs for which the alert subscription is being updated.</p>\n</li>\n<li><p><code>alertConfig</code>\
+        \ (object) - The configuration for the alert subscription.</p>\n<ul>\n<li><p><code>minDurationInMinutes</code>\
+        \ (number) - The minimum duration in minutes for the alert.</p>\n</li>\n<li><p><code>minDurationInSeconds</code>\
+        \ (number) - The minimum duration in seconds for the alert.</p>\n</li>\n<li><p><code>speedLimit</code>\
+        \ (number) - The speed limit for the alert.</p>\n</li>\n<li><p><code>subUserIds</code> (array\
+        \ of numbers) - An array of user IDs for the alert subscription.</p>\n</li>\n<li><p><code>vehicleGroupIds</code>\
+        \ (array of numbers) - An array of vehicle group IDs for the alert subscription.</p>\n</li>\n\
+        </ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4 id=\"response\">Response</h4>\n<ul>\n<li><p><code>status</code>\
+        \ (boolean) - Indicates the status of the request. <code>true</code> for success.</p>\n</li>\n\
+        <li><p><code>data</code> (string) - Additional data related to the request.</p>\n</li>\n</ul>\n\
+        <p>Example Response:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"><code class=\"\
+        language-json\">{\n    \"status\": true,\n    \"data\": \"\"\n}\n\n</code></pre>\n"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              alertSubscriptions:
+              - id: 2313
+                kind: overspeed
+                vehicleIds:
+                - e7eb2c16-c6d9-49ac-a1f1-7bf45a31c38c
+                alertConfig:
+                  minDurationInMinutes: 1
+                  minDurationInSeconds: 2
+                  speedLimit: 6
+                  subUserIds:
+                  - 5521
+                  - 4780
+                  - 6063
+                  - 6064
+                  vehicleGroupIds:
+                  - 3621
+  /integration/api/v1/vehicles/{vehicleId}/immobilizer_requests:
+    post:
+      operationId: createVehicleMobilizationRequest
+      summary: Create Vehicle Mobilization Request
+      tags:
+      - Mobilization
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Immobilizer Requests API allows users to send requests to immobilize or mobilize a specific
+        vehicle. This can be useful for security and safety purposes, enabling the control of a vehicle''s
+        movement remotely.</p>
+
+        <p>This is a async operation and will take some time. Call Get Mobilization requests API to know
+        the status</p>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which
+        the immobilizer request is made.</li>
+
+        </ul>
+
+        <h3 id="request-body">Request Body</h3>
+
+        <ul>
+
+        <li><code>value</code> (string, required): The action to be performed on the immobilizer. Possible
+        values are "MOBILIZE" or "IMMOBILIZE".</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><code>id</code> (integer): The unique identifier of the immobilizer request. Customers can
+        use this Id and call Get Mobilization request to find the status of the operation</li>
+
+        </ul>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><code>200 OK</code>: The request was successful, and the immobilizer request was processed.</li>
+
+        <li><code>400 Bad Request</code>: The request body contains invalid data.</li>
+
+        <li><code>422 Unprocessable Entity</code>: The specified vehicle is not set up for immobilization.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              value: MOBILIZE
+  /integration/api/v1/vehicles/immobilization_requests/{immobilizationRequestId}:
+    get:
+      operationId: getMobilizationRequests
+      summary: Get Mobilization Requests
+      tags:
+      - Mobilization
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Immobilization Request Details API allows users to retrieve details about a specific immobilization
+        request made for a vehicle. This includes information such as the status of the request, the reason
+        for immobilization, and the user who initiated the request.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace
+        <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>immobilizationRequestId</code> (string, required): The unique identifier of the immobilization
+        request for which details are requested.</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the immobilization request.</p>
+
+        </li>
+
+        <li><p><code>truck_id</code> (integer): The identifier of the truck associated with the request.</p>
+
+        </li>
+
+        <li><p><code>status</code> (string): The status of the immobilization request (e.g., "success",
+        "pending", "failed").</p>
+
+        </li>
+
+        <li><p><code>message</code> (string): A message indicating the result of the immobilization request.</p>
+
+        </li>
+
+        <li><p><code>mobilize</code> (boolean): Indicates whether the request was for mobilization (<code>true</code>)
+        or immobilization (<code>false</code>).</p>
+
+        </li>
+
+        <li><p><code>created_via</code> (string): The method or platform through which the request was
+        created.</p>
+
+        </li>
+
+        <li><p><code>created_at</code> (integer): The timestamp when the request was created.</p>
+
+        </li>
+
+        <li><p><code>updated_at</code> (integer): The timestamp when the request was last updated.</p>
+
+        </li>
+
+        <li><p><code>creator_type</code> (string): The type of user who initiated the request (e.g., "User",
+        "Admin").</p>
+
+        </li>
+
+        <li><p><code>creator_email</code> (string): The email address of the user who initiated the request.</p>
+
+        </li>
+
+        <li><p><code>reason</code> (string): The reason provided for the immobili'
+      parameters:
+      - name: immobilizationRequestId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/telematics/last_known:
+    post:
+      operationId: lastKnown
+      summary: Last known
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Vehicle Last Known Status API allows users to retrieve the latest telemetry data for one
+        or more vehicles, including information such as GPS coordinates, vehicle speed, ignition status,
+        vehicle battery level and more.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>vehicleIds</code> (array, optional): An array of vehicle UUIDs for which the last known
+        status is requested. If not provided, telemetry data for all vehicles is returned.</li>
+
+        <li><code>sensors</code> (array): An array specifying the sensors for which data is requested.
+        Currently, only up to 3 sensors can be specified at a time.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><code>values</code> (array): Array containing telemetry data for each requested vehicle.<ul>
+
+        <li><code>vehicleNumber</code> (string): Vehicle registration number.</li>
+
+        <li><code>vehicleId</code> (string): Unique identifier for the vehicle.</li>
+
+        <li><code>sensors</code> (object): Telemetry data for the requested sensors.</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>pagination</code> (object): Pagination details.<ul>
+
+        <li><code>page</code> (integer): Current page number.</li>
+
+        <li><code>perPage</code> (integer): Number of vehicles per page.</li>
+
+        <li><code>count</code> (integer): Total count of vehicles in the response.</li>
+
+        <li><code>more</code> (boolean): Indicates whether there are more pages of data available.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h2 id="note">Note</h2>
+
+        <ul>
+
+        <li>If the <code>vehicleIds</code> parameter is not provided, telemetry data for all vehicles
+        will be returned in a paginated form.</li>
+
+        <li>Only up to 3 sensors can be specified at a time in the <code>sensors</code> array.</li>
+
+        <li>If <code>sensors</code> are not passed, <code>GPS</code> sensors are returned by default</li>
+
+        <li><code>GPS</code> object is a <em>special</em> object which contains <strong>speed</strong>,
+        <strong>ignition</strong>, <strong>orientation</strong>, <strong>currentLocationCoordinates</'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              vehicleIds:
+              - 077c6ab2-6456-4e07-abd6-1e18bbe7ba1d
+              sensors:
+              - gps
+              - vehicleBatteryLevel
+              - numberOfSatellites
+  /integration/api/v1/vehicles/{vehicleId}/distance_travelled:
+    get:
+      operationId: getDistanceTravelled
+      summary: Get Distance Travelled
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Vehicle Distance Travelled API allows users to retrieve the total distance travelled by
+        a specific vehicle within a specified time range. This information can be valuable for tracking
+        vehicle usage, analyzing efficiency, and managing maintenance schedules.</p>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>startTime</code> (integer, required): The start timestamp of the time range in Unix
+        epoch format.</li>
+
+        <li><code>endTime</code> (integer, required): The end timestamp of the time range in Unix epoch
+        format.</li>
+
+        </ul>
+
+        <p>Note:</p>
+
+        <ol>
+
+        <li>Difference between startTime and endTime should be less than a day.</li>
+
+        <li>History data is available till last 6 months.</li>
+
+        </ol>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><code>startTime</code> (integer): The start timestamp of the requested time range.</li>
+
+        <li><code>endTime</code> (integer): The end timestamp of the requested time range.</li>
+
+        <li><code>number</code> (string): The unique identifier or name of the vehicle.</li>
+
+        <li><code>distance</code> (object): An object containing the total distance travelled.<ul>
+
+        <li><code>unit</code> (string): The unit of measurement for the distance (e.g., "km" for kilometers).</li>
+
+        <li><code>value</code> (float): The total distance travelled by the vehicle within the specified
+        time range.</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>vehicleUuid</code> (string): The unique identifier of the vehicle.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/timeline:
+    get:
+      operationId: getTimeline
+      summary: Get Timeline
+      tags:
+      - Vehicles / Telematics
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Vehicle Telematics Timeline API provides historical movement and event data for a specific
+        vehicle within a specified time range. This documentation outlines the usage, request parameters,
+        and response structure of the API.</p>
+
+        <p><strong>Timeline will consist of 2 main parts</strong></p>
+
+        <ol>
+
+        <li><code>Summary data</code> for the provided time</li>
+
+        <li><code>Timeline data</code> containing event details</li>
+
+        </ol>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>
+
+        <li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>
+
+        </ul>
+
+        <p>Note:</p>
+
+        <ol>
+
+        <li><p>Difference between startTime and endTime should be less than a day.</p>
+
+        </li>
+
+        <li><p>History data is available till last 6 months.</p>
+
+        </li>
+
+        </ol>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>The response consists of detailed information about the vehicle''s movement, location, and
+        timeline events.</p>
+
+        <ul>
+
+        <li><code>startLocation</code>: Starting location object<ul>
+
+        <li><code>coordinates</code>: lat,long coordinates of the vehicle.</li>
+
+        <li><code>address</code> : Geo address of the vehicle at start location</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>endLocation</code>: Ending coordinates of the vehicle.<ul>
+
+        <li><code>coordinates</code>: lat,long coordinates of the vehicle</li>
+
+        <li><code>address</code>: Geo address of the vehicle at end location</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>motion</code>: Details about the vehicle''s motion, including distance, running time,
+        stoppage time, offline time, and average speed.</li>
+
+        <li><code>timeline</code>: An array of timeline events, each providing information about a specific
+        segment of the vehicle''s journey.</li>
+
+        </ul>
+
+        <h2 id="timeline-event-structure">Timeline Event Structure</h2>
+
+        <p>Each timeline event includes the following details:</p>
+
+        <ul>
+
+        <li><code>startLocation</code>: Starting location object<ul>
+
+        <li><cod'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles:
+    get:
+      operationId: listVehicles
+      summary: List Vehicles
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The List Vehicles API enables users to retrieve a paginated list of vehicles along with their
+        details like vehicle number, device details, subscription details and more.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>vehicleNumber</code> (string, optional): The vehicle number for filtering</p>
+
+        </li>
+
+        <li><p><code>deviceSerialNumber</code>(string, optional): The Device serial Number (IMEI) number</p>
+
+        </li>
+
+        <li><p><code>page</code> (integer): The page number for pagination. Default is 1.</p>
+
+        </li>
+
+        <li><p><code>perPage</code> (integer): The number of vehicles to be included per page. Default
+        is 10.</p>
+
+        </li>
+
+        <li><p><code>vehicleNumbers</code> (string, optional):The vehicle numbers for filtering.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuids</code> (string, optional): The vehicleUuids for filtering.</p>
+
+        </li>
+
+        <li><p><code>fetchMobilizationDetails</code>(boolean,optional): Vehicle Mobilzation Status</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>Each vehicle entry includes the following details:</p>
+
+        <ul>
+
+        <li><p><code>number</code> (string): Vehicle registration number.</p>
+
+        </li>
+
+        <li><p><code>deviceId</code> (string): Unique identifier for the associated device.</p>
+
+        </li>
+
+        <li><p><code>displayNumber</code> (string): Display name or identifier for the vehicle.</p>
+
+        </li>
+
+        <li><p><code>vehicleUuid</code> (string): Unique identifier for the vehicle.</p>
+
+        </li>
+
+        <li><p><code>status</code> (boolean): Current status of the vehicle.</p>
+
+        </li>
+
+        <li><p><code>current_device</code> (object): Details about the associated device.</p>
+
+        </li>
+
+        <li><p><code>subscription</code> (object): Details about the subscription, including expiration
+        date.</p>
+
+        </li>
+
+        <li><p><code>vehicleType</code> (string): Type or category of the vehicle.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (integer): Timestamp indicating when the vehicle record was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (integer): Timestamp indicating when the vehicle'
+  /integration/api/v1/vehicles/{vehicleId}/score_card:
+    get:
+      operationId: getVehicleScoreCard
+      summary: Get Vehicle Score card
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Vehicle Score card API provides detailed insights into the behavior and performance of
+        a vehicle within a specified time range. Fleet managers can utilize this information to assess
+        driver efficiency, safety, and overall performance.</p>
+
+        <h2 id="query-parameters">Query Parameters</h2>
+
+        <ul>
+
+        <li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>
+
+        <li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>
+
+        </ul>
+
+        <h3 id="response-fields">Response Fields</h3>
+
+        <ul>
+
+        <li><code>runningTime</code>: Time the vehicle spent in motion (unit: minutes).</li>
+
+        <li><code>distance</code>: Total distance covered by the vehicle (unit: km).</li>
+
+        <li><code>stoppageTime</code>: Time the vehicle spent in stoppage (unit: minutes).</li>
+
+        <li><code>idleDuration</code>: Duration of engine idling (unit: minutes).</li>
+
+        <li><code>idlingEventsCount</code>: Number of idling events.</li>
+
+        <li><code>overspeedDuration</code>: Duration of overspeeding (unit: minutes).</li>
+
+        <li><code>overspeedEventsCount</code>: Number of overspeed events.</li>
+
+        <li><code>suddenBrakingEventsCount</code>: Number of sudden braking events.</li>
+
+        <li><code>suddenAccelerationEventsCount</code>: Number of sudden acceleration events.</li>
+
+        <li><code>sharpTurnEventsCount</code>: Number of sharp turn events.</li>
+
+        <li><code>seatBeltEventsCount</code>: Number of seat belt events.</li>
+
+        <li><code>totalEvents</code>: Total number of events.</li>
+
+        <li><code>overallScore</code>: Overall driver score (unit: points, ranging from 0 to 100).</li>
+
+        <li><code>distanceMetric</code>: Total distance covered metric (unit: km).</li>
+
+        <li><code>fuelConsumption</code>: Fuel consumption during the specified period (unit: liters).</li>
+
+        <li><code>mileage</code>: Vehicle mileage information (unit: km/h).</li>
+
+        <li><code>totalDuration</code>: Total duration of the specified period (unit: minutes).</li>
+
+        </ul>
+
+        <h2 id="notes">Notes</h2>
+
+        <ul>
+
+        <l'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}:
+    get:
+      operationId: getVehicleDetails
+      summary: Get Vehicle Details
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/vehicles/{vehicleId}/live_share_link:
+    get:
+      operationId: getLiveShareLink
+      summary: Get Live Share Link
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Live Share Link API allows users to retrieve a shareable link for real-time tracking of
+        a specific vehicle. This link can be shared with others to provide live updates on the vehicle''s
+        location and status.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace
+        <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which
+        the live share link is requested.</li>
+
+        </ul>
+
+        <h3 id="response-structure">Response Structure</h3>
+
+        <ul>
+
+        <li><code>shareLink</code> (string): The generated shareable link for live tracking of the vehicle.
+        This is a public link and can be open in any browser.</li>
+
+        </ul>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><code>200 OK</code>: The request was successful, and the shareable link is provided.</li>
+
+        <li><code>404 Not Found</code>: The requested vehicle was not found.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/alerts:
+    get:
+      operationId: getAlerts
+      summary: Get Alerts
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Successful response
+      description: "<p>This endpoint sends an HTTP GET request to retrieve alerts based on the specified\
+        \ start time, end time, and alert type.</p>\n<h3 id=\"request-parameters\">Request Parameters</h3>\n\
+        <ul>\n<li><p><code>startTime</code> (optional): The start time for retrieving alerts.</p>\n</li>\n\
+        <li><p><code>endTime</code> (optional): The end time for retrieving alerts.</p>\n</li>\n<li><p><code>alertType</code>\
+        \ (optional): The type of alert to be retrieved.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n\
+        <p>The response of this request is a JSON schema describing the structure of the alert data that\
+        \ will be returned. The JSON schema will outline the properties and their data types for the alert\
+        \ objects.</p>\n<p>Example JSON Schema:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"\
+        ><code class=\"language-json\">{\n  \"success\": \"boolean\",\n  \"data\": {\n    \"values\":\
+        \ [\n      {\n        \"id\": 0,\n        \"eventTime\": 0,\n        \"eventType\": \"string\"\
+        ,\n        \"localizeEventType\": \"string\",\n        \"startedTs\": 0,\n        \"startLocation\"\
+        : {\n          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n      \
+        \  },\n        \"comments\": [],\n        \"supportsVt\": \"string\",\n        \"videoDetail\"\
+        : null,\n        \"vehicle\": {\n          \"uuid\": \"string\",\n          \"number\": \"string\"\
+        \n        },\n        \"vehicleId\": 0,\n        \"endedTs\": 0,\n        \"endLocation\": {\n\
+        \          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n        }\n\
+        \      }\n    ],\n    \"pagination\": {\n      \"page\": 0,\n      \"perPage\": 1,\n      \"more\"\
+        : false,\n      \"total\": 1\n    },\n    \"metadata\": {}\n  }\n}\n\n</code></pre>\n"
+  /integration/api/v1/vehicles/{vehicleId}/alerts:
+    get:
+      operationId: listAlerts
+      summary: List Alerts
+      tags:
+      - Alerts
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Get Alerts API allows users to retrieve information about alerts triggered by vehicle-related
+        events during a specified time range.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>startTime</code> (integer, required): The timestamp indicating the start of the time
+        range for fetching alerts.</p>
+
+        </li>
+
+        <li><p><code>endTime</code> (integer, required): The timestamp indicating the end of the time
+        range for fetching alerts.</p>
+
+        </li>
+
+        <li><p><code>alertType</code> (string, optional): Filter results according to the alert type (See
+        list below for support types)</p>
+
+        </li>
+
+        </ul>
+
+        <p>Note:</p>
+
+        <ol>
+
+        <li><p>Difference between startTime and endTime should be less than a day.</p>
+
+        </li>
+
+        <li><p>Difference between startTime and endTime should be more than 1 min</p>
+
+        </li>
+
+        <li><p>startTime and endTime should not be same</p>
+
+        </li>
+
+        <li><p>History data is available till last 6 months.</p>
+
+        </li>
+
+        </ol>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>Each alert includes the following details:</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): Unique identifier for the alert.</p>
+
+        </li>
+
+        <li><p><code>eventTime</code> (integer): Timestamp when the event occurred.</p>
+
+        </li>
+
+        <li><p><code>eventType</code> (string): Type of the alert event.</p>
+
+        </li>
+
+        <li><p><code>localizeEventType</code> (string): Localized type of the alert event.</p>
+
+        </li>
+
+        <li><p><code>startedTs</code> (integer): Timestamp when the alert event started.</p>
+
+        </li>
+
+        <li><p><code>startLocation</code> (object): Details about the location where the alert event started.</p>
+
+        </li>
+
+        <li><p><code>comments</code> (array): Additional comments related to the alert.</p>
+
+        </li>
+
+        <li><p><code>supportsVt</code> (boolean): Indicates if the alert supports video tracking.</p>
+
+        </li>
+
+        <li><p><code>videoDetail</code> (object): Details related to video tracking (if supported).</p>
+
+        </li>
+
+        <li><p><code>endedTs</code> (integer): Timestamp when the alert event ended (if applicable).</p>
+
+        </li>
+
+        <li><p><'
+      parameters:
+      - name: vehicleId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/polygons/{polygonId}:
+    get:
+      operationId: getPolygon
+      summary: Get Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The Polygon Details API allows users to retrieve information about a specific polygon defined
+        in the system. Polygons are used for geofencing and defining specific areas of interest for tracking
+        and monitoring purposes.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace
+        <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="path-parameters">Path Parameters</h3>
+
+        <ul>
+
+        <li><code>polygonId</code> (string, required): The unique identifier of the polygon for which
+        details are requested.</li>
+
+        </ul>
+
+        <h3 id="response-body">Response Body</h3>
+
+        <ul>
+
+        <li><code>id</code> (integer): The unique identifier of the polygon.</li>
+
+        <li><code>name</code> (string): The name or identifier of the polygon.</li>
+
+        <li><code>coordinates</code> (array of strings): The center coordinates of the polygon in latitude
+        and longitude format.</li>
+
+        <li><code>radius</code> (integer): The radius of the polygon (if applicable).</li>
+
+        <li><code>polygonCoordinates</code> (array of objects): The coordinates of the polygon vertices,
+        defining its shape.<ul>
+
+        <li><code>lat</code> (string): Latitude of the vertex.</li>
+
+        <li><code>long</code> (string): Longitude of the vertex.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        <h3 id="status-codes">Status Codes</h3>
+
+        <ul>
+
+        <li><code>200 OK</code>: The request was successful, and the polygon details are provided.</li>
+
+        <li><code>422 Unprocessable Entity</code>: The requested polygon was not found.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: polygonId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updatePolygon
+      summary: Update Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Update Polygon API allows users to modify the attributes of an existing polygon. Users
+        can update the polygon''s name, location, radius and active status.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>polygonId</code> (integer): Unique identifier for the polygon to be updated.</li>
+
+        </ul>
+
+        <h2 id="request-body">Request Body</h2>
+
+        <ul>
+
+        <li><code>name</code> (string): The updated name of the polygon.</li>
+
+        <li><code>lat</code> (float): The updated latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (float): The updated longitude of the center point of the polygon.</li>
+
+        <li><code>distanceUnit</code> (string): The unit of measurement for the radius (e.g., "m" for
+        meters).</li>
+
+        <li><code>radius</code> (integer): The updated radius of the polygon.</li>
+
+        <li><code>active</code> (boolean): The updated status indicating whether the polygon is active
+        or not.</li>
+
+        </ul>
+
+        <h2 id="updated-polygon-structure">Updated Polygon Structure</h2>
+
+        <p>The updated polygon includes the following details:</p>
+
+        <ul>
+
+        <li><code>id</code> (integer): Unique identifier for the polygon.</li>
+
+        <li><code>name</code> (string): The updated name of the polygon.</li>
+
+        <li><code>lat</code> (string): The updated latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (string): The updated longitude of the center point of the polygon.</li>
+
+        <li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>
+
+        <li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the
+        polygon.</li>
+
+        <li><code>radius</code> (integer): The updated radius of the polygon.</li>
+
+        <li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>
+
+        </ul>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              polygon:
+                name: test_polygon5
+                lat: 90
+                distanceUnit: m
+                radius: 100
+                active: true
+                long: 85.882186
+      parameters:
+      - name: polygonId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/polygons:
+    get:
+      operationId: listPolygons
+      summary: List Polygons
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The List Polygons API retrieves a paginated list of polygons based on specified query parameters.
+        Users can filter the results by polygon name and active status.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>page</code> (integer): Page number for pagination.</li>
+
+        <li><code>perPage</code> (integer): Number of items per page.</li>
+
+        <li><code>name</code> (string): Filter by polygon name (optional).</li>
+
+        <li><code>active</code> (boolean): Filter by active status (optional).</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <p>Each polygon in the list includes the following details:</p>
+
+        <ul>
+
+        <li><code>id</code> (integer): Unique identifier for the polygon.</li>
+
+        <li><code>name</code> (string): The name of the polygon.</li>
+
+        <li><code>lat</code> (string): Latitude of the center point of the polygon.</li>
+
+        <li><code>long</code> (string): Longitude of the center point of the polygon.</li>
+
+        <li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>
+
+        <li><code>address</code> (string): Address associated with the polygon.</li>
+
+        <li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the
+        polygon.</li>
+
+        <li><code>radius</code> (integer): Radius of the polygon.</li>
+
+        <li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>
+
+        <li><code>geofenceCategory</code> (string): Category associated with the geofence, if available.</li>
+
+        </ul>
+
+        <h2 id="pagination-information">Pagination Information</h2>
+
+        <ul>
+
+        <li><code>page</code> (integer): Current page number.</li>
+
+        <li><code>perPage</code> (integer): Number of items per page.</li>
+
+        <li><code>count</code> (integer): Total number of polygons available.</li>
+
+        </ul>
+
+        <h2 id="bounding-box">Bounding Box</h2>
+
+        <p>The bounding box is a rectangular area defined by four coordinates. In the response, it is
+        represented as an array of latitude and longitude pairs. The bounding box encompasses th'
+    post:
+      operationId: createPolygon
+      summary: Create Polygon
+      tags:
+      - Polygon (Geofence)
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>The Create Polygon API allows users to define and create geofence polygons with specified attributes.
+        These polygons can be utilized for location-based services, such as monitoring and triggering
+        events when a tracked asset enters or exits the defined area.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><p><code>name</code> (string): The name of the polygon.</p>
+
+        </li>
+
+        <li><p><code>lat</code> (float): Latitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>long</code> (float): Longitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>distanceUnit</code> (string): Unit of measurement for the radius (e.g., "m" for meters).</p>
+
+        </li>
+
+        <li><p><code>radius</code> (integer): Radius of the polygon.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): Unique identifier for the created polygon.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the polygon.</p>
+
+        </li>
+
+        <li><p><code>lat</code> (string): Latitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>long</code> (string): Longitude of the center point of the polygon.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>
+
+        </li>
+
+        <li><p><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the
+        polygon.</p>
+
+        </li>
+
+        <li><p><code>radius</code> (integer): Radius of the polygon.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</p>
+
+        </li>
+
+        </ul>
+
+        <h2 id="bounding-box">Bounding Box</h2>
+
+        <p>The bounding box is a rectangular area defined by four coordinates. In the response, it is
+        represented as an array of latitude and longitude pairs. The bounding box encompasses the outer
+        edges of the circular polygon, allowing for simplified spatial queries and calculations.</p>
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              polygon:
+                name: test_polygon4
+                lat: 10
+                distanceUnit: m
+                radius: 100
+                active: true
+                long: 85.882186
+  /integration/api/v1/trips:
+    get:
+      operationId: listTrips
+      summary: List Trips
+      tags:
+      - Trips
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>This API allows users to retrieve a list of trips based on various filters such as unique ID,
+        start time, end time, states, driver ID, sort column, sort order, page number, and number of trips
+        per page.</p>
+
+        <h3 id="query-parameters"><strong>Query Parameters:</strong></h3>
+
+        <ul>
+
+        <li><code>uniqueId</code> (string, optional): Unique ID of the trip.</li>
+
+        <li><code>startTime</code> (integer, optional): Start time of the trip.</li>
+
+        <li><code>endTime</code> (integer, optional): End time of the trip.</li>
+
+        <li><code>states</code> (string, optional): Comma-separated list of states to filter trips by.
+        <strong>{ initialized, trashed, ongoing, delayed, unsuccessful, completed }</strong></li>
+
+        <li><code>driverId</code> (integer, optional): ID of the driver associated with the trip.</li>
+
+        <li><code>sortColumn</code> (string, optional): Column to sort the trips by. <strong>{shouldStartAt,
+        createdAt}</strong></li>
+
+        <li><code>sortOrder</code> (string, optional): Order of sorting <strong>{asc, desc}</strong>.</li>
+
+        <li><code>page</code> (integer, optional): Page number of the results.</li>
+
+        <li><code>perPage</code> (integer, optional): Number of trips per page.</li>
+
+        <li><code>vehicleNumber</code> (string, optional): Number of the vehicle associated with the trip.</li>
+
+        </ul>
+
+        <h3 id="response-structure"><strong>Response Structure</strong></h3>
+
+        <ul>
+
+        <li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>
+
+        </li>
+
+        <li><p><code>data.values</code> (array): Array of trip objects.</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): ID of the trip.</p>
+
+        </li>
+
+        <li><p><code>vehicleNumber</code> (string): Number of the vehicle associated with the trip.</p>
+
+        </li>
+
+        <li><p><code>vehicleId</code> (integer): ID of the vehicle associated with the trip.</p>
+
+        </li>
+
+        <li><p><code>uniqueId</code> (string): Unique ID of the trip.</p>
+
+        </li>
+
+        <li><p><code>shouldStartTs</code> (integer): Start time of the trip.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (integer): Time'
+    post:
+      operationId: createTrip
+      summary: Create Trip
+      tags:
+      - Trips
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>Create Trip.</p>
+
+        <ol>
+
+        <li><p>Create trip using route name: Pass route name in the create trip API.</p>
+
+        </li>
+
+        <li><p>Create trip using Route id: Pass route id in the create trip API.</p>
+
+        </li>
+
+        <li><p>Create trip using geofence: Pass geofence id in the create trip API</p>
+
+        </li>
+
+        <li><p>Create Trip using the address and coordinates : Pass address and coordinates in source
+        in the create trip API</p>
+
+        </li>
+
+        <li><p>Create Trip where the destination is not known</p>
+
+        </li>
+
+        <li><p>Create Trip with multiple stops/checkpoints</p>
+
+        </li>
+
+        </ol>
+
+        <p>Create Trip Request</p>
+
+        <ol>
+
+        <li>Removing the <code>vehicle</code> json object from the body of the request will create a trip
+        request instead of trip. (Trip state will be "requested" instead of "new"). For this "trip_request"
+        feature should be enabled for User.</li>
+
+        </ol>
+
+        <p><strong>Mandatory Fields</strong> :</p>
+
+        <ol>
+
+        <li><p><code>should_start_at</code></p>
+
+        </li>
+
+        <li><p><code>source</code></p>
+
+        <ol>
+
+        <li>"geofence_id" or "geofence_name" or a combination of ("coordinates" and "address")</li>
+
+        </ol>
+
+        </li>
+
+        </ol>
+
+        <p><strong>Validations</strong>:</p>
+
+        <ol>
+
+        <li><code>etd</code> (Estimated Time of Departure) &gt; <code>eta</code> (Estimated Time of Arrival)</li>
+
+        </ol>
+
+        <p><strong>Cases:</strong></p>
+
+        <ol>
+
+        <li><p>Route[id, name], if either of id and name is present, it means we are using existing route.
+        source, checkpoints, destination can be ignored.</p>
+
+        </li>
+
+        <li><p>If Route[id, name] not present, send Source and CheckPoints. Destination is optional.</p>
+
+        <ol>
+
+        <li><p>if create_new_vehicle_route is not present, route won''t be shown on UI.</p>
+
+        </li>
+
+        <li><p>if create_new vehicle route is present, route name is mandatory and will be shown on UI.</p>
+
+        </li>
+
+        </ol>
+
+        </li>
+
+        </ol>
+
+        <h2 id="request-body"><strong>Request Body</strong></h2>
+
+        <ul>
+
+        <li><p><code>vehicle</code></p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer)</p>
+
+        </li>
+
+        <li><p><code>number</code> (string)</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        <li><p><code>route</code></p>
+
+        <ul'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              trip:
+                vehicle:
+                  number: VT_MOCKER2
+                customFields: {}
+                createNewVehicleRoute: true
+                newVehicleRouteName: test_test_route_12
+                shouldStartAt: 1706264834
+                uniqueId: test_01
+                expectedDistance: 30
+                tripDelayAlertsEnabled: true
+                sourceName: Gurugram
+                shouldExpireOldTrips: false
+                source:
+                  address: test_address
+                  coordinates: 10.01,10.01
+                  radius: 10
+                  eta: 1706285834
+                  etd: 1706287834
+  /integration/api/v1/trips/{tripId}:
+    put:
+      operationId: updateTrip
+      summary: Update Trip
+      tags:
+      - Trips
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint allows users to update trip details such as the source location and actions.</p>
+
+        <p><strong>Action can have these 4 values</strong></p>
+
+        <ol>
+
+        <li><code>UPDATE_TRIP</code> - Can update any variables<ol>
+
+        <li>Mandatory Fields : action, source</li>
+
+        </ol>
+
+        </li>
+
+        <li><code>END_TRIP</code> - To end the trip: Only need "id" for this.<ol>
+
+        <li>Mandatory Fields : action, source</li>
+
+        </ol>
+
+        </li>
+
+        <li><code>PARTIAL_UPDATE_TRIP</code> - Can be used to update "custom_fields" only.<ol>
+
+        <li>Mandatory Fields : action, custom_fields</li>
+
+        </ol>
+
+        </li>
+
+        <li><code>REJECT_TRIP</code> - To reject a trip which is in requested state.<ol>
+
+        <li>Mandatory Fields: action</li>
+
+        </ol>
+
+        </li>
+
+        <li><code>START_TRIP</code> - To start the trip: Only need "id" for this.<ol>
+
+        <li>Mandatory Fields : action</li>
+
+        </ol>
+
+        </li>
+
+        </ol>
+
+        <h2 id="path-variables">Path Variables</h2>
+
+        <ul>
+
+        <li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>
+
+        </ul>
+
+        <h2 id="request-body"><strong>Request Body</strong></h2>
+
+        <ul>
+
+        <li><code>action</code> (string, required)</li>
+
+        <li><code>newVehicleRouteName</code> (string)</li>
+
+        <li><code>shouldStartAt</code> (integer, epoch timestamp) Time by which trip should be started</li>
+
+        <li><code>expectedDistance</code> (integer)</li>
+
+        <li><code>tripDelayAlertsEnabled</code> (boolean)</li>
+
+        <li><code>sourceName</code> (string)</li>
+
+        <li><code>destinationName</code> (string)</li>
+
+        <li><code>shouldExpireOldTrips</code> (boolean) Mark True if you want to expire all active trips
+        on the vehicle.</li>
+
+        <li><code>checkPoints</code><ul>
+
+        <li><code>geofenceId</code> (integer)</li>
+
+        <li><code>geofenceName</code> (string)</li>
+
+        <li><code>eta</code> (integer, epoch timestamp in seconds)</li>
+
+        <li><code>etd</code> (integer, epoch timestamp in seconds)</li>
+
+        <li><code>coordinates</code> (string, lat,long)</li>
+
+        <li><code>address</code> (string)</li>
+
+        <li><code>createGatepass</code> (boolean)</li>
+
+        </ul>
+
+        </li>
+
+        <li><code>source</code><ul>
+
+        <li><code>geofe'
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              trip:
+                action: START_TRIP
+                source:
+                  address: test_address
+                  coordinates: 10.01,10.01
+                  radius: 10
+                  eta: 1706285834
+                  etd: 1706287834
+    delete:
+      operationId: deleteTrip
+      summary: Delete Trip
+      tags:
+      - Trips
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview">Overview</h2>
+
+        <p>This API endpoint allows administrators to delete a trip based on its ID.</p>
+
+        <h2 id="request-parameters">Request Parameters</h2>
+
+        <ul>
+
+        <li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>
+
+        </ul>
+
+        <h2 id="response-structure">Response Structure</h2>
+
+        <ul>
+
+        <li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>
+
+        </li>
+
+        <li><p><code>message</code>(string): A message confirming the success of the deletion operation.</p>
+
+        </li>
+
+        </ul>
+
+        <h3 id="notes">Notes</h3>
+
+        <ul>
+
+        <li>Replace <code>{trip_id}</code> in the URL with the actual ID of the trip to be deleted.</li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/trips/{tripId}/track_url:
+    get:
+      operationId: getTripTrackUrl
+      summary: Get Trip Track Url
+      tags:
+      - Trips
+      responses:
+        '200':
+          description: Successful response
+      description: '<h2 id="overview"><strong>Overview</strong></h2>
+
+        <p>This API endpoint retrieves a <strong>public tracking URL</strong> for a specific trip, including
+        given checkpoints, allowing users to monitor the trip''s progress in real-time.</p>
+
+        <p>Clients can send this URL directly to end customers for real time public tracking of the vehicle.</p>
+
+        <h3 id="path-parameters"><strong>Path Parameters</strong></h3>
+
+        <ul>
+
+        <li><code>{trip_id}</code> (integer): ID of the trip for which the tracking URL is requested.</li>
+
+        </ul>
+
+        <h3 id="query-parameters"><strong>Query Parameters</strong></h3>
+
+        <ul>
+
+        <li><code>allCheckPoints</code> (boolean): Indicates whether to include all checkpoints in the
+        tracking URL. Set to <code>true</code> to include all checkpoints.</li>
+
+        <li><code>checkPointIds</code> (array of integer): If <code>allCheckPoints</code> param is <code>false</code>
+        then user need to pass geofence ids that were passed in Create Trip API. (Eg: [23,45]). The map
+        will only shows the mentioned check points.</li>
+
+        </ul>
+
+        <h2 id="response-structure"><strong>Response Structure</strong></h2>
+
+        <ul>
+
+        <li><code>success</code> (boolean): Indicates whether the request was successful.</li>
+
+        <li><code>data</code><ul>
+
+        <li><code>tripTrackToken</code> (string): Token used to track the trip.</li>
+
+        <li><code>url</code> (string): Tracking URL for the trip.</li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+      parameters:
+      - name: tripId
+        in: path
+        required: true
+        schema:
+          type: string
+  /integration/api/v1/user:
+    get:
+      operationId: getUserDetails
+      summary: Get User Details
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Successful response
+      description: '<h3 id="overview">Overview</h3>
+
+        <p>The User Details API allows users to retrieve detailed information about the currently authenticated
+        user in the LocoNav system. This information includes the user''s name, email, phone numbers,
+        role, and account details.</p>
+
+        <h3 id="request-headers">Request Headers</h3>
+
+        <ul>
+
+        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace
+        <code>{{auth-token}}</code> with the actual authentication token.</li>
+
+        </ul>
+
+        <h3 id="response-fields">Response Fields</h3>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the user.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the user.</p>
+
+        </li>
+
+        <li><p><code>email</code> (string): The email address of the user.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): The timestamp of when the user account was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): The timestamp of when the user account was last updated.</p>
+
+        </li>
+
+        <li><p><code>phoneNumbers</code> (string): The phone numbers associated with the user.</p>
+
+        </li>
+
+        <li><p><code>role</code> (string): The role of the user in the system.</p>
+
+        </li>
+
+        <li><p><code>account</code> (object): An object containing details about the user''s account.</p>
+
+        <ul>
+
+        <li><p><code>id</code> (integer): The unique identifier of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>name</code> (string): The name of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>email</code> (string): The email address of the user''s account.</p>
+
+        </li>
+
+        <li><p><code>createdAt</code> (string): The timestamp of when the user''s account was created.</p>
+
+        </li>
+
+        <li><p><code>updatedAt</code> (string): The timestamp of when the user''s account was last updated.</p>
+
+        </li>
+
+        <li><p><code>active</code> (boolean): Indicates if the user''s account is active.</p>
+
+        </li>
+
+        <li><p><code>alertsPusher</code> (boolean): Indicates if the user has alerts pusher enabled.</p>
+
+        </li>
+
+        </ul>
+
+        </li>
+
+        </ul>
+
+        '
+components:
+  securitySchemes:
+    UserAuthentication:
+      type: apiKey
+      in: header
+      name: User-Authentication
+      description: User-level API token supplied in the User-Authentication request header.
+security:
+- UserAuthentication: []

@@ -1,0 +1,830 @@
+asyncapi: 2.6.0
+info:
+  title: LocoNav Webhooks
+  version: v1
+  description: AsyncAPI description of LocoNav alert and live-location webhooks derived from the published
+    Postman webhook examples. LocoNav POSTs these events to a partner-registered receiver URL.
+defaultContentType: application/json
+channels:
+  webhook/SuddenBrakingAlert:
+    subscribe:
+      summary: Harsh Braking Alert
+      operationId: onSuddenBrakingAlert
+      message:
+        name: SuddenBrakingAlert
+        title: Harsh Braking Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            vehicle_number:
+              type: string
+            created_at:
+              type: string
+            speed:
+              type: number
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 12345
+            event_time: '2024-02-08T12:30:45Z'
+            latitude: 37.7749
+            longitude: -122.4194
+            vehicle_number: ABC123
+            created_at: '2024-02-08T12:35:00Z'
+            speed: 45.5
+            kind: SuddenBrakingAlert
+  webhook/SuddenAccelerationAlert:
+    subscribe:
+      summary: Harsh Acceleration Alert
+      operationId: onSuddenAccelerationAlert
+      message:
+        name: SuddenAccelerationAlert
+        title: Harsh Acceleration Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            vehicle_number:
+              type: string
+            created_at:
+              type: string
+            speed:
+              type: number
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            event_time: '2024-02-05T12:30:45Z'
+            latitude: 37.7749
+            longitude: -122.4194
+            vehicle_number: ABC123
+            created_at: '2024-02-05T12:30:45Z'
+            speed: 65.5
+            kind: SuddenAccelerationAlert
+  webhook/OverspeedAlert:
+    subscribe:
+      summary: Overspeed Alert
+      operationId: onOverspeedAlert
+      message:
+        name: OverspeedAlert
+        title: Overspeed Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            event_key:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            speed:
+              type: number
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            event_key: XYZ789
+            active_event_time: '2024-02-05T12:30:45Z'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_time: '2024-02-05T12:35:45Z'
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            created_at: '2024-02-05T12:30:45Z'
+            updated_at: '2024-02-05T12:30:45Z'
+            speed: 75.5
+            kind: OverspeedAlert
+  webhook/IgnitionAlert:
+    subscribe:
+      summary: Ignition Alert
+      operationId: onIgnitionAlert
+      message:
+        name: IgnitionAlert
+        title: Ignition Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            event_key:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            active_event_time: '2024-02-05T12:30:45Z'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_time: '2024-02-05T12:35:45Z'
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            created_at: '2024-02-05T12:30:45Z'
+            event_key: XYZ789
+            kind: IgnitionAlert
+  webhook/IdlingAlert:
+    subscribe:
+      summary: Idling Alert
+      operationId: onIdlingAlert
+      message:
+        name: IdlingAlert
+        title: Idling Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            active_event_time: '2024-02-05T12:30:45Z'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_time: '2024-02-05T12:35:45Z'
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            created_at: '2024-02-05T12:30:45Z'
+            kind: IdlingAlert
+  webhook/FatigueAlert:
+    subscribe:
+      summary: Fatigue Alert
+      operationId: onFatigueAlert
+      message:
+        name: FatigueAlert
+        title: Fatigue Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            start_time:
+              type: string
+            active_event_time:
+              type: string
+            inactive_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            start_time: '2024-02-05T12:30:45Z'
+            active_event_time: '2024-02-05T12:35:45Z'
+            inactive_event_time: '2024-02-05T13:30:45Z'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            kind: FatigueAlert
+  webhook/OverrevAlert:
+    subscribe:
+      summary: Overrev(RPM) Alert
+      operationId: onOverrevAlert
+      message:
+        name: OverrevAlert
+        title: Overrev(RPM) Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            event_key:
+              type: string
+            rpm_value:
+              type: integer
+            start_time:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 456
+            vehicle_number: XYZ789
+            event_key: abc123
+            rpm_value: 6000
+            start_time: '2024-02-05T10:15:30Z'
+            active_event_time: '2024-02-05T10:20:30Z'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_time: '2024-02-05T12:35:45Z'
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            created_at: '2024-02-05T10:30:30Z'
+            kind: OverrevAlert
+  webhook/AntiTheftAlert:
+    subscribe:
+      summary: Anti Theft Alert
+      operationId: onAntiTheftAlert
+      message:
+        name: AntiTheftAlert
+        title: Anti Theft Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            created_at:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            event_time: '2024-02-05T10:30:45Z'
+            latitude: 40.7128
+            longitude: -74.006
+            created_at: '2024-02-05T10:35:12Z'
+            kind: AntiTheftAlert
+  webhook/GeofenceAlert:
+    subscribe:
+      summary: Geofence Alert
+      operationId: onGeofenceAlert
+      message:
+        name: GeofenceAlert
+        title: Geofence Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            polygon_id:
+              type: integer
+            event_key:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            polygon_id: 456
+            event_key: geofence_enter
+            active_event_time: '2024-02-05T10:30:45Z'
+            active_event_latitude: 40.7128
+            active_event_longitude: -74.006
+            inactive_event_time: '2024-02-05T10:45:00Z'
+            inactive_event_latitude: 40.7129
+            inactive_event_longitude: -74.0061
+            created_at: '2024-02-05T10:35:12Z'
+            kind: GeofenceAlert
+  webhook/CrashDuringOverspeedAlert:
+    subscribe:
+      summary: Crash detection with speed limit
+      operationId: onCrashDuringOverspeedAlert
+      message:
+        name: CrashDuringOverspeedAlert
+        title: Crash detection with speed limit
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            speed:
+              type: number
+            vehicle_number:
+              type: string
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 7
+            event_time: '2022-08-09T14:47:44.000+05:30'
+            latitude: 22.44372
+            longitude: 73.33989
+            speed: 25.0
+            vehicle_number: '508'
+            created_at: '2022-08-09T14:47:46.866+05:30'
+            updated_at: '2022-08-09T14:47:46.866+05:30'
+            kind: CrashDuringOverspeedAlert
+  webhook/DeviceRemovalAlert:
+    subscribe:
+      summary: Device Removal Alert
+      operationId: onDeviceRemovalAlert
+      message:
+        name: DeviceRemovalAlert
+        title: Device Removal Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            event_key:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            active_event_time: '2024-02-10T08:30:00'
+            active_event_latitude: 37.7749
+            active_event_longitude: -122.4194
+            inactive_event_time: '2024-02-10T08:35:00'
+            inactive_event_latitude: 37.7749
+            inactive_event_longitude: -122.4194
+            created_at: '2024-02-10T08:40:00'
+            event_key: '12345'
+            kind: DeviceRemovalAlert
+  webhook/VehicleLowBatteryVoltageAlert:
+    subscribe:
+      summary: Vehicle Low Battery Voltage Alert
+      operationId: onVehicleLowBatteryVoltageAlert
+      message:
+        name: VehicleLowBatteryVoltageAlert
+        title: Vehicle Low Battery Voltage Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            event_key:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 789
+            vehicle_number: XYZ456
+            active_event_time: '2024-02-10T10:15:00'
+            active_event_latitude: 40.7128
+            active_event_longitude: -74.006
+            inactive_event_time: '2024-02-10T10:20:00'
+            inactive_event_latitude: 40.7128
+            inactive_event_longitude: -74.006
+            created_at: '2024-02-10T10:25:00'
+            event_key: '78901'
+            kind: VehicleLowBatteryVoltageAlert
+  webhook/SharpTurnAlert:
+    subscribe:
+      summary: Sharp turn Alert
+      operationId: onSharpTurnAlert
+      message:
+        name: SharpTurnAlert
+        title: Sharp turn Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            truck_id:
+              type: integer
+            vehicle_number:
+              type: string
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            speed:
+              type: number
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            event_time: '2024-02-10T14:30:00'
+            latitude: 40.7128
+            longitude: -74.006
+            truck_id: 456
+            vehicle_number: ABC123
+            created_at: '2024-02-10T14:35:00'
+            updated_at: '2024-02-10T14:35:00'
+            speed: 30.5
+            kind: SharpTurnAlert
+  webhook/DtcAlert:
+    subscribe:
+      summary: Dtc Alert
+      operationId: onDtcAlert
+      message:
+        name: DtcAlert
+        title: Dtc Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            event_key:
+              type: string
+            dtc_code:
+              type: string
+            kind:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            vehicle_number: ABC123
+            active_event_time: '2024-02-10T14:30:00'
+            active_event_latitude: 40.7128
+            active_event_longitude: -74.006
+            inactive_event_time: '2024-02-10T14:35:00'
+            inactive_event_latitude: 40.7129
+            inactive_event_longitude: -74.007
+            created_at: '2024-02-10T14:35:00'
+            event_key: DTCA123
+            dtc_code: P0123
+            kind: DtcAlert
+  webhook/RefuelingAlert:
+    subscribe:
+      summary: Refueling Alert
+      operationId: onRefuelingAlert
+      message:
+        name: RefuelingAlert
+        title: Refueling Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            kind:
+              type: string
+            vehicle_number:
+              type: string
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            refueled_in_percent:
+              type: number
+            refueled_in_liters:
+              type: number
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            fuel_tank_uuid:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            kind: RefuelingAlert
+            vehicle_number: ABC123
+            event_time: '2024-02-10T15:00:00'
+            latitude: 40.7128
+            longitude: -74.006
+            refueled_in_percent: 75.0
+            refueled_in_liters: 30.0
+            created_at: '2024-02-10T15:01:00'
+            updated_at: '2024-02-10T15:01:00'
+            fuel_tank_uuid: abc-123-def
+  webhook/PossibleFuelTheftAlert:
+    subscribe:
+      summary: FuelTheft Alert
+      operationId: onPossibleFuelTheftAlert
+      message:
+        name: PossibleFuelTheftAlert
+        title: FuelTheft Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            kind:
+              type: string
+            vehicle_number:
+              type: string
+            event_time:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            fuel_theft_in_percent:
+              type: number
+            fuel_theft_in_liters:
+              type: number
+            created_at:
+              type: string
+            updated_at:
+              type: string
+            fuel_tank_uuid:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 456
+            kind: PossibleFuelTheftAlert
+            vehicle_number: XYZ789
+            event_time: '2024-02-10T16:30:00'
+            latitude: 34.0522
+            longitude: -118.2437
+            fuel_theft_in_percent: 20.0
+            fuel_theft_in_liters: 10.0
+            created_at: '2024-02-10T16:31:00'
+            updated_at: '2024-02-10T16:31:00'
+            fuel_tank_uuid: xyz-789-abc
+  webhook/DeviceOfflineAlert:
+    subscribe:
+      summary: DeviceOffline Alert
+      operationId: onDeviceOfflineAlert
+      message:
+        name: DeviceOfflineAlert
+        title: DeviceOffline Alert
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            id:
+              type: integer
+            kind:
+              type: string
+            vehicle_number:
+              type: string
+            active_event_time:
+              type: string
+            active_event_latitude:
+              type: number
+            active_event_longitude:
+              type: number
+            inactive_event_time:
+              type: string
+            inactive_event_latitude:
+              type: number
+            inactive_event_longitude:
+              type: number
+            created_at:
+              type: string
+            updated_at:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            id: 123
+            kind: DeviceOfflineAlert
+            vehicle_number: ABC123
+            active_event_time: '2024-02-10T10:00:00'
+            active_event_latitude: 40.7128
+            active_event_longitude: -74.006
+            inactive_event_time: '2024-02-10T10:30:00'
+            inactive_event_latitude: 40.7128
+            inactive_event_longitude: -74.006
+            created_at: '2024-02-10T10:35:00'
+            updated_at: '2024-02-10T10:35:00'
+  webhook/live_location:
+    subscribe:
+      summary: Vehicle Live Location Push
+      operationId: onVehicleLiveLocationPush
+      message:
+        name: VehicleLiveLocationPush
+        title: Vehicle Live Location Push
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            imei:
+              type: string
+            speed:
+              type: number
+            gpstime:
+              type: string
+            ignition:
+              type: string
+            latitude:
+              type: number
+            longitude:
+              type: number
+            sharpTurn:
+              type: string
+            orientation:
+              type: number
+            harshBraking:
+              type: string
+            vehiclenumber:
+              type: string
+            rockBreakerPedal:
+              type: string
+            harshAcceleration:
+              type: string
+        examples:
+        - name: sample
+          payload:
+            imei: 0210716299
+            speed: 0.0
+            gpstime: 17-12-2021 09:57:07
+            ignition: '1'
+            latitude: 11.125757
+            longitude: 79.140228
+            sharpTurn: '0'
+            orientation: 201.0
+            harshBraking: '0'
+            vehiclenumber: TN19AA7420
+            rockBreakerPedal: '0'
+            harshAcceleration: '0'

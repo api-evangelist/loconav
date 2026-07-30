@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/loconav-integration-openapi.yml
+skills:
+- file: loconav-track-vehicle.md
+  name: Track a vehicle and its telematics
+  api: openapi/loconav-integration-openapi.yml
+  operations: [listVehicles, getVehicleDetails, lastKnown, getDistanceTravelled, getTimeline, getLiveShareLink]
+- file: loconav-manage-drivers.md
+  name: Manage drivers and vehicle assignment
+  api: openapi/loconav-integration-openapi.yml
+  operations: [listDriversFilter, createDrivers, getDriver, updateDrivers, deleteDriver, vehicleAssignment, vehicleUnassignment]
+- file: loconav-geofence-alerts.md
+  name: Set up geofences and subscribe to alerts
+  api: openapi/loconav-integration-openapi.yml
+  operations: [createPolygon, listPolygons, getPolygon, createAlertSubscriptions, getAlertSubscriptions, getAlerts, listAlerts]

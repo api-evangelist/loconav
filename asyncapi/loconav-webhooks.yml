@@ -1,0 +1,276 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/ (Webhooks folder of published Postman collection)
+description: 'LocoNav pushes real-time events to a partner-registered receiver URL. Two families: Alert
+  webhooks (safety/telemetry events) and Live Location webhooks (periodic GPS position push). Each alert
+  payload carries a "kind" discriminator, event_time, latitude/longitude, truck_id and vehicle_number.'
+transport: HTTP POST (partner-hosted receiver URL)
+discriminator: kind
+families:
+- name: alert
+  description: Safety and telemetry alert notifications.
+- name: live-location
+  description: Periodic live GPS location push for vehicles/assets.
+events:
+- name: Harsh Braking Alert
+  family: alert
+  kind: SuddenBrakingAlert
+  example:
+    id: 12345
+    event_time: '2024-02-08T12:30:45Z'
+    latitude: 37.7749
+    longitude: -122.4194
+    vehicle_number: ABC123
+    created_at: '2024-02-08T12:35:00Z'
+    speed: 45.5
+    kind: SuddenBrakingAlert
+- name: Harsh Acceleration Alert
+  family: alert
+  kind: SuddenAccelerationAlert
+  example:
+    id: 123
+    event_time: '2024-02-05T12:30:45Z'
+    latitude: 37.7749
+    longitude: -122.4194
+    vehicle_number: ABC123
+    created_at: '2024-02-05T12:30:45Z'
+    speed: 65.5
+    kind: SuddenAccelerationAlert
+- name: Overspeed Alert
+  family: alert
+  kind: OverspeedAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    event_key: XYZ789
+    active_event_time: '2024-02-05T12:30:45Z'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_time: '2024-02-05T12:35:45Z'
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    created_at: '2024-02-05T12:30:45Z'
+    updated_at: '2024-02-05T12:30:45Z'
+    speed: 75.5
+    kind: OverspeedAlert
+- name: Ignition Alert
+  family: alert
+  kind: IgnitionAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    active_event_time: '2024-02-05T12:30:45Z'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_time: '2024-02-05T12:35:45Z'
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    created_at: '2024-02-05T12:30:45Z'
+    event_key: XYZ789
+    kind: IgnitionAlert
+- name: Idling Alert
+  family: alert
+  kind: IdlingAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    active_event_time: '2024-02-05T12:30:45Z'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_time: '2024-02-05T12:35:45Z'
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    created_at: '2024-02-05T12:30:45Z'
+    kind: IdlingAlert
+- name: Fatigue Alert
+  family: alert
+  kind: FatigueAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    start_time: '2024-02-05T12:30:45Z'
+    active_event_time: '2024-02-05T12:35:45Z'
+    inactive_event_time: '2024-02-05T13:30:45Z'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    kind: FatigueAlert
+- name: Overrev(RPM) Alert
+  family: alert
+  kind: OverrevAlert
+  example:
+    id: 456
+    vehicle_number: XYZ789
+    event_key: abc123
+    rpm_value: 6000
+    start_time: '2024-02-05T10:15:30Z'
+    active_event_time: '2024-02-05T10:20:30Z'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_time: '2024-02-05T12:35:45Z'
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    created_at: '2024-02-05T10:30:30Z'
+    kind: OverrevAlert
+- name: Anti Theft Alert
+  family: alert
+  kind: AntiTheftAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    event_time: '2024-02-05T10:30:45Z'
+    latitude: 40.7128
+    longitude: -74.006
+    created_at: '2024-02-05T10:35:12Z'
+    kind: AntiTheftAlert
+- name: Geofence Alert
+  family: alert
+  kind: GeofenceAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    polygon_id: 456
+    event_key: geofence_enter
+    active_event_time: '2024-02-05T10:30:45Z'
+    active_event_latitude: 40.7128
+    active_event_longitude: -74.006
+    inactive_event_time: '2024-02-05T10:45:00Z'
+    inactive_event_latitude: 40.7129
+    inactive_event_longitude: -74.0061
+    created_at: '2024-02-05T10:35:12Z'
+    kind: GeofenceAlert
+- name: Crash detection with speed limit
+  family: alert
+  kind: CrashDuringOverspeedAlert
+  example:
+    id: 7
+    event_time: '2022-08-09T14:47:44.000+05:30'
+    latitude: 22.44372
+    longitude: 73.33989
+    speed: 25.0
+    vehicle_number: '508'
+    created_at: '2022-08-09T14:47:46.866+05:30'
+    updated_at: '2022-08-09T14:47:46.866+05:30'
+    kind: CrashDuringOverspeedAlert
+- name: Device Removal Alert
+  family: alert
+  kind: DeviceRemovalAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    active_event_time: '2024-02-10T08:30:00'
+    active_event_latitude: 37.7749
+    active_event_longitude: -122.4194
+    inactive_event_time: '2024-02-10T08:35:00'
+    inactive_event_latitude: 37.7749
+    inactive_event_longitude: -122.4194
+    created_at: '2024-02-10T08:40:00'
+    event_key: '12345'
+    kind: DeviceRemovalAlert
+- name: Vehicle Low Battery Voltage Alert
+  family: alert
+  kind: VehicleLowBatteryVoltageAlert
+  example:
+    id: 789
+    vehicle_number: XYZ456
+    active_event_time: '2024-02-10T10:15:00'
+    active_event_latitude: 40.7128
+    active_event_longitude: -74.006
+    inactive_event_time: '2024-02-10T10:20:00'
+    inactive_event_latitude: 40.7128
+    inactive_event_longitude: -74.006
+    created_at: '2024-02-10T10:25:00'
+    event_key: '78901'
+    kind: VehicleLowBatteryVoltageAlert
+- name: Sharp turn Alert
+  family: alert
+  kind: SharpTurnAlert
+  example:
+    id: 123
+    event_time: '2024-02-10T14:30:00'
+    latitude: 40.7128
+    longitude: -74.006
+    truck_id: 456
+    vehicle_number: ABC123
+    created_at: '2024-02-10T14:35:00'
+    updated_at: '2024-02-10T14:35:00'
+    speed: 30.5
+    kind: SharpTurnAlert
+- name: Dtc Alert
+  family: alert
+  kind: DtcAlert
+  example:
+    id: 123
+    vehicle_number: ABC123
+    active_event_time: '2024-02-10T14:30:00'
+    active_event_latitude: 40.7128
+    active_event_longitude: -74.006
+    inactive_event_time: '2024-02-10T14:35:00'
+    inactive_event_latitude: 40.7129
+    inactive_event_longitude: -74.007
+    created_at: '2024-02-10T14:35:00'
+    event_key: DTCA123
+    dtc_code: P0123
+    kind: DtcAlert
+- name: Refueling Alert
+  family: alert
+  kind: RefuelingAlert
+  example:
+    id: 123
+    kind: RefuelingAlert
+    vehicle_number: ABC123
+    event_time: '2024-02-10T15:00:00'
+    latitude: 40.7128
+    longitude: -74.006
+    refueled_in_percent: 75.0
+    refueled_in_liters: 30.0
+    created_at: '2024-02-10T15:01:00'
+    updated_at: '2024-02-10T15:01:00'
+    fuel_tank_uuid: abc-123-def
+- name: FuelTheft Alert
+  family: alert
+  kind: PossibleFuelTheftAlert
+  example:
+    id: 456
+    kind: PossibleFuelTheftAlert
+    vehicle_number: XYZ789
+    event_time: '2024-02-10T16:30:00'
+    latitude: 34.0522
+    longitude: -118.2437
+    fuel_theft_in_percent: 20.0
+    fuel_theft_in_liters: 10.0
+    created_at: '2024-02-10T16:31:00'
+    updated_at: '2024-02-10T16:31:00'
+    fuel_tank_uuid: xyz-789-abc
+- name: DeviceOffline Alert
+  family: alert
+  kind: DeviceOfflineAlert
+  example:
+    id: 123
+    kind: DeviceOfflineAlert
+    vehicle_number: ABC123
+    active_event_time: '2024-02-10T10:00:00'
+    active_event_latitude: 40.7128
+    active_event_longitude: -74.006
+    inactive_event_time: '2024-02-10T10:30:00'
+    inactive_event_latitude: 40.7128
+    inactive_event_longitude: -74.006
+    created_at: '2024-02-10T10:35:00'
+    updated_at: '2024-02-10T10:35:00'
+- name: Vehicle Live Location Push
+  family: live-location
+  kind: null
+  example:
+    imei: 0210716299
+    speed: 0.0
+    gpstime: 17-12-2021 09:57:07
+    ignition: '1'
+    latitude: 11.125757
+    longitude: 79.140228
+    sharpTurn: '0'
+    orientation: 201.0
+    harshBraking: '0'
+    vehiclenumber: TN19AA7420
+    rockBreakerPedal: '0'
+    harshAcceleration: '0'

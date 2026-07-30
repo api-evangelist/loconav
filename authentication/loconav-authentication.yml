@@ -1,0 +1,22 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/loconav-integration-openapi.yml
+docs: https://developers.loconav.com/
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: UserAuthentication
+  type: apiKey
+  in: header
+  parameter: User-Authentication
+  description: >-
+    User-level API token supplied in the User-Authentication request header.
+    Each user is assigned a unique auth token, provisioned by a LocoNav SPOC
+    (single point of contact). Incorrect or missing credentials return 401
+    Unauthorized.
+  token_provisioning: LocoNav SPOC (manual, per user)
+  sources:
+  - openapi/loconav-integration-openapi.yml

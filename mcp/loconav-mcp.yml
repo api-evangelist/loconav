@@ -1,0 +1,124 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/loconav-integration-openapi.yml
+server:
+  name: loconav
+  transport: http
+note: Candidate tool list derived one-per-operation from the LocoNav Integration OpenAPI. No official
+  LocoNav MCP server is published as of this pass.
+tools:
+- name: getDriver
+  description: Get Driver
+  source_operation: openapi/loconav-integration-openapi.yml#getDriver
+- name: updateDrivers
+  description: Update Drivers
+  source_operation: openapi/loconav-integration-openapi.yml#updateDrivers
+- name: deleteDriver
+  description: Delete Driver
+  source_operation: openapi/loconav-integration-openapi.yml#deleteDriver
+- name: listDriversFilter
+  description: List drivers (Filter)
+  source_operation: openapi/loconav-integration-openapi.yml#listDriversFilter
+- name: createDrivers
+  description: Create Drivers
+  source_operation: openapi/loconav-integration-openapi.yml#createDrivers
+- name: vehicleAssignment
+  description: Vehicle Assignment
+  source_operation: openapi/loconav-integration-openapi.yml#vehicleAssignment
+- name: vehicleUnassignment
+  description: Vehicle Unassignment
+  source_operation: openapi/loconav-integration-openapi.yml#vehicleUnassignment
+- name: getLivesteam
+  description: Get Livesteam
+  source_operation: openapi/loconav-integration-openapi.yml#getLivesteam
+- name: updateLivestream
+  description: Update Livestream
+  source_operation: openapi/loconav-integration-openapi.yml#updateLivestream
+- name: createLivestream
+  description: Create Livestream
+  source_operation: openapi/loconav-integration-openapi.yml#createLivestream
+- name: deleteLivestream
+  description: Delete Livestream
+  source_operation: openapi/loconav-integration-openapi.yml#deleteLivestream
+- name: getVideo
+  description: Get Video
+  source_operation: openapi/loconav-integration-openapi.yml#getVideo
+- name: listVideos
+  description: List Videos
+  source_operation: openapi/loconav-integration-openapi.yml#listVideos
+- name: createVideoRequest
+  description: Create Video Request
+  source_operation: openapi/loconav-integration-openapi.yml#createVideoRequest
+- name: getAlertSubscriptions
+  description: Get Alert Subscriptions
+  source_operation: openapi/loconav-integration-openapi.yml#getAlertSubscriptions
+- name: createAlertSubscriptions
+  description: Create Alert Subscriptions
+  source_operation: openapi/loconav-integration-openapi.yml#createAlertSubscriptions
+- name: updateAlertSubscription
+  description: Update Alert Subscription
+  source_operation: openapi/loconav-integration-openapi.yml#updateAlertSubscription
+- name: createVehicleMobilizationRequest
+  description: Create Vehicle Mobilization Request
+  source_operation: openapi/loconav-integration-openapi.yml#createVehicleMobilizationRequest
+- name: getMobilizationRequests
+  description: Get Mobilization Requests
+  source_operation: openapi/loconav-integration-openapi.yml#getMobilizationRequests
+- name: lastKnown
+  description: Last known
+  source_operation: openapi/loconav-integration-openapi.yml#lastKnown
+- name: getDistanceTravelled
+  description: Get Distance Travelled
+  source_operation: openapi/loconav-integration-openapi.yml#getDistanceTravelled
+- name: getTimeline
+  description: Get Timeline
+  source_operation: openapi/loconav-integration-openapi.yml#getTimeline
+- name: listVehicles
+  description: List Vehicles
+  source_operation: openapi/loconav-integration-openapi.yml#listVehicles
+- name: getVehicleScoreCard
+  description: Get Vehicle Score card
+  source_operation: openapi/loconav-integration-openapi.yml#getVehicleScoreCard
+- name: getVehicleDetails
+  description: Get Vehicle Details
+  source_operation: openapi/loconav-integration-openapi.yml#getVehicleDetails
+- name: getLiveShareLink
+  description: Get Live Share Link
+  source_operation: openapi/loconav-integration-openapi.yml#getLiveShareLink
+- name: getAlerts
+  description: Get Alerts
+  source_operation: openapi/loconav-integration-openapi.yml#getAlerts
+- name: listAlerts
+  description: List Alerts
+  source_operation: openapi/loconav-integration-openapi.yml#listAlerts
+- name: getPolygon
+  description: Get Polygon
+  source_operation: openapi/loconav-integration-openapi.yml#getPolygon
+- name: updatePolygon
+  description: Update Polygon
+  source_operation: openapi/loconav-integration-openapi.yml#updatePolygon
+- name: listPolygons
+  description: List Polygons
+  source_operation: openapi/loconav-integration-openapi.yml#listPolygons
+- name: createPolygon
+  description: Create Polygon
+  source_operation: openapi/loconav-integration-openapi.yml#createPolygon
+- name: listTrips
+  description: List Trips
+  source_operation: openapi/loconav-integration-openapi.yml#listTrips
+- name: createTrip
+  description: Create Trip
+  source_operation: openapi/loconav-integration-openapi.yml#createTrip
+- name: updateTrip
+  description: Update Trip
+  source_operation: openapi/loconav-integration-openapi.yml#updateTrip
+- name: deleteTrip
+  description: Delete Trip
+  source_operation: openapi/loconav-integration-openapi.yml#deleteTrip
+- name: getTripTrackUrl
+  description: Get Trip Track Url
+  source_operation: openapi/loconav-integration-openapi.yml#getTripTrackUrl
+- name: getUserDetails
+  description: Get User Details
+  source_operation: openapi/loconav-integration-openapi.yml#getUserDetails

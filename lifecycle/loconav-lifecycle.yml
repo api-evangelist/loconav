@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /integration/api/v1
+  docs: https://developers.loconav.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    A prior integration API/webhooks doc set (prod-global-saas-postman.loconav.com)
+    is marked DEPRECATED in favor of the current developers.loconav.com surface;
+    no formal Sunset/Deprecation-header policy is published.
+sla:
+  url: null
+status_page: null
+deprecated_operations: []
+notes: >-
+  No public status page or formal deprecation policy was found. Regional API
+  hosts exist per market (global api.a.loconav.com, KSA sa.loconav.com, Oman
+  om.loconav.com, Nepal np.loconav.com).

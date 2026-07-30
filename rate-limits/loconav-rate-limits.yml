@@ -1,0 +1,13 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/
+description: >-
+  Global rate limit for the LocoNav Integration API, documented under Notes for
+  API Usage. Applied per endpoint on a rolling window.
+rate_limits:
+- scope: per-endpoint
+  limit_count: 500
+  window: 60s
+  algorithm: rolling-window
+  breach_status: 429
+  breach_body: Too Many Requests

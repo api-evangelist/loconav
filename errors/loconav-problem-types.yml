@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/
+format: http-status
+description: >-
+  API-level error conditions for the LocoNav Integration API, captured from the
+  published developer documentation (Notes for API Usage) and derived from the
+  OpenAPI operations. LocoNav does not publish an RFC 9457 problem+json envelope;
+  errors are conveyed via HTTP status codes with a JSON body carrying a success
+  flag.
+problems:
+- status: 401
+  title: Unauthorized
+  cause: >-
+    Authentication credentials are incorrect or not provided properly in the
+    request headers (missing/invalid User-Authentication token).
+  remediation: >-
+    Supply a valid user-level token in the User-Authentication header; obtain the
+    token from your LocoNav SPOC.
+- status: 429
+  title: Too Many Requests
+  cause: >-
+    More than 500 requests were made within a 60-second rolling window; the
+    endpoint is throttled to prevent abuse and ensure fair usage.
+  remediation: Back off and retry after the rolling window; stay under 500 req / 60s.
+- status: 400
+  title: Bad Request
+  cause: >-
+    Malformed request — e.g. non-epoch-seconds time values, missing required
+    pagination object, or invalid body fields.
+  remediation: >-
+    Send startTime/endTime as epoch seconds, include a pagination object on
+    listing calls, and validate the request body against the operation.
+- status: 404
+  title: Not Found
+  cause: The referenced resource (driver, vehicle, trip, polygon, video, session) does not exist.
+  remediation: Verify the resource id before retrying.

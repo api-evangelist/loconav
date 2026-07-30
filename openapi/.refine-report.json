@@ -1,0 +1,36 @@
+{
+  "provider": "loconav",
+  "sources": [
+    "loconav-alert-subscriptions-api-openapi.yml",
+    "loconav-alerts-api-openapi.yml",
+    "loconav-alerts-subscriptions-api-openapi.yml",
+    "loconav-drivers-api-openapi.yml",
+    "loconav-mobilization-api-openapi.yml",
+    "loconav-polygon-geofence-api-openapi.yml",
+    "loconav-trips-api-openapi.yml",
+    "loconav-users-api-openapi.yml",
+    "loconav-vehicles-api-openapi.yml",
+    "loconav-vehicles-telematics-api-openapi.yml",
+    "loconav-video-telematics-vt-live-stream-api-openapi.yml",
+    "loconav-video-telematics-vt-videos-api-openapi.yml"
+  ],
+  "outputs": [
+    "loconav-alert-subscriptions-api-openapi.yml",
+    "loconav-alerts-api-openapi.yml",
+    "loconav-alerts-subscriptions-api-openapi.yml",
+    "loconav-drivers-api-openapi.yml",
+    "loconav-mobilization-api-openapi.yml",
+    "loconav-polygon-geofence-api-openapi.yml",
+    "loconav-trips-api-openapi.yml",
+    "loconav-users-api-openapi.yml",
+    "loconav-vehicles-api-openapi.yml",
+    "loconav-vehicles-telematics-api-openapi.yml",
+    "loconav-video-telematics-vt-live-stream-api-openapi.yml",
+    "loconav-video-telematics-vt-videos-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

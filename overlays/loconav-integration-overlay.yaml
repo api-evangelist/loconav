@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for LocoNav Integration API
+  version: 1.0.0
+extends: openapi/loconav-integration-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: true
+    x-rate-limit: 500 requests per 60-second rolling window; 429 Too Many Requests on breach
+    x-time-format: epoch seconds for all startTime/endTime parameters
+    x-regions:
+      global: api.a.loconav.com
+      ksa: sa.loconav.com
+      oman: om.loconav.com
+      nepal: np.loconav.com
+- target: $.components.securitySchemes.UserAuthentication
+  update:
+    x-token-source: Provisioned per user by LocoNav SPOC

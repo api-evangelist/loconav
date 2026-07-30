@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.loconav.com/
+description: >-
+  Cross-cutting standards conformance for the LocoNav Integration API, derived
+  from the OpenAPI and the published documentation, plus a searched compliance
+  claim.
+standards:
+- id: oauth2
+  conforms: false
+  evidence: Auth is a static user-level apiKey (User-Authentication header), not OAuth2.
+- id: openapi-3
+  conforms: true
+  evidence: OpenAPI 3.0.3 description captured at openapi/loconav-integration-openapi.yml.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use HTTP status codes with a success-flag JSON body, not application/problem+json.
+- id: webhooks
+  conforms: true
+  evidence: 18 documented alert + live-location webhook events (asyncapi/loconav-webhooks.yml).
+- id: pagination
+  conforms: true
+  evidence: All listing endpoints paginated via page/perPage.
+- id: rate-limiting
+  conforms: true
+  evidence: 500 req / 60s rolling window, 429 on breach.
+- id: iso-27001
+  conforms: true
+  evidence: >-
+    LocoNav is ISO/IEC 27001:2013 certified for its information security
+    management system.
+    (https://loconav.com/blog/loconav-gets-iso-27001-2013-certified/)

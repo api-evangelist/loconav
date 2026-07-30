@@ -1,0 +1,36 @@
+# LocoNav
+
+> LocoNav is an AI- and IoT-powered GPS vehicle tracking and smart fleet management platform (50+ countries, 2,200+ device/sensor types). The LocoNav Integration API exposes REST endpoints and webhooks for fleet telematics: GPS/sensor telematics, video telematics and live streams, driver/vehicle/trip/geofence/user management, vehicle scorecards, immobilization, live-share links, and real-time alert & live-location webhooks. Auth is a user-level token in the `User-Authentication` header; listings are paginated (page/perPage); time values are epoch seconds; rate limit is 500 req / 60s.
+
+## APIs
+- [LocoNav Integration API — Developer Docs](https://developers.loconav.com/): REST + webhooks; base URL https://api.a.loconav.com/integration/api/v1
+- [OpenAPI (converted)](openapi/loconav-integration-openapi.yml): 28 paths / 38 operations across drivers, vehicles, trips, telematics, video, geofences, alerts, users
+- [Postman collection (source)](postman/loconav-postman-collection.json): published LocoNav Integration APIs & Webhooks
+
+## Specs & Artifacts
+- [AsyncAPI — Webhooks](asyncapi/loconav-webhooks-asyncapi.yml): 18 alert + live-location events
+- [Webhook catalog](asyncapi/loconav-webhooks.yml)
+- [Authentication](authentication/loconav-authentication.yml): apiKey, User-Authentication header
+- [Conventions](conventions/loconav-conventions.yml): pagination, epoch time, rate limits, regions
+- [Error catalog](errors/loconav-problem-types.yml): 401 / 429 / 400 / 404
+- [Rate limits](rate-limits/loconav-rate-limits.yml): 500 req / 60s rolling window
+- [Data model](data-model/loconav-data-model.yml): Driver, Vehicle, Trip, Polygon, LiveStream, Video, Alert, User
+- [Conformance](conformance/loconav-conformance.yml): OpenAPI 3, webhooks, pagination, ISO 27001:2013
+- [MCP candidate tools](mcp/loconav-mcp.yml)
+- [Agent Skills](skills/_index.yml)
+
+## Docs
+- [Developer Portal](https://developers.loconav.com/)
+- [Website](https://loconav.com/)
+- [Blog](https://loconav.com/blog)
+- [Global Fleet Management](https://loconav.com/global-fleet-management)
+- [ISO 27001:2013 certification](https://loconav.com/blog/loconav-gets-iso-27001-2013-certified/)
+- [Terms of Use](https://loconav.com/termsofuse)
+- [Privacy Policy](https://loconav.com/privacypolicy)
+- [GitHub (LocoNav Tech)](https://github.com/loconav-tech)
+
+## Regional API hosts
+- Global: api.a.loconav.com
+- KSA: sa.loconav.com
+- Oman: om.loconav.com
+- Nepal: np.loconav.com
