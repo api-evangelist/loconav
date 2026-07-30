@@ -1,22 +1,460 @@
 aid: loconav
-name: Loconav
-description: Loconav is a company surfaced as a portfolio company of anthemis and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: LocoNav
+description: >-
+  LocoNav is an AI- and IoT-powered GPS vehicle tracking and smart fleet
+  management platform used across 50+ countries, integrating 2,200+ device and
+  sensor types to track vehicles and assets in real time. Its LocoNav
+  Integration API exposes REST endpoints and webhooks for fleet telematics:
+  telematics data (sensor readings, GPS location, distance, timelines, video and
+  live streams), CRUD management of drivers, vehicles, trips, geofence polygons
+  and users, driver-vehicle assignment, vehicle scorecards, immobilization, live
+  share links, and alert subscriptions. Real-time alert and live-location
+  webhooks push events such as overspeed, harsh braking/acceleration, geofence,
+  fatigue, crash, fuel-theft, anti-theft and device-offline. Authentication is a
+  user-level token in the User-Authentication header; all listing endpoints are
+  paginated and time parameters use epoch seconds.
 url: https://raw.githubusercontent.com/api-evangelist/loconav/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - anthemis
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: has-public-api
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://loconav.com/marketing_pages/assets/images/loconav-logo.png
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
-apis: []
+- Fleet Management
+- Telematics
+- GPS Tracking
+- Vehicle Tracking
+- Transportation
+- Logistics
+- IoT
+- Video Telematics
+- Webhooks
+apis:
+- aid: loconav:loconav-alert-subscriptions-api
+  name: LocoNav Alert Subscriptions API
+  description: >-
+    <p>With our Alert subscription APIs, you can manage the alerts effectively on a platform</p>
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Alert Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-alert-subscriptions-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-alerts-api
+  name: LocoNav Alerts API
+  description: The Alerts API from LocoNav — 2 operation(s) for alerts.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-alerts-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-alerts-subscriptions-api
+  name: LocoNav Alerts Subscriptions API
+  description: The Alerts Subscriptions API from LocoNav — 1 operation(s) for alerts subscriptions.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Alerts Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-alerts-subscriptions-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-drivers-api
+  name: LocoNav Drivers API
+  description: >-
+    <p>Efficient driver management is essential for the optimal operation of a fleet.</p>
+
+    <p>Leveraging the capabilities of LocoNav REST APIs, fleet managers can seamlessly create, update,
+    and retrieve detailed information about drivers. The system allows for precise retrieval of driver
+    details based on their names, enabling informed decision-making.</p>
+
+    <p>Moreover, fleet managers can maintain the accuracy of their driver roster by securely deleting
+    off-record drivers. This suite of features empowers fleet managers to maintain a well-organized and
+    high-performing team, enhancing overall fleet management effectiveness.</p>
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Drivers
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-drivers-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-mobilization-api
+  name: LocoNav Mobilization API
+  description: The Mobilization API from LocoNav — 2 operation(s) for mobilization.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Mobilization
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-mobilization-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-polygon-geofence-api
+  name: LocoNav Polygon (Geofence) API
+  description: >-
+    <p>A geofence is a virtual boundary, often a <strong>rectangular bounding box</strong>, created using
+    mapping software with specified latitude and longitude coordinates. Integrated with fleet management
+    and telematics, geofences trigger real-time alerts if a GPS-equipped vehicle or equipment moves beyond
+    authorized limits, enhancing security and asset monitoring.</p>
+
+    <hr />
+
+    <p><strong>Use Cases</strong></p>
+
+    <ol>
+
+    <li><strong>Security and Alerts:</strong> Geofences can be established around construction sites where
+    valuable equipment is stationed. If any equipment equipped with a GPS tracker is detected leaving
+    the predefined area, immediate alerts are triggered, helping prevent theft and aiding in the recovery
+    of the asset.</li>
+
+    <li><strong>Delivery Route Compliance:</strong> For logistics and delivery services, geofences can
+    be set along specified routes or delivery zones. If a delivery vehicle deviates from the planned route
+    or enters unauthorized areas, real-time alerts ensure adherence to planned schedules and prevent potential
+    route deviations or unauthorized stops.</li>
+
+    </ol>
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Polygon (Geofence)
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-polygon-geofence-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-trips-api
+  name: LocoNav Trips API
+  description: The Trips API from LocoNav — 3 operation(s) for trips.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Trips
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-trips-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-users-api
+  name: LocoNav Users API
+  description: The Users API from LocoNav — 1 operation(s) for users.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-users-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-vehicles-api
+  name: LocoNav Vehicles API
+  description: >-
+    <p>Loconav's Vehicle APIs offer developers a powerful toolkit for real-time fleet management. The
+    Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats API
+    delivers live statistics.</p>
+
+    <p>These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and
+    analytics, enhancing operational efficiency and decision-making.</p>
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Vehicles
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-vehicles-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-vehicles-telematics-api
+  name: LocoNav Vehicles / Telematics API
+  description: >-
+    <p>Thes APIs allows you to access telematics data for vehicles, enabling you to retrieve real-time
+    information and history about their status, location, and various sensor readings.</p>
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Vehicles / Telematics
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-vehicles-telematics-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-video-telematics-vt-live-stream-api
+  name: LocoNav Video Telematics VT / Live Stream API
+  description: >-
+    The Video Telematics VT / Live Stream API from LocoNav — 3 operation(s) for video telematics vt /
+    live stream.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Video Telematics VT / Live Stream
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-video-telematics-vt-live-stream-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+- aid: loconav:loconav-video-telematics-vt-videos-api
+  name: LocoNav Video Telematics VT / Videos API
+  description: >-
+    The Video Telematics VT / Videos API from LocoNav — 2 operation(s) for video telematics vt / videos.
+  humanURL: https://developers.loconav.com/
+  baseURL: https://api.a.loconav.com/integration/api/v1
+  tags:
+  - Video Telematics VT / Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/loconav-video-telematics-vt-videos-api-openapi.yml
+  - type: Postman
+    url: postman/loconav-postman-collection.json
+  - type: Authentication
+    url: authentication/loconav-authentication.yml
+  - type: Conventions
+    url: conventions/loconav-conventions.yml
+  - type: ErrorCatalog
+    url: errors/loconav-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/loconav-rate-limits.yml
+  - type: DataModel
+    url: data-model/loconav-data-model.yml
+  - type: AsyncAPI
+    url: asyncapi/loconav-webhooks-asyncapi.yml
+  - type: Webhooks
+    url: asyncapi/loconav-webhooks.yml
+common:
+- type: DeveloperPortal
+  url: https://developers.loconav.com/
+- type: Documentation
+  url: https://developers.loconav.com/
+- type: APIReference
+  url: https://developers.loconav.com/
+- type: Website
+  url: https://loconav.com/
+- type: SignUp
+  url: https://loconav.com/contact-us
+- type: Support
+  url: https://loconav.com/contact-us
+- type: Blog
+  url: https://loconav.com/blog
+- type: TermsOfService
+  url: https://loconav.com/termsofuse
+- type: PrivacyPolicy
+  url: https://loconav.com/privacypolicy
+- type: GitHubOrganization
+  url: https://github.com/loconav-tech
+- type: Compliance
+  url: https://loconav.com/blog/loconav-gets-iso-27001-2013-certified/
+- type: Authentication
+  url: authentication/loconav-authentication.yml
+- type: Conventions
+  url: conventions/loconav-conventions.yml
+- type: Lifecycle
+  url: lifecycle/loconav-lifecycle.yml
+- type: Conformance
+  url: conformance/loconav-conformance.yml
+- type: DomainSecurity
+  url: security/loconav-domain-security.yml
+- type: MCPServer
+  url: mcp/loconav-mcp.yml
+- type: LLMsTxt
+  url: llms/loconav-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Postman
+  url: postman/loconav-postman-collection.json
+- type: Webhooks
+  url: asyncapi/loconav-webhooks.yml
+- type: AsyncAPI
+  url: asyncapi/loconav-webhooks-asyncapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
