@@ -404,6 +404,8 @@ apis:
   - type: Webhooks
     url: asyncapi/loconav-webhooks.yml
 common:
+- type: Overlay
+  url: overlays/loconav-integration-overlay.yaml
 - type: DeveloperPortal
   url: https://developers.loconav.com/
 - type: Documentation
