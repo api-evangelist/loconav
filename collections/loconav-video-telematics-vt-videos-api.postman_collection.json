@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "f904c872-f40f-404f-b74d-570065980fed",
+      "name": "Video Telematics VT / Videos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff04861b-814d-4580-a968-1c7256a3f81e",
+          "name": "Get Video",
+          "request": {
+            "name": "Get Video",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Video Details API allows users to retrieve detailed information about a specific video recording, providing insights into the associated device, duration, format, creator type, and more.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth_token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>vodId</code> (string, required): The unique identifier of the video on demand (VOD).</li>\n</ul>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><p><code>vodId</code> (string): Unique identifier of the video on demand.</p>\n</li>\n<li><p><code>requestType</code> (string): Type of request, in this case \"video\". Possible values: <code>video</code> and <code>timelapse</code></p>\n</li>\n<li><p><code>duration</code> (integer): Duration of the video in seconds.</p>\n</li>\n<li><p><code>format</code> (string): Format of the video (e.g., \"Road\", \"Driver View\", etc.).</p>\n</li>\n<li><p><code>creatorType</code> (string): The method through which the video was created (e.g., \"manual\", \"automated\", etc.).</p>\n</li>\n<li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the video.</p>\n</li>\n<li><p><code>extraData</code> (object): Additional data related to the video (if available).</p>\n</li>\n<li><p><code>status</code> (string): Status of the video (e.g., \"processed\", \"pending\", etc.).</p>\n</li>\n<li><p><code>createdAt</code> (string): Timestamp when the video was created.</p>\n</li>\n<li><p><code>updatedAt</code> (string): Timestamp when the video was last updated.</p>\n</li>\n<li><p><code>driver</code> (object): Information about the driver associated with the video.</p>\n<ul>\n<li><code>driverName</code> (string): Name of the driver.</li>\n<li><code>driverId</code> (integer): Unique identifier of the driver.</li>\n</ul>\n</li>\n<li><p><code>video</code>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "videos",
+                ":voidId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "voidId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "122994c6-1ee0-4760-a4bc-f16284df441a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "videos",
+                    ":voidId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "voidId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67955c0c-f2b7-40d3-b269-bcc9f67b4864",
+          "name": "List Videos",
+          "request": {
+            "name": "List Videos",
+            "description": {
+              "content": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API provides access to videos associated with specific vehicles.</p>\n<h3 id=\"query-parameters\">Query Parameters</h3>\n<ul>\n<li><p><code>perPage</code> (optional): Number of videos to retrieve per page. Default is 10.</p>\n</li>\n<li><p><code>page</code> (optional): Page number to retrieve. Default is 1.</p>\n</li>\n<li><p><code>alertId</code> (optional): Alert Id received via Alerts Webhook</p>\n</li>\n<li><p><code>alertKind</code> (required with alertId): Alert Kind recevied via Alerts Webhook</p>\n</li>\n</ul>\n<h3 id=\"response-structure\">Response Structure</h3>\n<ul>\n<li><p><code>values</code> (array): An array of video objects.</p>\n<ul>\n<li><p><code>vodId</code> (string): Unique identifier for the video on demand (VOD).</p>\n</li>\n<li><p><code>deviceId</code> (string): Device identifier associated with the video.</p>\n</li>\n<li><p><code>requestType</code> (string): Type of video request.</p>\n</li>\n<li><p><code>duration</code> (integer): Duration of the video in seconds.</p>\n</li>\n<li><p><code>format</code> (string): Format of the video.</p>\n</li>\n<li><p><code>creatorType</code> (string): Type of creator of the video.</p>\n</li>\n<li><p><code>vehicleUuid</code> (string): Unique identifier of the vehicle associated with the video.</p>\n</li>\n<li><p><code>extraData</code> (object): Additional data associated with the video.</p>\n</li>\n<li><p><code>status</code> (string): Status of the video.</p>\n</li>\n<li><p><code>createdAt</code> (string): Timestamp indicating when the video was created.</p>\n</li>\n<li><p><code>updatedAt</code> (string): Timestamp indicating when the video was last updated.</p>\n</li>\n<li><p><code>driver</code> (object): Information about the driver associated with the video.</p>\n<ul>\n<li><p><code>driverName</code> (string): Name of the driver.</p>\n</li>\n<li><p><code>driverId</code> (integer): Unique identifier of the driver.</p>\n</li>\n</ul>\n</li>\n<li><p><code>video</code> (object): Information about the video",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53bd910f-8162-419a-9270-a32516819ab8",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86b8b4ac-89aa-4f0a-9342-a3f74721dd07",
+          "name": "Create Video Request",
+          "request": {
+            "name": "Create Video Request",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>This API allows users to request the creation of a vehicle video. Users can specify various parameters such as format, resolution, request type, creator type, device ID, duration, and start time for the video.</p>\n<h3 id=\"request-body\"><strong>Request Body</strong></h3>\n<ul>\n<li><p><code>format</code> (string): Format of the video (e.g., \"Road\", \"Driver\", \"Side-by-Side\").</p>\n</li>\n<li><p><code>resolution</code> (string): Resolution of the video (e.g., \"640x480\").</p>\n</li>\n<li><p><code>requestType</code> (string): Type of video request (e.g., \"video\").</p>\n</li>\n<li><p><code>creatorType</code> (string): Type of creator (e.g., \"auto\" or \"manual\").</p>\n</li>\n<li><p><code>duration</code> (integer): Duration of the video in seconds.</p>\n</li>\n<li><p><code>startTime</code> (integer): Start time of the video recording.</p>\n</li>\n</ul>\n<h3 id=\"response-structure\"><strong>Response Structure</strong></h3>\n<ul>\n<li><code>vodId</code> (string): ID of the video-on-demand (VOD).</li>\n<li><code>deviceId</code> (string): ID of the device recording the video.</li>\n<li><code>requestType</code> (string): Type of video request (e.g., \"video\").</li>\n<li><code>duration</code> (integer): Duration of the video in seconds.</li>\n<li><code>format</code> (string): Format of the video (e.g., \"Road\").</li>\n<li><code>creatorType</code> (string): Type of creator (e.g., \"auto\").</li>\n<li><code>vehicleUuid</code> (string): UUID of the vehicle associated with the video.</li>\n<li><code>extraData</code> (object): Additional data associated with the video.</li>\n<li><code>status</code> (string): Status of the video creation process (e.g., \"pending\").</li>\n<li><code>createdAt</code> (string): Timestamp of when the video was created.</li>\n<li><code>updatedAt</code> (string): Timestamp of when the video was last updated.</li>\n<li><code>driver.driverName</code> (string): Name of the driver associated with the video.</li>\n<li><code>driver.driverId</code> (integer): ID of t",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "videos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bfced534-baa7-436c-97c2-e5b06914572a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "videos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"Road\",\n  \"resolution\": \"640x480\",\n  \"requestType\": \"video\",\n  \"creatorType\": \"auto\",\n  \"duration\": 1,\n  \"startTime\": 1702555021\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "12f53d62-7805-42e0-868f-84d55865f775",
+    "name": "LocoNav Integration Alert Subscriptions Video Telematics VT / Videos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

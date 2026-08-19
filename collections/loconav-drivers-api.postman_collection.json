@@ -1,0 +1,690 @@
+{
+  "item": [
+    {
+      "id": "1399ca95-2905-4201-9e15-afd1864231a7",
+      "name": "Drivers",
+      "description": {
+        "content": "<p>Efficient driver management is essential for the optimal operation of a fleet.</p>\n<p>Leveraging the capabilities of LocoNav REST APIs, fleet managers can seamlessly create, update, and retrieve detailed information about drivers. The system allows for precise retrieval of driver details based on their names, enabling informed decision-making.</p>\n<p>Moreover, fleet managers can maintain the accuracy of their driver roster by securely deleting off-record drivers. This suite of features empowers fleet managers to maintain a well-organized and high-performing team, enhancing overall fleet management effectiveness.</p>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3e8cb1c-4560-499f-bd0d-f5bfeaa99225",
+          "name": "Get Driver",
+          "request": {
+            "name": "Get Driver",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Details API allows users to retrieve detailed information about a specific driver in the LocoNav system. This information includes the driver's personal details, contact information, license details, guarantor information, and uploaded documents.</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>driverId</code> (integer, required): The unique identifier of the driver for which details are requested.</li>\n</ul>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><p><code>id</code> (integer): The unique identifier of the driver.</p>\n</li>\n<li><p><code>name</code> (string): The name of the driver.</p>\n</li>\n<li><p><code>phoneNumber</code> (string): The phone number of the driver.</p>\n</li>\n<li><p><code>aadharNumber</code> (string): The Aadhar number of the driver (if available).</p>\n</li>\n<li><p><code>vehicleNumber</code> (string): The vehicle number assigned to the driver.</p>\n</li>\n<li><p><code>licenseNumber</code> (string): The driver's license number.</p>\n</li>\n<li><p><code>guarantorName</code> (string): The name of the driver's guarantor.</p>\n</li>\n<li><p><code>guarantorPhoneNumber</code> (string): The phone number of the driver's guarantor.</p>\n</li>\n<li><p><code>licenseIssueDate</code> (integer): The timestamp of the driver's license issue date.</p>\n</li>\n<li><p><code>licenseValidFrom</code> (integer): The timestamp of the start date of the driver's license validity.</p>\n</li>\n<li><p><code>licenseValidUpto</code> (integer): The timestamp of the end date of the driver's license validity.</p>\n</li>\n<li><p><code>driverCountryCode</code> (string): The country code of the driver.</p>\n</li>\n<li><p><code>guarantorCountryCode</code> (string): The country code of the driver's guarantor.</p>\n</li>\n<li><p><code>rfidTrackingId</code> (string): The RFID tracking ID associated with the driver (if available).</p>\n</li>\n<li><p><code>uploads</code> (object): An object containing uploaded documents related to the driver.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "drivers",
+                ":driverId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "driverId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d99fbd7-94a1-4e3d-9e00-2803de4d68e0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "drivers",
+                    ":driverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "driverId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fdfd108-526a-4e06-be28-6380449c76f8",
+          "name": "Update Drivers",
+          "request": {
+            "name": "Update Drivers",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Update Driver API allows users to update the information of an<br />existing driver profile identified by the driver's unique identifier.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The updated name of the driver.</li>\n<li><code>countryCode</code> (string): The updated country code associated with the driver's phone number.</li>\n<li><code>phoneNumber</code> (string): The updated phone number of the driver.</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><code>success</code> (boolean): Indicates whether the operation was successful.</li>\n<li><code>data</code> (object): Contains details of the updated driver if the operation was successful.<ul>\n<li><code>id</code> (integer): Unique identifier for the updated driver.</li>\n<li><code>name</code> (string): Updated name of the driver.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"notes\">Notes</h2>\n<ul>\n<li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier of the driver to be updated.</li>\n<li>The <code>countryCode</code> parameter should follow the ISO standard.</li>\n<li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "drivers",
+                ":driverId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "driverId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7669463d-1960-4157-970a-bdaaf0cb5523",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "drivers",
+                    ":driverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "driverId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"demo\",\n  \"countryCode\": \"IN\",\n  \"phoneNumber\": \"8259986926\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e49659a0-07b5-4d11-9f40-ff3c517c47a6",
+          "name": "Delete Driver",
+          "request": {
+            "name": "Delete Driver",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Delete Driver API enables users to remove a driver profile from the system using the driver's unique identifier.</p>\n<h2 id=\"request-param\">Request Param</h2>\n<p><code>{driverId}</code>: The unique identifier of the driver to be deleted.</p>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><code>success</code> (boolean): Indicates whether the operation was successful.</li>\n<li><code>data</code> (string): Confirmation message indicating that the driver was deleted successfully.</li>\n</ul>\n<h2 id=\"notes\">Notes</h2>\n<ul>\n<li>The <code>{driverId}</code> parameter should be replaced with the actual unique identifier of the driver to be deleted.</li>\n<li>Deleting a driver profile is irreversible. Ensure that the correct driver identifier is provided before executing the request.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "drivers",
+                ":driverId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "driverId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c6cfeef-8f8f-4240-bd3d-71261bcfac4e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "drivers",
+                    ":driverId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "driverId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1ff9b33-4b39-4ec1-b6db-3c9281440f9a",
+          "name": "List drivers (Filter)",
+          "request": {
+            "name": "List drivers (Filter)",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Search Drivers API allows users to search for drivers by name. Users can provide a partial or full name of the driver to retrieve a list of matching drivers along with their associated phone numbers.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>name</code> (string): The name of the driver to search for. This parameter supports partial or full name matching.</p>\n</li>\n<li><p><code>page</code> (integer): The page number of the results to retrieve. Default is 1.</p>\n</li>\n<li><p><code>perPage</code> (integer): The number of results per page. Default is 10.</p>\n</li>\n<li><p><code>getIdAndName</code> (boolean,optional) default true, for more details set it false</p>\n</li>\n<li><p><code>vehicleIds: comma seprated vehicle uuid's</code></p>\n</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><p><code>values</code> (array): Array containing driver objects matching the search query.</p>\n<ul>\n<li><p><code>id</code> (integer): Unique identifier for the driver.</p>\n</li>\n<li><p><code>name</code> (string): Name of the driver.</p>\n</li>\n<li><p><code>phone_number</code> (string): Phone number of the driver.</p>\n</li>\n</ul>\n</li>\n<li><p><code>pagination</code> (object): Pagination details.</p>\n<ul>\n<li><p><code>page</code> (integer): Current page number.</p>\n</li>\n<li><p><code>perPage</code> (integer): Number of results per page.</p>\n</li>\n<li><p><code>more</code> (boolean): Indicates whether there are more pages of data available.</p>\n</li>\n</ul>\n</li>\n<li><p><code>metadata</code> (object): Additional metadata if available.</p>\n</li>\n</ul>\n<h2 id=\"note\">Note</h2>\n<ul>\n<li>The <code>name</code> parameter supports partial or full name matching, allowing users to search for drivers based on various name combinations.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "drivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74ca9ac7-2a28-477f-8f8b-ad824920631e",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "drivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4d12309-dd04-4423-b5a7-777fc23bedc2",
+          "name": "Create Drivers",
+          "request": {
+            "name": "Create Drivers",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Create Driver API allows users to create a new driver profile by providing the driver's name, country code, and phone number.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The name of the driver.</li>\n<li><code>countryCode</code> (string): The country code associated with the driver's phone number.</li>\n<li><code>phoneNumber</code> (string): The phone number of the driver.</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><code>success</code> (boolean): Indicates whether the operation was successful.</li>\n<li><code>data</code> (object): Contains details of the created driver if the operation was successful.<ul>\n<li><code>id</code> (integer): Unique identifier for the created driver.</li>\n<li><code>name</code> (string): Name of the created driver.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"notes\">Notes</h2>\n<ul>\n<li>The <code>countryCode</code> parameter should follow the ISO standard.</li>\n<li>Phone numbers should be provided without any special characters (e.g., spaces, dashes)</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "drivers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95f5ee87-3ce5-4f2c-b2ce-dca2984a03c3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "drivers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc9a2ef9-8e86-44f9-9a17-1efea196c888",
+          "name": "Vehicle Assignment",
+          "request": {
+            "name": "Vehicle Assignment",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Vehicle Assignments API allows users to assign a driver to a specific vehicle in the LocoNav system. This association enables tracking and management of vehicles based on the assigned driver.</p>\n<h3 id=\"request-body\">Request Body</h3>\n<ul>\n<li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle to be assigned to the driver.</p>\n</li>\n<li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be assigned to the vehicle.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n<h4 id=\"successful-response-200-ok\">Successful Response (200 OK)</h4>\n<h3 id=\"status-codes\">Status Codes</h3>\n<ul>\n<li><p><code>200 OK</code>: The driver was successfully assigned to the vehicle.</p>\n</li>\n<li><p><code>404 Not Found</code>: The specified vehicle was not found in the system.</p>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "driver_vehicle_assignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2a8d5db-3ecb-4204-aaec-26466be1b818",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "driver_vehicle_assignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"077c6ab2-6456-4e07-abd6-1e18bbe7ba1d\",\n  \"driverId\": 29866\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4ffd416-fb68-426e-aaec-f6864acc7caa",
+          "name": "Vehicle Unassignment",
+          "request": {
+            "name": "Vehicle Unassignment",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Vehicle Unassignments API allows users to remove the association of a driver from a specific vehicle in the LocoNav system. This action disassociates the driver from the vehicle for tracking and management purposes.</p>\n<h3 id=\"request-body\">Request Body</h3>\n<ul>\n<li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle from which the driver will be unassigned.</p>\n</li>\n<li><p><code>driverId</code> (integer, required): The unique identifier of the driver to be unassigned from the vehicle.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n<h4 id=\"successful-response-200-ok\">Successful Response (200 OK)</h4>\n<h3 id=\"status-codes\">Status Codes</h3>\n<ul>\n<li><p><code>200 OK</code>: The driver was successfully unassigned from the vehicle.</p>\n</li>\n<li><p><code>422 Unprocessable Entity</code>: The specified driver is not currently assigned to the provided vehicle.</p>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "driver_vehicle_unassignments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "507463df-58e4-4e77-a20e-7cf9a03d5f49",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "driver_vehicle_unassignments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"077c6ab2-6456-4e07-abd6-1e18bbe7ba1d\",\n  \"driverId\": 29866\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3c8b8e91-1cce-446d-91fa-34220baeaa41",
+    "name": "LocoNav Integration Alert Subscriptions Drivers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,521 @@
+{
+  "item": [
+    {
+      "id": "f1660d71-9e11-4dda-90cc-701c1cae5706",
+      "name": "Trips",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f2ecaec-b716-4926-99c6-55e153325b1d",
+          "name": "List Trips",
+          "request": {
+            "name": "List Trips",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>This API allows users to retrieve a list of trips based on various filters such as unique ID, start time, end time, states, driver ID, sort column, sort order, page number, and number of trips per page.</p>\n<h3 id=\"query-parameters\"><strong>Query Parameters:</strong></h3>\n<ul>\n<li><code>uniqueId</code> (string, optional): Unique ID of the trip.</li>\n<li><code>startTime</code> (integer, optional): Start time of the trip.</li>\n<li><code>endTime</code> (integer, optional): End time of the trip.</li>\n<li><code>states</code> (string, optional): Comma-separated list of states to filter trips by. <strong>{ initialized, trashed, ongoing, delayed, unsuccessful, completed }</strong></li>\n<li><code>driverId</code> (integer, optional): ID of the driver associated with the trip.</li>\n<li><code>sortColumn</code> (string, optional): Column to sort the trips by. <strong>{shouldStartAt, createdAt}</strong></li>\n<li><code>sortOrder</code> (string, optional): Order of sorting <strong>{asc, desc}</strong>.</li>\n<li><code>page</code> (integer, optional): Page number of the results.</li>\n<li><code>perPage</code> (integer, optional): Number of trips per page.</li>\n<li><code>vehicleNumber</code> (string, optional): Number of the vehicle associated with the trip.</li>\n</ul>\n<h3 id=\"response-structure\"><strong>Response Structure</strong></h3>\n<ul>\n<li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>\n</li>\n<li><p><code>data.values</code> (array): Array of trip objects.</p>\n<ul>\n<li><p><code>id</code> (integer): ID of the trip.</p>\n</li>\n<li><p><code>vehicleNumber</code> (string): Number of the vehicle associated with the trip.</p>\n</li>\n<li><p><code>vehicleId</code> (integer): ID of the vehicle associated with the trip.</p>\n</li>\n<li><p><code>uniqueId</code> (string): Unique ID of the trip.</p>\n</li>\n<li><p><code>shouldStartTs</code> (integer): Start time of the trip.</p>\n</li>\n<li><p><code>createdAt</code> (integer): Time",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "trips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11afd6e8-115a-4da9-a077-319515e79175",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "trips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5710cfdb-d320-45a9-bf84-2ce498c7e132",
+          "name": "Create Trip",
+          "request": {
+            "name": "Create Trip",
+            "description": {
+              "content": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>Create Trip.</p>\n<ol>\n<li><p>Create trip using route name: Pass route name in the create trip API.</p>\n</li>\n<li><p>Create trip using Route id: Pass route id in the create trip API.</p>\n</li>\n<li><p>Create trip using geofence: Pass geofence id in the create trip API</p>\n</li>\n<li><p>Create Trip using the address and coordinates : Pass address and coordinates in source in the create trip API</p>\n</li>\n<li><p>Create Trip where the destination is not known</p>\n</li>\n<li><p>Create Trip with multiple stops/checkpoints</p>\n</li>\n</ol>\n<p>Create Trip Request</p>\n<ol>\n<li>Removing the <code>vehicle</code> json object from the body of the request will create a trip request instead of trip. (Trip state will be \"requested\" instead of \"new\"). For this \"trip_request\" feature should be enabled for User.</li>\n</ol>\n<p><strong>Mandatory Fields</strong> :</p>\n<ol>\n<li><p><code>should_start_at</code></p>\n</li>\n<li><p><code>source</code></p>\n<ol>\n<li>\"geofence_id\" or \"geofence_name\" or a combination of (\"coordinates\" and \"address\")</li>\n</ol>\n</li>\n</ol>\n<p><strong>Validations</strong>:</p>\n<ol>\n<li><code>etd</code> (Estimated Time of Departure) &gt; <code>eta</code> (Estimated Time of Arrival)</li>\n</ol>\n<p><strong>Cases:</strong></p>\n<ol>\n<li><p>Route[id, name], if either of id and name is present, it means we are using existing route. source, checkpoints, destination can be ignored.</p>\n</li>\n<li><p>If Route[id, name] not present, send Source and CheckPoints. Destination is optional.</p>\n<ol>\n<li><p>if create_new_vehicle_route is not present, route won't be shown on UI.</p>\n</li>\n<li><p>if create_new vehicle route is present, route name is mandatory and will be shown on UI.</p>\n</li>\n</ol>\n</li>\n</ol>\n<h2 id=\"request-body\"><strong>Request Body</strong></h2>\n<ul>\n<li><p><code>vehicle</code></p>\n<ul>\n<li><p><code>id</code> (integer)</p>\n</li>\n<li><p><code>number</code> (string)</p>\n</li>\n</ul>\n</li>\n<li><p><code>route</code></p>\n<ul",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "trips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6001a85-9915-44ea-aedd-c634006f2099",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "trips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"trip\": {\n    \"vehicle\": {\n      \"number\": \"VT_MOCKER2\"\n    },\n    \"customFields\": {},\n    \"createNewVehicleRoute\": true,\n    \"newVehicleRouteName\": \"test_test_route_12\",\n    \"shouldStartAt\": 1706264834,\n    \"uniqueId\": \"test_01\",\n    \"expectedDistance\": 30,\n    \"tripDelayAlertsEnabled\": true,\n    \"sourceName\": \"Gurugram\",\n    \"shouldExpireOldTrips\": false,\n    \"source\": {\n      \"address\": \"test_address\",\n      \"coordinates\": \"10.01,10.01\",\n      \"radius\": 10,\n      \"eta\": 1706285834,\n      \"etd\": 1706287834\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "324a3f50-12b5-498c-999a-d8d4ee008eb6",
+          "name": "Update Trip",
+          "request": {
+            "name": "Update Trip",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint allows users to update trip details such as the source location and actions.</p>\n<p><strong>Action can have these 4 values</strong></p>\n<ol>\n<li><code>UPDATE_TRIP</code> - Can update any variables<ol>\n<li>Mandatory Fields : action, source</li>\n</ol>\n</li>\n<li><code>END_TRIP</code> - To end the trip: Only need \"id\" for this.<ol>\n<li>Mandatory Fields : action, source</li>\n</ol>\n</li>\n<li><code>PARTIAL_UPDATE_TRIP</code> - Can be used to update \"custom_fields\" only.<ol>\n<li>Mandatory Fields : action, custom_fields</li>\n</ol>\n</li>\n<li><code>REJECT_TRIP</code> - To reject a trip which is in requested state.<ol>\n<li>Mandatory Fields: action</li>\n</ol>\n</li>\n<li><code>START_TRIP</code> - To start the trip: Only need \"id\" for this.<ol>\n<li>Mandatory Fields : action</li>\n</ol>\n</li>\n</ol>\n<h2 id=\"path-variables\">Path Variables</h2>\n<ul>\n<li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>\n</ul>\n<h2 id=\"request-body\"><strong>Request Body</strong></h2>\n<ul>\n<li><code>action</code> (string, required)</li>\n<li><code>newVehicleRouteName</code> (string)</li>\n<li><code>shouldStartAt</code> (integer, epoch timestamp) Time by which trip should be started</li>\n<li><code>expectedDistance</code> (integer)</li>\n<li><code>tripDelayAlertsEnabled</code> (boolean)</li>\n<li><code>sourceName</code> (string)</li>\n<li><code>destinationName</code> (string)</li>\n<li><code>shouldExpireOldTrips</code> (boolean) Mark True if you want to expire all active trips on the vehicle.</li>\n<li><code>checkPoints</code><ul>\n<li><code>geofenceId</code> (integer)</li>\n<li><code>geofenceName</code> (string)</li>\n<li><code>eta</code> (integer, epoch timestamp in seconds)</li>\n<li><code>etd</code> (integer, epoch timestamp in seconds)</li>\n<li><code>coordinates</code> (string, lat,long)</li>\n<li><code>address</code> (string)</li>\n<li><code>createGatepass</code> (boolean)</li>\n</ul>\n</li>\n<li><code>source</code><ul>\n<li><code>geofe",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "trips",
+                ":tripId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tripId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a34b42ed-e99f-4c46-be04-cd5afdae1613",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "trips",
+                    ":tripId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tripId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"trip\": {\n    \"action\": \"START_TRIP\",\n    \"source\": {\n      \"address\": \"test_address\",\n      \"coordinates\": \"10.01,10.01\",\n      \"radius\": 10,\n      \"eta\": 1706285834,\n      \"etd\": 1706287834\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a5f0599-d950-476e-bfdb-3963247e2d64",
+          "name": "Delete Trip",
+          "request": {
+            "name": "Delete Trip",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint allows administrators to delete a trip based on its ID.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>\n</li>\n<li><p><code>message</code>(string): A message confirming the success of the deletion operation.</p>\n</li>\n</ul>\n<h3 id=\"notes\">Notes</h3>\n<ul>\n<li>Replace <code>{trip_id}</code> in the URL with the actual ID of the trip to be deleted.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "trips",
+                ":tripId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tripId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a87afcb-efc7-4f10-be94-187cfe003e3c",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "trips",
+                    ":tripId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tripId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "daa0be9a-6842-43ec-a165-d4b909e51287",
+          "name": "Get Trip Track Url",
+          "request": {
+            "name": "Get Trip Track Url",
+            "description": {
+              "content": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API endpoint retrieves a <strong>public tracking URL</strong> for a specific trip, including given checkpoints, allowing users to monitor the trip's progress in real-time.</p>\n<p>Clients can send this URL directly to end customers for real time public tracking of the vehicle.</p>\n<h3 id=\"path-parameters\"><strong>Path Parameters</strong></h3>\n<ul>\n<li><code>{trip_id}</code> (integer): ID of the trip for which the tracking URL is requested.</li>\n</ul>\n<h3 id=\"query-parameters\"><strong>Query Parameters</strong></h3>\n<ul>\n<li><code>allCheckPoints</code> (boolean): Indicates whether to include all checkpoints in the tracking URL. Set to <code>true</code> to include all checkpoints.</li>\n<li><code>checkPointIds</code> (array of integer): If <code>allCheckPoints</code> param is <code>false</code> then user need to pass geofence ids that were passed in Create Trip API. (Eg: [23,45]). The map will only shows the mentioned check points.</li>\n</ul>\n<h2 id=\"response-structure\"><strong>Response Structure</strong></h2>\n<ul>\n<li><code>success</code> (boolean): Indicates whether the request was successful.</li>\n<li><code>data</code><ul>\n<li><code>tripTrackToken</code> (string): Token used to track the trip.</li>\n<li><code>url</code> (string): Tracking URL for the trip.</li>\n</ul>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "trips",
+                ":tripId",
+                "track_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tripId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a257186a-a5dc-46da-9292-e2ca9997500f",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "trips",
+                    ":tripId",
+                    "track_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tripId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f384eac8-05e2-4285-80d2-ebbea210ff72",
+    "name": "LocoNav Integration Alert Subscriptions Trips API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

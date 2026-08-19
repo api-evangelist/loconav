@@ -1,0 +1,400 @@
+{
+  "item": [
+    {
+      "id": "1913ffa6-257f-4285-a5dd-d78b1577a901",
+      "name": "Vehicles",
+      "description": {
+        "content": "<p>Loconav's Vehicle APIs offer developers a powerful toolkit for real-time fleet management. The Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats API delivers live statistics.</p>\n<p>These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and analytics, enhancing operational efficiency and decision-making.</p>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0681a42b-8169-4ed4-bd68-e5ed84c49a44",
+          "name": "List Vehicles",
+          "request": {
+            "name": "List Vehicles",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The List Vehicles API enables users to retrieve a paginated list of vehicles along with their details like vehicle number, device details, subscription details and more.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>vehicleNumber</code> (string, optional): The vehicle number for filtering</p>\n</li>\n<li><p><code>deviceSerialNumber</code>(string, optional): The Device serial Number (IMEI) number</p>\n</li>\n<li><p><code>page</code> (integer): The page number for pagination. Default is 1.</p>\n</li>\n<li><p><code>perPage</code> (integer): The number of vehicles to be included per page. Default is 10.</p>\n</li>\n<li><p><code>vehicleNumbers</code> (string, optional):The vehicle numbers for filtering.</p>\n</li>\n<li><p><code>vehicleUuids</code> (string, optional): The vehicleUuids for filtering.</p>\n</li>\n<li><p><code>fetchMobilizationDetails</code>(boolean,optional): Vehicle Mobilzation Status</p>\n</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<p>Each vehicle entry includes the following details:</p>\n<ul>\n<li><p><code>number</code> (string): Vehicle registration number.</p>\n</li>\n<li><p><code>deviceId</code> (string): Unique identifier for the associated device.</p>\n</li>\n<li><p><code>displayNumber</code> (string): Display name or identifier for the vehicle.</p>\n</li>\n<li><p><code>vehicleUuid</code> (string): Unique identifier for the vehicle.</p>\n</li>\n<li><p><code>status</code> (boolean): Current status of the vehicle.</p>\n</li>\n<li><p><code>current_device</code> (object): Details about the associated device.</p>\n</li>\n<li><p><code>subscription</code> (object): Details about the subscription, including expiration date.</p>\n</li>\n<li><p><code>vehicleType</code> (string): Type or category of the vehicle.</p>\n</li>\n<li><p><code>createdAt</code> (integer): Timestamp indicating when the vehicle record was created.</p>\n</li>\n<li><p><code>updatedAt</code> (integer): Timestamp indicating when the vehicle",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0b4940a-abdf-494c-a417-92b43fd8c18a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00ddfa4f-184e-413b-b8dd-0c40b111d652",
+          "name": "Get Vehicle Score card",
+          "request": {
+            "name": "Get Vehicle Score card",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Vehicle Score card API provides detailed insights into the behavior and performance of a vehicle within a specified time range. Fleet managers can utilize this information to assess driver efficiency, safety, and overall performance.</p>\n<h2 id=\"query-parameters\">Query Parameters</h2>\n<ul>\n<li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>\n<li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>\n</ul>\n<h3 id=\"response-fields\">Response Fields</h3>\n<ul>\n<li><code>runningTime</code>: Time the vehicle spent in motion (unit: minutes).</li>\n<li><code>distance</code>: Total distance covered by the vehicle (unit: km).</li>\n<li><code>stoppageTime</code>: Time the vehicle spent in stoppage (unit: minutes).</li>\n<li><code>idleDuration</code>: Duration of engine idling (unit: minutes).</li>\n<li><code>idlingEventsCount</code>: Number of idling events.</li>\n<li><code>overspeedDuration</code>: Duration of overspeeding (unit: minutes).</li>\n<li><code>overspeedEventsCount</code>: Number of overspeed events.</li>\n<li><code>suddenBrakingEventsCount</code>: Number of sudden braking events.</li>\n<li><code>suddenAccelerationEventsCount</code>: Number of sudden acceleration events.</li>\n<li><code>sharpTurnEventsCount</code>: Number of sharp turn events.</li>\n<li><code>seatBeltEventsCount</code>: Number of seat belt events.</li>\n<li><code>totalEvents</code>: Total number of events.</li>\n<li><code>overallScore</code>: Overall driver score (unit: points, ranging from 0 to 100).</li>\n<li><code>distanceMetric</code>: Total distance covered metric (unit: km).</li>\n<li><code>fuelConsumption</code>: Fuel consumption during the specified period (unit: liters).</li>\n<li><code>mileage</code>: Vehicle mileage information (unit: km/h).</li>\n<li><code>totalDuration</code>: Total duration of the specified period (unit: minutes).</li>\n</ul>\n<h2 id=\"notes\">Notes</h2>\n<ul>\n<l",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "score_card"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ade6301-b669-49c3-970b-2107baddaa43",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "score_card"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20716eba-de1a-4ff6-a8a1-f4fae5de154c",
+          "name": "Get Vehicle Details",
+          "request": {
+            "name": "Get Vehicle Details",
+            "description": {},
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c553aa46-e559-485a-bd8d-012485496e51",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9eb03e36-6fc1-486c-a235-816457e6b59d",
+          "name": "Get Live Share Link",
+          "request": {
+            "name": "Get Live Share Link",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Live Share Link API allows users to retrieve a shareable link for real-time tracking of a specific vehicle. This link can be shared with others to provide live updates on the vehicle's location and status.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which the live share link is requested.</li>\n</ul>\n<h3 id=\"response-structure\">Response Structure</h3>\n<ul>\n<li><code>shareLink</code> (string): The generated shareable link for live tracking of the vehicle. This is a public link and can be open in any browser.</li>\n</ul>\n<h3 id=\"status-codes\">Status Codes</h3>\n<ul>\n<li><code>200 OK</code>: The request was successful, and the shareable link is provided.</li>\n<li><code>404 Not Found</code>: The requested vehicle was not found.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "live_share_link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e959aa4-3082-45b5-bd48-8097dd393cff",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "live_share_link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "859cfb00-1c98-4481-a6ac-de318089fad6",
+    "name": "LocoNav Integration Alert Subscriptions Vehicles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

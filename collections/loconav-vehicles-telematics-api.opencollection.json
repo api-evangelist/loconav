@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Vehicles / Telematics API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicles / Telematics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Last known",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/telematics/last_known",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Vehicle Last Known Status API allows users to retrieve the latest telemetry data for one or more vehicles, including information such as GPS coordinates, vehicle speed, ignition status, vehicle battery level and more.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>vehicleIds</code> (array, optional): An array of vehicle UUIDs for which the last known status is requested. If not provided, telemetry data for all vehicles is returned.</"
+        },
+        {
+          "info": {
+            "name": "Get Distance Travelled",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/distance_travelled",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Vehicle Distance Travelled API allows users to retrieve the total distance travelled by a specific vehicle within a specified time range. This information can be valuable for tracking vehicle usage, analyzing efficiency, and managing maintenance schedules.</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>startTime</code> (integer, required): The start timestamp of the time range in Unix epoch format.</li>\n<li><code>endTime</code> (integer, r"
+        },
+        {
+          "info": {
+            "name": "Get Timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/timeline",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Vehicle Telematics Timeline API provides historical movement and event data for a specific vehicle within a specified time range. This documentation outlines the usage, request parameters, and response structure of the API.</p>\n<p><strong>Timeline will consist of 2 main parts</strong></p>\n<ol>\n<li><code>Summary data</code> for the provided time</li>\n<li><code>Timeline data</code> containing event details</li>\n</ol>\n<h2 id=\"query-parameters\">Query Parameters"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

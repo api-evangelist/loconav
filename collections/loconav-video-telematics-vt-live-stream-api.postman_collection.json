@@ -1,0 +1,445 @@
+{
+  "item": [
+    {
+      "id": "a632ad51-a7d9-47ba-ac01-eb69461c6d30",
+      "name": "Video Telematics VT / Live Stream",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5884fefb-c9ae-4ba7-974f-70ae4ad7b2a1",
+          "name": "Get Livesteam",
+          "request": {
+            "name": "Get Livesteam",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>This API retrieves the live video stream for vehicle telematics. It requires the session ID of the livestream.</p>\n<h2 id=\"query-parameters\">Query Parameters</h2>\n<ul>\n<li><code>sessionId</code> (string): The session ID of the livestream.</li>\n</ul>\n<h2 id=\"request-headers\">Request Headers</h2>\n<ul>\n<li><code>User-Authentication</code>: Your user authentication token.</li>\n<li><code>Content-Type</code>: application/json</li>\n</ul>\n<h2 id=\"response\">Response</h2>\n<p>The API returns a JSON object with the following fields:</p>\n<ul>\n<li><code>streamId</code> (string): The ID of the video stream.</li>\n<li><code>backCamUrl</code> (string): URL for the back camera feed.</li>\n<li><code>frontCamUrl</code> (string): URL for the front camera feed.</li>\n<li><code>options</code> (array of strings): Available video options.</li>\n<li><code>currentResolution</code> (string): Current video resolution.</li>\n<li><code>sessionId</code> (string): The session ID of the livestream.</li>\n<li><code>status</code> (string): Status of the livestream (e.g., \"active\").</li>\n<li><code>keepAliveInterval</code> (integer): Interval for keeping the livestream alive.</li>\n<li><code>totalSessionTime</code> (integer): Total duration of the livestream session. (time in seconds)</li>\n<li><code>activeSessions</code> (integer): Number of active livestream sessions.</li>\n<li><code>expiryNotificationBuffer</code> (integer): Buffer time for expiry notification.</li>\n<li><code>afterExpiryBuffer</code> (integer): Buffer time after expiry.</li>\n</ul>\n<h2 id=\"notes\">Notes</h2>\n<ul>\n<li>The livestream URLs (<code>backCamUrl</code> and <code>frontCamUrl</code>) should be used to access the video feeds.</li>\n<li>Ensure that the session ID provided is valid and active.</li>\n<li>Authentication token is required for accessing the livestream.</li>\n<li>The response may contain additional fields not listed here.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "livestreams",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sessionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1d92b489-5d2f-4047-89b3-2779f79e7403",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "livestreams",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b906654-a732-4c9f-81b9-0517c070f925",
+          "name": "Update Livestream",
+          "request": {
+            "name": "Update Livestream",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint facilitates the modification of a livestream session, allowing users to either update its resolution or extend its duration.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><p><strong><code>operation</code></strong> (string): Indicates operation whether to update resolution or extend the livestream session.</p>\n<ul>\n<li><p>Data Type: String</p>\n</li>\n<li><p>Options: \"<strong>change_resolution</strong>\" or \"<strong>extend_duration</strong>\"</p>\n</li>\n</ul>\n</li>\n<li><p><strong><code>resolution</code></strong> (string): Specifies the desired resolution for the livestream.</p>\n<ul>\n<li>Data Type: String</li>\n<li>Options: \"640x480\", \"1280x720\", \"1920x1080\", \"3840x2160\"</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"response-body\">Response Body</h2>\n<ul>\n<li><strong><code>success</code></strong> (boolean): Indicates whether the request was successful.<ul>\n<li>Data Type: Boolean</li>\n</ul>\n</li>\n<li><strong><code>message</code></strong> (string): Message confirming the success of the livestream session update.<ul>\n<li>Data Type: String</li>\n</ul>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "livestreams",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sessionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "030488a8-e4a5-4494-b805-1c0988fce6e3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "livestreams",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sessionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operation\": \"extend_duration\",\n  \"resolution\": \"640x480\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bc6dc3b-0775-43b6-95c7-9fae9923a652",
+          "name": "Create Livestream",
+          "request": {
+            "name": "Create Livestream",
+            "description": {
+              "content": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API initiates a live video streaming session for a vehicle. Data will be returned if vehicle support Video or contains active VT device.</p>\n<h2 id=\"request-body\"><strong>Request Body</strong></h2>\n<ul>\n<li><p><code>vehicleId</code> (string): The ID of the vehicle</p>\n</li>\n<li><p><code>resolution</code> (string): The desired resolution for the video stream. Options</p>\n<ul>\n<li>640x480</li>\n<li>1280x720</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"response-structure\"><strong>Response Structure</strong></h2>\n<ul>\n<li><p><code>success</code> (boolean): Indicates whether the request was successful or not.</p>\n</li>\n<li><p><code>data</code> (object): Contains the details of the live video streaming session.</p>\n<ul>\n<li><code>streamId</code> (string): The ID of the video streaming session.</li>\n<li><code>backCamUrl</code> (string): URL for accessing the live stream from the back camera.</li>\n<li><code>frontCamUrl</code> (string): URL for accessing the live stream from the front camera.</li>\n<li><code>options</code> (array of strings): Available options for the video stream.</li>\n<li><code>currentResolution</code> (string): The current resolution of the video stream.</li>\n<li><code>sessionId</code> (string): The ID of the session.</li>\n<li><code>status</code> (string): The status of the session (e.g., initiated, active).</li>\n<li><code>keepAliveInterval</code> (integer): The interval (in seconds) for sending keep-alive signals.</li>\n<li><code>totalSessionTime</code> (integer): The total duration of the session (in seconds).</li>\n<li><code>activeSessions</code> (integer): The number of active sessions.</li>\n<li><code>expiryNotificationBuffer</code> (integer): The buffer time (in seconds) for expiry notification.</li>\n<li><code>afterExpiryBuffer</code> (integer): The buffer time (in seconds) after expiry.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"notes\"><strong>Notes</strong></h2>\n<ul>\n<li>The <code>resolution</code> parameter specifies the",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "livestreams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5e05c1c5-ac37-43e3-90ed-bc5f6512cfda",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "livestreams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleId\": \"ff3fb6bf-1c1e-429d-b5ac-60afda6ee94f\",\n  \"resolution\": \"640x480\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08d28514-986f-49ab-9b01-f3a7f26bfc25",
+          "name": "Delete Livestream",
+          "request": {
+            "name": "Delete Livestream",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint is used to delete a specific vehicle's telematics livestream by providing its unique session ID.</p>\n<h2 id=\"response-body\">Response Body</h2>\n<ul>\n<li><p><strong><code>status</code></strong> (boolean): Indicates whether the request was successful.</p>\n<ul>\n<li>Data Type: Boolean</li>\n</ul>\n</li>\n<li><p><strong><code>data</code></strong> (object): Additional data related to the deletion process.</p>\n<ul>\n<li><p><strong><code>success</code></strong> (boolean): Indicates whether the deletion was successful.</p>\n<ul>\n<li>Data Type: Boolean</li>\n</ul>\n</li>\n<li><p><strong><code>message</code></strong> (string): A message confirming the success of the deletion operation.</p>\n<ul>\n<li>Data Type: String</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "livestreams",
+                ":streamId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "streamId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "690c6222-edb8-42c0-80f2-dd8472cf6913",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "livestreams",
+                    ":streamId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "streamId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3e3a1add-456f-4c6a-ac7d-41f4d1c019ac",
+    "name": "LocoNav Integration Alert Subscriptions Video Telematics VT / Live Stream API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

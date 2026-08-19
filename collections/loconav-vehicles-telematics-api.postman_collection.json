@@ -1,0 +1,338 @@
+{
+  "item": [
+    {
+      "id": "f4fceef3-a522-497e-a4be-3a63a10f830e",
+      "name": "Vehicles / Telematics",
+      "description": {
+        "content": "<p>Thes APIs allows you to access telematics data for vehicles, enabling you to retrieve real-time information and history about their status, location, and various sensor readings.</p>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45301e72-5ccb-441c-92c8-93be250d7583",
+          "name": "Last known",
+          "request": {
+            "name": "Last known",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Vehicle Last Known Status API allows users to retrieve the latest telemetry data for one or more vehicles, including information such as GPS coordinates, vehicle speed, ignition status, vehicle battery level and more.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>vehicleIds</code> (array, optional): An array of vehicle UUIDs for which the last known status is requested. If not provided, telemetry data for all vehicles is returned.</li>\n<li><code>sensors</code> (array): An array specifying the sensors for which data is requested. Currently, only up to 3 sensors can be specified at a time.</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><code>values</code> (array): Array containing telemetry data for each requested vehicle.<ul>\n<li><code>vehicleNumber</code> (string): Vehicle registration number.</li>\n<li><code>vehicleId</code> (string): Unique identifier for the vehicle.</li>\n<li><code>sensors</code> (object): Telemetry data for the requested sensors.</li>\n</ul>\n</li>\n<li><code>pagination</code> (object): Pagination details.<ul>\n<li><code>page</code> (integer): Current page number.</li>\n<li><code>perPage</code> (integer): Number of vehicles per page.</li>\n<li><code>count</code> (integer): Total count of vehicles in the response.</li>\n<li><code>more</code> (boolean): Indicates whether there are more pages of data available.</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"note\">Note</h2>\n<ul>\n<li>If the <code>vehicleIds</code> parameter is not provided, telemetry data for all vehicles will be returned in a paginated form.</li>\n<li>Only up to 3 sensors can be specified at a time in the <code>sensors</code> array.</li>\n<li>If <code>sensors</code> are not passed, <code>GPS</code> sensors are returned by default</li>\n<li><code>GPS</code> object is a <em>special</em> object which contains <strong>speed</strong>, <strong>ignition</strong>, <strong>orientation</strong>, <strong>currentLocationCoordinates</",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                "telematics",
+                "last_known"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1bfbc77-3569-43cc-ba1d-ee91cf0032a3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    "telematics",
+                    "last_known"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vehicleIds\": [\n    \"077c6ab2-6456-4e07-abd6-1e18bbe7ba1d\"\n  ],\n  \"sensors\": [\n    \"gps\",\n    \"vehicleBatteryLevel\",\n    \"numberOfSatellites\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "891a38f9-7b76-4c88-ba42-2b8785372d6e",
+          "name": "Get Distance Travelled",
+          "request": {
+            "name": "Get Distance Travelled",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Vehicle Distance Travelled API allows users to retrieve the total distance travelled by a specific vehicle within a specified time range. This information can be valuable for tracking vehicle usage, analyzing efficiency, and managing maintenance schedules.</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>startTime</code> (integer, required): The start timestamp of the time range in Unix epoch format.</li>\n<li><code>endTime</code> (integer, required): The end timestamp of the time range in Unix epoch format.</li>\n</ul>\n<p>Note:</p>\n<ol>\n<li>Difference between startTime and endTime should be less than a day.</li>\n<li>History data is available till last 6 months.</li>\n</ol>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><code>startTime</code> (integer): The start timestamp of the requested time range.</li>\n<li><code>endTime</code> (integer): The end timestamp of the requested time range.</li>\n<li><code>number</code> (string): The unique identifier or name of the vehicle.</li>\n<li><code>distance</code> (object): An object containing the total distance travelled.<ul>\n<li><code>unit</code> (string): The unit of measurement for the distance (e.g., \"km\" for kilometers).</li>\n<li><code>value</code> (float): The total distance travelled by the vehicle within the specified time range.</li>\n</ul>\n</li>\n<li><code>vehicleUuid</code> (string): The unique identifier of the vehicle.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "distance_travelled"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "835166d8-200e-4963-943a-b985ef62df0c",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "distance_travelled"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29d9c45a-1706-428f-9971-361d235d3af6",
+          "name": "Get Timeline",
+          "request": {
+            "name": "Get Timeline",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Vehicle Telematics Timeline API provides historical movement and event data for a specific vehicle within a specified time range. This documentation outlines the usage, request parameters, and response structure of the API.</p>\n<p><strong>Timeline will consist of 2 main parts</strong></p>\n<ol>\n<li><code>Summary data</code> for the provided time</li>\n<li><code>Timeline data</code> containing event details</li>\n</ol>\n<h2 id=\"query-parameters\">Query Parameters</h2>\n<ul>\n<li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>\n<li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>\n</ul>\n<p>Note:</p>\n<ol>\n<li><p>Difference between startTime and endTime should be less than a day.</p>\n</li>\n<li><p>History data is available till last 6 months.</p>\n</li>\n</ol>\n<h2 id=\"response-structure\">Response Structure</h2>\n<p>The response consists of detailed information about the vehicle's movement, location, and timeline events.</p>\n<ul>\n<li><code>startLocation</code>: Starting location object<ul>\n<li><code>coordinates</code>: lat,long coordinates of the vehicle.</li>\n<li><code>address</code> : Geo address of the vehicle at start location</li>\n</ul>\n</li>\n<li><code>endLocation</code>: Ending coordinates of the vehicle.<ul>\n<li><code>coordinates</code>: lat,long coordinates of the vehicle</li>\n<li><code>address</code>: Geo address of the vehicle at end location</li>\n</ul>\n</li>\n<li><code>motion</code>: Details about the vehicle's motion, including distance, running time, stoppage time, offline time, and average speed.</li>\n<li><code>timeline</code>: An array of timeline events, each providing information about a specific segment of the vehicle's journey.</li>\n</ul>\n<h2 id=\"timeline-event-structure\">Timeline Event Structure</h2>\n<p>Each timeline event includes the following details:</p>\n<ul>\n<li><code>startLocation</code>: Starting location object<ul>\n<li><cod",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "timeline"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c3cf0b2-2104-4d98-81bd-a2bd4ca24736",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "timeline"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f345d04a-7eea-49da-90e4-9e82c96464c7",
+    "name": "LocoNav Integration Alert Subscriptions Vehicles / Telematics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

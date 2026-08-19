@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Video Telematics VT / Videos API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Video Telematics VT / Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Video",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/videos/:voidId",
+            "params": [
+              {
+                "name": "voidId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Video Details API allows users to retrieve detailed information about a specific video recording, providing insights into the associated device, duration, format, creator type, and more.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth_token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<u"
+        },
+        {
+          "info": {
+            "name": "List Videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/videos",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API provides access to videos associated with specific vehicles.</p>\n<h3 id=\"query-parameters\">Query Parameters</h3>\n<ul>\n<li><p><code>perPage</code> (optional): Number of videos to retrieve per page. Default is 10.</p>\n</li>\n<li><p><code>page</code> (optional): Page number to retrieve. Default is 1.</p>\n</li>\n<li><p><code>alertId</code> (optional): Alert Id received via Alerts Webhook</p>\n</li>\n<li><p><code>alertKind</code> (required with"
+        },
+        {
+          "info": {
+            "name": "Create Video Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/videos",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>This API allows users to request the creation of a vehicle video. Users can specify various parameters such as format, resolution, request type, creator type, device ID, duration, and start time for the video.</p>\n<h3 id=\"request-body\"><strong>Request Body</strong></h3>\n<ul>\n<li><p><code>format</code> (string): Format of the video (e.g., \"Road\", \"Driver\", \"Side-by-Side\").</p>\n</li>\n<li><p><code>resolution</code> (string): Resolution of the video (e.g., \"640x480"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

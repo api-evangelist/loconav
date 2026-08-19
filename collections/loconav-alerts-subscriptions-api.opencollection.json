@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Alerts Subscriptions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Alert Subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicle_uuid/alerts/subscriptions",
+            "params": [
+              {
+                "name": "vehicle_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Alert Subscriptions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

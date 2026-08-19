@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Vehicles API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Vehicles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles"
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The List Vehicles API enables users to retrieve a paginated list of vehicles along with their details like vehicle number, device details, subscription details and more.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>vehicleNumber</code> (string, optional): The vehicle number for filtering</p>\n</li>\n<li><p><code>deviceSerialNumber</code>(string, optional): The Device serial Number (IMEI) number</p>\n</li>\n<li><p><code>page</code> (inte"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Score card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/score_card",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Vehicle Score card API provides detailed insights into the behavior and performance of a vehicle within a specified time range. Fleet managers can utilize this information to assess driver efficiency, safety, and overall performance.</p>\n<h2 id=\"query-parameters\">Query Parameters</h2>\n<ul>\n<li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>\n<li><code>endTime</code> (required): The end time of the time range"
+        },
+        {
+          "info": {
+            "name": "Get Vehicle Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Vehicle Details"
+        },
+        {
+          "info": {
+            "name": "Get Live Share Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/live_share_link",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Live Share Link API allows users to retrieve a shareable link for real-time tracking of a specific vehicle. This link can be shared with others to provide live updates on the vehicle's location and status.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

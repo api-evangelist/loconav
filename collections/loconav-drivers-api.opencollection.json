@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Drivers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Drivers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Driver",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/drivers/:driverId",
+            "params": [
+              {
+                "name": "driverId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Details API allows users to retrieve detailed information about a specific driver in the LocoNav system. This information includes the driver's personal details, contact information, license details, guarantor information, and uploaded documents.</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>driverId</code> (integer, required): The unique identifier of the driver for which details are requested.</li>\n</ul>\n<h3 id=\"response-body\">Re"
+        },
+        {
+          "info": {
+            "name": "Update Drivers",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/drivers/:driverId",
+            "params": [
+              {
+                "name": "driverId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Update Driver API allows users to update the information of an<br />existing driver profile identified by the driver's unique identifier.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The updated name of the driver.</li>\n<li><code>countryCode</code> (string): The updated country code associated with the driver's phone number.</li>\n<li><code>phoneNumber</code> (string): The updated phone number of the driver.</li>\n</ul>\n<h2"
+        },
+        {
+          "info": {
+            "name": "Delete Driver",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/drivers/:driverId",
+            "params": [
+              {
+                "name": "driverId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Delete Driver API enables users to remove a driver profile from the system using the driver's unique identifier.</p>\n<h2 id=\"request-param\">Request Param</h2>\n<p><code>{driverId}</code>: The unique identifier of the driver to be deleted.</p>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><code>success</code> (boolean): Indicates whether the operation was successful.</li>\n<li><code>data</code> (string): Confirmation message indicating that the "
+        },
+        {
+          "info": {
+            "name": "List drivers (Filter)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/drivers"
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Search Drivers API allows users to search for drivers by name. Users can provide a partial or full name of the driver to retrieve a list of matching drivers along with their associated phone numbers.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>name</code> (string): The name of the driver to search for. This parameter supports partial or full name matching.</p>\n</li>\n<li><p><code>page</code> (integer): The page number of the res"
+        },
+        {
+          "info": {
+            "name": "Create Drivers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/drivers"
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Create Driver API allows users to create a new driver profile by providing the driver's name, country code, and phone number.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The name of the driver.</li>\n<li><code>countryCode</code> (string): The country code associated with the driver's phone number.</li>\n<li><code>phoneNumber</code> (string): The phone number of the driver.</li>\n</ul>\n<h2 id=\"response-structure\">Response St"
+        },
+        {
+          "info": {
+            "name": "Vehicle Assignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/driver_vehicle_assignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Vehicle Assignments API allows users to assign a driver to a specific vehicle in the LocoNav system. This association enables tracking and management of vehicles based on the assigned driver.</p>\n<h3 id=\"request-body\">Request Body</h3>\n<ul>\n<li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle to be assigned to the driver.</p>\n</li>\n<li><p><code>driverId</code> (integer, required): The unique identifier of the driver "
+        },
+        {
+          "info": {
+            "name": "Vehicle Unassignment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/driver_vehicle_unassignments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Driver Vehicle Unassignments API allows users to remove the association of a driver from a specific vehicle in the LocoNav system. This action disassociates the driver from the vehicle for tracking and management purposes.</p>\n<h3 id=\"request-body\">Request Body</h3>\n<ul>\n<li><p><code>vehicleId</code> (string, required): The unique identifier of the vehicle from which the driver will be unassigned.</p>\n</li>\n<li><p><code>driverId</code> (integer, required): "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

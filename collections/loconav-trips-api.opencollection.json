@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Trips API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trips",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Trips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/trips"
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>This API allows users to retrieve a list of trips based on various filters such as unique ID, start time, end time, states, driver ID, sort column, sort order, page number, and number of trips per page.</p>\n<h3 id=\"query-parameters\"><strong>Query Parameters:</strong></h3>\n<ul>\n<li><code>uniqueId</code> (string, optional): Unique ID of the trip.</li>\n<li><code>startTime</code> (integer, optional): Start time of the trip.</li>\n<li><code>endTime</code> (integer, o"
+        },
+        {
+          "info": {
+            "name": "Create Trip",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/trips",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>Create Trip.</p>\n<ol>\n<li><p>Create trip using route name: Pass route name in the create trip API.</p>\n</li>\n<li><p>Create trip using Route id: Pass route id in the create trip API.</p>\n</li>\n<li><p>Create trip using geofence: Pass geofence id in the create trip API</p>\n</li>\n<li><p>Create Trip using the address and coordinates : Pass address and coordinates in source in the create trip API</p>\n</li>\n<li><p>Create Trip where the destination is "
+        },
+        {
+          "info": {
+            "name": "Update Trip",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/trips/:tripId",
+            "params": [
+              {
+                "name": "tripId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint allows users to update trip details such as the source location and actions.</p>\n<p><strong>Action can have these 4 values</strong></p>\n<ol>\n<li><code>UPDATE_TRIP</code> - Can update any variables<ol>\n<li>Mandatory Fields : action, source</li>\n</ol>\n</li>\n<li><code>END_TRIP</code> - To end the trip: Only need \"id\" for this.<ol>\n<li>Mandatory Fields : action, source</li>\n</ol>\n</li>\n<li><code>PARTIAL_UPDATE_TRIP</code> - Can be used to update \""
+        },
+        {
+          "info": {
+            "name": "Delete Trip",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/trips/:tripId",
+            "params": [
+              {
+                "name": "tripId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint allows administrators to delete a trip based on its ID.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>\n</li>\n<li><p><code>message</code>(string): A message confirming the success of the deletion "
+        },
+        {
+          "info": {
+            "name": "Get Trip Track Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/trips/:tripId/track_url",
+            "params": [
+              {
+                "name": "tripId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API endpoint retrieves a <strong>public tracking URL</strong> for a specific trip, including given checkpoints, allowing users to monitor the trip's progress in real-time.</p>\n<p>Clients can send this URL directly to end customers for real time public tracking of the vehicle.</p>\n<h3 id=\"path-parameters\"><strong>Path Parameters</strong></h3>\n<ul>\n<li><code>{trip_id}</code> (integer): ID of the trip for which the tracking URL is requested.<"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,123 @@
+{
+  "item": [
+    {
+      "id": "bccd6351-2c38-4157-9c52-2cb6e013fdff",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b242c12-c8a2-4b21-b48f-e12aa3215395",
+          "name": "Get User Details",
+          "request": {
+            "name": "Get User Details",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The User Details API allows users to retrieve detailed information about the currently authenticated user in the LocoNav system. This information includes the user's name, email, phone numbers, role, and account details.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"response-fields\">Response Fields</h3>\n<ul>\n<li><p><code>id</code> (integer): The unique identifier of the user.</p>\n</li>\n<li><p><code>name</code> (string): The name of the user.</p>\n</li>\n<li><p><code>email</code> (string): The email address of the user.</p>\n</li>\n<li><p><code>createdAt</code> (string): The timestamp of when the user account was created.</p>\n</li>\n<li><p><code>updatedAt</code> (string): The timestamp of when the user account was last updated.</p>\n</li>\n<li><p><code>phoneNumbers</code> (string): The phone numbers associated with the user.</p>\n</li>\n<li><p><code>role</code> (string): The role of the user in the system.</p>\n</li>\n<li><p><code>account</code> (object): An object containing details about the user's account.</p>\n<ul>\n<li><p><code>id</code> (integer): The unique identifier of the user's account.</p>\n</li>\n<li><p><code>name</code> (string): The name of the user's account.</p>\n</li>\n<li><p><code>email</code> (string): The email address of the user's account.</p>\n</li>\n<li><p><code>createdAt</code> (string): The timestamp of when the user's account was created.</p>\n</li>\n<li><p><code>updatedAt</code> (string): The timestamp of when the user's account was last updated.</p>\n</li>\n<li><p><code>active</code> (boolean): Indicates if the user's account is active.</p>\n</li>\n<li><p><code>alertsPusher</code> (boolean): Indicates if the user has alerts pusher enabled.</p>\n</li>\n</ul>\n</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b1e8cac9-311f-42de-b16c-b5ee27e18ce8",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d0251447-8a99-4801-9146-10e8d3a4dcbf",
+    "name": "LocoNav Integration Alert Subscriptions Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

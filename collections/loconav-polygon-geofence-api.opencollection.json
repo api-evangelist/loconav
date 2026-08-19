@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Polygon (Geofence) API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Polygon (Geofence)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Polygon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/polygons/:polygonId",
+            "params": [
+              {
+                "name": "polygonId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Polygon Details API allows users to retrieve information about a specific polygon defined in the system. Polygons are used for geofencing and defining specific areas of interest for tracking and monitoring purposes.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parame"
+        },
+        {
+          "info": {
+            "name": "Update Polygon",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/polygons/:polygonId",
+            "params": [
+              {
+                "name": "polygonId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Update Polygon API allows users to modify the attributes of an existing polygon. Users can update the polygon's name, location, radius and active status.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>polygonId</code> (integer): Unique identifier for the polygon to be updated.</li>\n</ul>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The updated name of the polygon.</li>\n<li><code>lat</code> (float): The"
+        },
+        {
+          "info": {
+            "name": "List Polygons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/polygons"
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The List Polygons API retrieves a paginated list of polygons based on specified query parameters. Users can filter the results by polygon name and active status.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>page</code> (integer): Page number for pagination.</li>\n<li><code>perPage</code> (integer): Number of items per page.</li>\n<li><code>name</code> (string): Filter by polygon name (optional).</li>\n<li><code>active</code> (boolean): Fi"
+        },
+        {
+          "info": {
+            "name": "Create Polygon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/polygons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Create Polygon API allows users to define and create geofence polygons with specified attributes. These polygons can be utilized for location-based services, such as monitoring and triggering events when a tracked asset enters or exits the defined area.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>name</code> (string): The name of the polygon.</p>\n</li>\n<li><p><code>lat</code> (float): Latitude of the center point of the polygon"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

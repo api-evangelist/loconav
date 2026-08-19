@@ -122,3 +122,9 @@ tools:
 - name: getUserDetails
   description: Get User Details
   source_operation: openapi/loconav-integration-openapi.yml#getUserDetails
+deployment:
+  mode: none
+  verified: derived
+  tools: 38
+  checked: '2026-08-12'
+  source: catalog MCP census

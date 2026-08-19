@@ -1,0 +1,427 @@
+{
+  "item": [
+    {
+      "id": "b49622ea-6bbb-4f3f-aa5a-63518ecf3bcb",
+      "name": "Polygon (Geofence)",
+      "description": {
+        "content": "<p>A geofence is a virtual boundary, often a <strong>rectangular bounding box</strong>, created using mapping software with specified latitude and longitude coordinates. Integrated with fleet management and telematics, geofences trigger real-time alerts if a GPS-equipped vehicle or equipment moves beyond authorized limits, enhancing security and asset monitoring.</p>\n<hr />\n<p><strong>Use Cases</strong></p>\n<ol>\n<li><strong>Security and Alerts:</strong> Geofences can be established around construction sites where valuable equipment is stationed. If any equipment equipped with a GPS tracker is detected leaving the predefined area, immediate alerts are triggered, helping prevent theft and aiding in the recovery of the asset.</li>\n<li><strong>Delivery Route Compliance:</strong> For logistics and delivery services, geofences can be set along specified routes or delivery zones. If a delivery vehicle deviates from the planned route or enters unauthorized areas, real-time alerts ensure adherence to planned schedules and prevent potential route deviations or unauthorized stops.</li>\n</ol>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "15032d5d-046d-4424-b5b5-a63fa53b3ad4",
+          "name": "Get Polygon",
+          "request": {
+            "name": "Get Polygon",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Polygon Details API allows users to retrieve information about a specific polygon defined in the system. Polygons are used for geofencing and defining specific areas of interest for tracking and monitoring purposes.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>polygonId</code> (string, required): The unique identifier of the polygon for which details are requested.</li>\n</ul>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><code>id</code> (integer): The unique identifier of the polygon.</li>\n<li><code>name</code> (string): The name or identifier of the polygon.</li>\n<li><code>coordinates</code> (array of strings): The center coordinates of the polygon in latitude and longitude format.</li>\n<li><code>radius</code> (integer): The radius of the polygon (if applicable).</li>\n<li><code>polygonCoordinates</code> (array of objects): The coordinates of the polygon vertices, defining its shape.<ul>\n<li><code>lat</code> (string): Latitude of the vertex.</li>\n<li><code>long</code> (string): Longitude of the vertex.</li>\n</ul>\n</li>\n</ul>\n<h3 id=\"status-codes\">Status Codes</h3>\n<ul>\n<li><code>200 OK</code>: The request was successful, and the polygon details are provided.</li>\n<li><code>422 Unprocessable Entity</code>: The requested polygon was not found.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "polygons",
+                ":polygonId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "polygonId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3772e6f5-b097-4364-a4bc-22a400e4baff",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "polygons",
+                    ":polygonId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "polygonId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da8ccc84-d7ee-475b-a749-5bcc664a32d4",
+          "name": "Update Polygon",
+          "request": {
+            "name": "Update Polygon",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Update Polygon API allows users to modify the attributes of an existing polygon. Users can update the polygon's name, location, radius and active status.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>polygonId</code> (integer): Unique identifier for the polygon to be updated.</li>\n</ul>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><code>name</code> (string): The updated name of the polygon.</li>\n<li><code>lat</code> (float): The updated latitude of the center point of the polygon.</li>\n<li><code>long</code> (float): The updated longitude of the center point of the polygon.</li>\n<li><code>distanceUnit</code> (string): The unit of measurement for the radius (e.g., \"m\" for meters).</li>\n<li><code>radius</code> (integer): The updated radius of the polygon.</li>\n<li><code>active</code> (boolean): The updated status indicating whether the polygon is active or not.</li>\n</ul>\n<h2 id=\"updated-polygon-structure\">Updated Polygon Structure</h2>\n<p>The updated polygon includes the following details:</p>\n<ul>\n<li><code>id</code> (integer): Unique identifier for the polygon.</li>\n<li><code>name</code> (string): The updated name of the polygon.</li>\n<li><code>lat</code> (string): The updated latitude of the center point of the polygon.</li>\n<li><code>long</code> (string): The updated longitude of the center point of the polygon.</li>\n<li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>\n<li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</li>\n<li><code>radius</code> (integer): The updated radius of the polygon.</li>\n<li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "polygons",
+                ":polygonId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "polygonId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "562ddae1-3cd8-4c2e-8777-415c04cc60f3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "polygons",
+                    ":polygonId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "polygonId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"polygon\": {\n    \"name\": \"test_polygon5\",\n    \"lat\": 90,\n    \"distanceUnit\": \"m\",\n    \"radius\": 100,\n    \"active\": true,\n    \"long\": 85.882186\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e6126d2-0c12-48f8-885a-ec4b926210d2",
+          "name": "List Polygons",
+          "request": {
+            "name": "List Polygons",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The List Polygons API retrieves a paginated list of polygons based on specified query parameters. Users can filter the results by polygon name and active status.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><code>page</code> (integer): Page number for pagination.</li>\n<li><code>perPage</code> (integer): Number of items per page.</li>\n<li><code>name</code> (string): Filter by polygon name (optional).</li>\n<li><code>active</code> (boolean): Filter by active status (optional).</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<p>Each polygon in the list includes the following details:</p>\n<ul>\n<li><code>id</code> (integer): Unique identifier for the polygon.</li>\n<li><code>name</code> (string): The name of the polygon.</li>\n<li><code>lat</code> (string): Latitude of the center point of the polygon.</li>\n<li><code>long</code> (string): Longitude of the center point of the polygon.</li>\n<li><code>active</code> (boolean): Indicates whether the polygon is active or not.</li>\n<li><code>address</code> (string): Address associated with the polygon.</li>\n<li><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</li>\n<li><code>radius</code> (integer): Radius of the polygon.</li>\n<li><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</li>\n<li><code>geofenceCategory</code> (string): Category associated with the geofence, if available.</li>\n</ul>\n<h2 id=\"pagination-information\">Pagination Information</h2>\n<ul>\n<li><code>page</code> (integer): Current page number.</li>\n<li><code>perPage</code> (integer): Number of items per page.</li>\n<li><code>count</code> (integer): Total number of polygons available.</li>\n</ul>\n<h2 id=\"bounding-box\">Bounding Box</h2>\n<p>The bounding box is a rectangular area defined by four coordinates. In the response, it is represented as an array of latitude and longitude pairs. The bounding box encompasses th",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "polygons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7034ef1-c53f-427c-97e3-077cf0164267",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "polygons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29d486e2-85d3-4093-92fc-cb21f96068a4",
+          "name": "Create Polygon",
+          "request": {
+            "name": "Create Polygon",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Create Polygon API allows users to define and create geofence polygons with specified attributes. These polygons can be utilized for location-based services, such as monitoring and triggering events when a tracked asset enters or exits the defined area.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>name</code> (string): The name of the polygon.</p>\n</li>\n<li><p><code>lat</code> (float): Latitude of the center point of the polygon.</p>\n</li>\n<li><p><code>long</code> (float): Longitude of the center point of the polygon.</p>\n</li>\n<li><p><code>distanceUnit</code> (string): Unit of measurement for the radius (e.g., \"m\" for meters).</p>\n</li>\n<li><p><code>radius</code> (integer): Radius of the polygon.</p>\n</li>\n<li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>\n</li>\n</ul>\n<h2 id=\"response-structure\">Response Structure</h2>\n<ul>\n<li><p><code>id</code> (integer): Unique identifier for the created polygon.</p>\n</li>\n<li><p><code>name</code> (string): The name of the polygon.</p>\n</li>\n<li><p><code>lat</code> (string): Latitude of the center point of the polygon.</p>\n</li>\n<li><p><code>long</code> (string): Longitude of the center point of the polygon.</p>\n</li>\n<li><p><code>active</code> (boolean): Indicates whether the polygon is active or not.</p>\n</li>\n<li><p><code>boundingBox</code> (array): An array of coordinates forming the bounding box of the polygon.</p>\n</li>\n<li><p><code>radius</code> (integer): Radius of the polygon.</p>\n</li>\n<li><p><code>updatedAt</code> (integer): Timestamp indicating when the polygon was last updated.</p>\n</li>\n</ul>\n<h2 id=\"bounding-box\">Bounding Box</h2>\n<p>The bounding box is a rectangular area defined by four coordinates. In the response, it is represented as an array of latitude and longitude pairs. The bounding box encompasses the outer edges of the circular polygon, allowing for simplified spatial queries and calculations.</p>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "polygons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ffa8319a-6863-4ea2-b786-345653b70aa0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "polygons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"polygon\": {\n    \"name\": \"test_polygon4\",\n    \"lat\": 10,\n    \"distanceUnit\": \"m\",\n    \"radius\": 100,\n    \"active\": true,\n    \"long\": 85.882186\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "93397c7a-594c-4aec-93d5-1d335a1a4e0e",
+    "name": "LocoNav Integration Alert Subscriptions Polygon (Geofence) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

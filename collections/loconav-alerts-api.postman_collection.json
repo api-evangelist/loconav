@@ -1,0 +1,217 @@
+{
+  "item": [
+    {
+      "id": "42afb93f-b522-4a3c-aa41-769d0b03bfeb",
+      "name": "Alerts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b5e3922-e610-48b4-b10c-d80d60469377",
+          "name": "Get Alerts",
+          "request": {
+            "name": "Get Alerts",
+            "description": {
+              "content": "<p>This endpoint sends an HTTP GET request to retrieve alerts based on the specified start time, end time, and alert type.</p>\n<h3 id=\"request-parameters\">Request Parameters</h3>\n<ul>\n<li><p><code>startTime</code> (optional): The start time for retrieving alerts.</p>\n</li>\n<li><p><code>endTime</code> (optional): The end time for retrieving alerts.</p>\n</li>\n<li><p><code>alertType</code> (optional): The type of alert to be retrieved.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n<p>The response of this request is a JSON schema describing the structure of the alert data that will be returned. The JSON schema will outline the properties and their data types for the alert objects.</p>\n<p>Example JSON Schema:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"><code class=\"language-json\">{\n  \"success\": \"boolean\",\n  \"data\": {\n    \"values\": [\n      {\n        \"id\": 0,\n        \"eventTime\": 0,\n        \"eventType\": \"string\",\n        \"localizeEventType\": \"string\",\n        \"startedTs\": 0,\n        \"startLocation\": {\n          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n        },\n        \"comments\": [],\n        \"supportsVt\": \"string\",\n        \"videoDetail\": null,\n        \"vehicle\": {\n          \"uuid\": \"string\",\n          \"number\": \"string\"\n        },\n        \"vehicleId\": 0,\n        \"endedTs\": 0,\n        \"endLocation\": {\n          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n        }\n      }\n    ],\n    \"pagination\": {\n      \"page\": 0,\n      \"perPage\": 1,\n      \"more\": false,\n      \"total\": 1\n    },\n    \"metadata\": {}\n  }\n}\n\n</code></pre>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e40af2d-cbee-4476-80e5-529ad43541b7",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ccd394e-7bb7-4c2c-b55b-9a02c8d6d92d",
+          "name": "List Alerts",
+          "request": {
+            "name": "List Alerts",
+            "description": {
+              "content": "<h2 id=\"overview\">Overview</h2>\n<p>The Get Alerts API allows users to retrieve information about alerts triggered by vehicle-related events during a specified time range.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>startTime</code> (integer, required): The timestamp indicating the start of the time range for fetching alerts.</p>\n</li>\n<li><p><code>endTime</code> (integer, required): The timestamp indicating the end of the time range for fetching alerts.</p>\n</li>\n<li><p><code>alertType</code> (string, optional): Filter results according to the alert type (See list below for support types)</p>\n</li>\n</ul>\n<p>Note:</p>\n<ol>\n<li><p>Difference between startTime and endTime should be less than a day.</p>\n</li>\n<li><p>Difference between startTime and endTime should be more than 1 min</p>\n</li>\n<li><p>startTime and endTime should not be same</p>\n</li>\n<li><p>History data is available till last 6 months.</p>\n</li>\n</ol>\n<h2 id=\"response-structure\">Response Structure</h2>\n<p>Each alert includes the following details:</p>\n<ul>\n<li><p><code>id</code> (integer): Unique identifier for the alert.</p>\n</li>\n<li><p><code>eventTime</code> (integer): Timestamp when the event occurred.</p>\n</li>\n<li><p><code>eventType</code> (string): Type of the alert event.</p>\n</li>\n<li><p><code>localizeEventType</code> (string): Localized type of the alert event.</p>\n</li>\n<li><p><code>startedTs</code> (integer): Timestamp when the alert event started.</p>\n</li>\n<li><p><code>startLocation</code> (object): Details about the location where the alert event started.</p>\n</li>\n<li><p><code>comments</code> (array): Additional comments related to the alert.</p>\n</li>\n<li><p><code>supportsVt</code> (boolean): Indicates if the alert supports video tracking.</p>\n</li>\n<li><p><code>videoDetail</code> (object): Details related to video tracking (if supported).</p>\n</li>\n<li><p><code>endedTs</code> (integer): Timestamp when the alert event ended (if applicable).</p>\n</li>\n<li><p><",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3fe8833-dacb-4d43-8222-dbbd5e7874f2",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "38a7a86b-5378-4040-a57b-da3f8e66d9a1",
+    "name": "LocoNav Integration Alert Subscriptions Alerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

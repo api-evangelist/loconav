@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Mobilization API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mobilization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Vehicle Mobilization Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/immobilizer_requests",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Immobilizer Requests API allows users to send requests to immobilize or mobilize a specific vehicle. This can be useful for security and safety purposes, enabling the control of a vehicle's movement remotely.</p>\n<p>This is a async operation and will take some time. Call Get Mobilization requests API to know the status</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>vehicleId</code> (string, required): The unique identifier of the vehicle f"
+        },
+        {
+          "info": {
+            "name": "Get Mobilization Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/immobilization_requests/:immobilizationRequestId",
+            "params": [
+              {
+                "name": "immobilizationRequestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h3 id=\"overview\">Overview</h3>\n<p>The Immobilization Request Details API allows users to retrieve details about a specific immobilization request made for a vehicle. This includes information such as the status of the request, the reason for immobilization, and the user who initiated the request.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authenti"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

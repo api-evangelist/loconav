@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Alerts API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/alerts"
+          },
+          "docs": "<p>This endpoint sends an HTTP GET request to retrieve alerts based on the specified start time, end time, and alert type.</p>\n<h3 id=\"request-parameters\">Request Parameters</h3>\n<ul>\n<li><p><code>startTime</code> (optional): The start time for retrieving alerts.</p>\n</li>\n<li><p><code>endTime</code> (optional): The end time for retrieving alerts.</p>\n</li>\n<li><p><code>alertType</code> (optional): The type of alert to be retrieved.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n<p>The response"
+        },
+        {
+          "info": {
+            "name": "List Alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/vehicles/:vehicleId/alerts",
+            "params": [
+              {
+                "name": "vehicleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>The Get Alerts API allows users to retrieve information about alerts triggered by vehicle-related events during a specified time range.</p>\n<h2 id=\"request-parameters\">Request Parameters</h2>\n<ul>\n<li><p><code>startTime</code> (integer, required): The timestamp indicating the start of the time range for fetching alerts.</p>\n</li>\n<li><p><code>endTime</code> (integer, required): The timestamp indicating the end of the time range for fetching alerts.</p>\n</li>\n<l"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LocoNav Integration Alert Subscriptions Video Telematics VT / Live Stream API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "User-Authentication",
+      "value": "{{User-Authentication}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Video Telematics VT / Live Stream",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Livesteam",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/livestreams/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>This API retrieves the live video stream for vehicle telematics. It requires the session ID of the livestream.</p>\n<h2 id=\"query-parameters\">Query Parameters</h2>\n<ul>\n<li><code>sessionId</code> (string): The session ID of the livestream.</li>\n</ul>\n<h2 id=\"request-headers\">Request Headers</h2>\n<ul>\n<li><code>User-Authentication</code>: Your user authentication token.</li>\n<li><code>Content-Type</code>: application/json</li>\n</ul>\n<h2 id=\"response\">Response</h2"
+        },
+        {
+          "info": {
+            "name": "Update Livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/livestreams/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint facilitates the modification of a livestream session, allowing users to either update its resolution or extend its duration.</p>\n<h2 id=\"request-body\">Request Body</h2>\n<ul>\n<li><p><strong><code>operation</code></strong> (string): Indicates operation whether to update resolution or extend the livestream session.</p>\n<ul>\n<li><p>Data Type: String</p>\n</li>\n<li><p>Options: \"<strong>change_resolution</strong>\" or \"<strong>extend_duration</strong>"
+        },
+        {
+          "info": {
+            "name": "Create Livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/livestreams",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<h2 id=\"overview\"><strong>Overview</strong></h2>\n<p>This API initiates a live video streaming session for a vehicle. Data will be returned if vehicle support Video or contains active VT device.</p>\n<h2 id=\"request-body\"><strong>Request Body</strong></h2>\n<ul>\n<li><p><code>vehicleId</code> (string): The ID of the vehicle</p>\n</li>\n<li><p><code>resolution</code> (string): The desired resolution for the video stream. Options</p>\n<ul>\n<li>640x480</li>\n<li>1280x720</li>\n</ul>\n</li>\n</ul>\n<h2 id=\"resp"
+        },
+        {
+          "info": {
+            "name": "Delete Livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.a.loconav.com/integration/api/v1/integration/api/v1/livestreams/:streamId",
+            "params": [
+              {
+                "name": "streamId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "<h2 id=\"overview\">Overview</h2>\n<p>This API endpoint is used to delete a specific vehicle's telematics livestream by providing its unique session ID.</p>\n<h2 id=\"response-body\">Response Body</h2>\n<ul>\n<li><p><strong><code>status</code></strong> (boolean): Indicates whether the request was successful.</p>\n<ul>\n<li>Data Type: Boolean</li>\n</ul>\n</li>\n<li><p><strong><code>data</code></strong> (object): Additional data related to the deletion process.</p>\n<ul>\n<li><p><strong><code>success</code></st"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

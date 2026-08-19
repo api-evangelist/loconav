@@ -1,0 +1,260 @@
+{
+  "item": [
+    {
+      "id": "dbfb068d-dc5b-415f-bd83-5ad164365924",
+      "name": "Mobilization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b85c3bb-9063-4935-8d8c-ab38f0fc2b4e",
+          "name": "Create Vehicle Mobilization Request",
+          "request": {
+            "name": "Create Vehicle Mobilization Request",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Immobilizer Requests API allows users to send requests to immobilize or mobilize a specific vehicle. This can be useful for security and safety purposes, enabling the control of a vehicle's movement remotely.</p>\n<p>This is a async operation and will take some time. Call Get Mobilization requests API to know the status</p>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which the immobilizer request is made.</li>\n</ul>\n<h3 id=\"request-body\">Request Body</h3>\n<ul>\n<li><code>value</code> (string, required): The action to be performed on the immobilizer. Possible values are \"MOBILIZE\" or \"IMMOBILIZE\".</li>\n</ul>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><code>id</code> (integer): The unique identifier of the immobilizer request. Customers can use this Id and call Get Mobilization request to find the status of the operation</li>\n</ul>\n<h3 id=\"status-codes\">Status Codes</h3>\n<ul>\n<li><code>200 OK</code>: The request was successful, and the immobilizer request was processed.</li>\n<li><code>400 Bad Request</code>: The request body contains invalid data.</li>\n<li><code>422 Unprocessable Entity</code>: The specified vehicle is not set up for immobilization.</li>\n</ul>\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                ":vehicleId",
+                "immobilizer_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "vehicleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95575e89-8c1f-4710-b0be-2738fb233403",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    ":vehicleId",
+                    "immobilizer_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "vehicleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"MOBILIZE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05355a9d-de23-4d05-8a53-7e650f28a1e8",
+          "name": "Get Mobilization Requests",
+          "request": {
+            "name": "Get Mobilization Requests",
+            "description": {
+              "content": "<h3 id=\"overview\">Overview</h3>\n<p>The Immobilization Request Details API allows users to retrieve details about a specific immobilization request made for a vehicle. This includes information such as the status of the request, the reason for immobilization, and the user who initiated the request.</p>\n<h3 id=\"request-headers\">Request Headers</h3>\n<ul>\n<li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>\n</ul>\n<h3 id=\"path-parameters\">Path Parameters</h3>\n<ul>\n<li><code>immobilizationRequestId</code> (string, required): The unique identifier of the immobilization request for which details are requested.</li>\n</ul>\n<h3 id=\"response-body\">Response Body</h3>\n<ul>\n<li><p><code>id</code> (integer): The unique identifier of the immobilization request.</p>\n</li>\n<li><p><code>truck_id</code> (integer): The identifier of the truck associated with the request.</p>\n</li>\n<li><p><code>status</code> (string): The status of the immobilization request (e.g., \"success\", \"pending\", \"failed\").</p>\n</li>\n<li><p><code>message</code> (string): A message indicating the result of the immobilization request.</p>\n</li>\n<li><p><code>mobilize</code> (boolean): Indicates whether the request was for mobilization (<code>true</code>) or immobilization (<code>false</code>).</p>\n</li>\n<li><p><code>created_via</code> (string): The method or platform through which the request was created.</p>\n</li>\n<li><p><code>created_at</code> (integer): The timestamp when the request was created.</p>\n</li>\n<li><p><code>updated_at</code> (integer): The timestamp when the request was last updated.</p>\n</li>\n<li><p><code>creator_type</code> (string): The type of user who initiated the request (e.g., \"User\", \"Admin\").</p>\n</li>\n<li><p><code>creator_email</code> (string): The email address of the user who initiated the request.</p>\n</li>\n<li><p><code>reason</code> (string): The reason provided for the immobili",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "api",
+                "v1",
+                "vehicles",
+                "immobilization_requests",
+                ":immobilizationRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "immobilizationRequestId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "673ce797-c885-4874-aa3f-763605123dc3",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "api",
+                    "v1",
+                    "vehicles",
+                    "immobilization_requests",
+                    ":immobilizationRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "immobilizationRequestId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "User-Authentication",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.a.loconav.com/integration/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "User-Authentication"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "38aee575-aae1-4c78-8b98-cba02a653711",
+    "name": "LocoNav Integration Alert Subscriptions Mobilization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "LocoNav's REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav's published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.\n\nContact Support:\n Name: LocoNav Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
