@@ -46,6 +46,17 @@ tags:
 - Logistics
 - IoT
 - Video Telematics
+- Webhook
+tags_raw:
+- Company
+- Fleet Management
+- Telematics
+- GPS Tracking
+- Vehicle Tracking
+- Transportation
+- Logistics
+- IoT
+- Video Telematics
 - Webhooks
 apis:
 - aid: loconav:loconav-alert-subscriptions-api
@@ -268,6 +279,8 @@ apis:
   humanURL: https://developers.loconav.com/
   baseURL: https://api.a.loconav.com/integration/api/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
