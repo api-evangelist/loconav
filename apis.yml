@@ -429,6 +429,9 @@ apis:
   - type: Webhooks
     url: asyncapi/loconav-webhooks.yml
 common:
+- type: CapabilityMap
+  url: capabilities/loconav-capability-edges.yml
+  name: LocoNav Business Capability Map
 - type: Overlay
   url: overlays/loconav-integration-overlay.yaml
 - type: DeveloperPortal

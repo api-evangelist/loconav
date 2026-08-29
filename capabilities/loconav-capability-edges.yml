@@ -1,0 +1,65 @@
+slug: loconav
+provider: LocoNav
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Vehicles / Telematics
+  spec_file: loconav-vehicles-telematics-api-openapi.yml
+  capability_id: BC-2430.40
+  capability_id_l1: BC-2430
+  capability_name: Fleet Telematics and Monitoring
+  confidence: 0.9
+  evidence: POST /vehicles/telematics/last_known  Last known; Get Distance Travelled; Get Timeline
+  reason: Last-known position, distance travelled and movement timeline are continuous monitoring of asset
+    position and usage — fleet telematics and monitoring, as the vendor description states ('sensor readings,
+    GPS location, distance, timelines').
+- tag: Video Telematics VT / Live Stream
+  spec_file: loconav-video-telematics-vt-live-stream-api-openapi.yml
+  capability_id: BC-2430.40
+  capability_id_l1: BC-2430
+  capability_name: Fleet Telematics and Monitoring
+  confidence: 0.75
+  evidence: 'POST /integration/api/v1/livestreams  Create Livestream; vendor: ''telematics (sensor/GPS/video/live-stream)'''
+  reason: Live video streaming from in-vehicle cameras is part of continuous monitoring of asset and operator
+    condition (video telematics). Could arguably serve driver behaviour/safety, hence moderate confidence
+    on the L2.
+- tag: Video Telematics VT / Videos
+  spec_file: loconav-video-telematics-vt-videos-api-openapi.yml
+  capability_id: BC-2430.40
+  capability_id_l1: BC-2430
+  capability_name: Fleet Telematics and Monitoring
+  confidence: 0.75
+  evidence: GET /vehicles/{vehicleId}/videos  listVideos; POST /vehicles/{vehicleId}/videos  createVideoRequest
+  reason: Requesting and retrieving recorded video per vehicle from IoT devices is asset condition/operator
+    monitoring (video telematics). Some overlap with driver performance management, so confidence is moderate.
+- tag: Drivers
+  spec_file: loconav-drivers-api-openapi.yml
+  capability_id: BC-2440
+  capability_id_l1: BC-2440
+  capability_name: Driver & Crew Operations Management
+  confidence: 0.74
+  evidence: '"POST /integration/api/v1/drivers  createDrivers", "POST /integration/api/v1/driver_vehicle_assignments  vehicleAssignment  Vehicle
+    Assignment"'
+  reason: Maintains driver master records and assigns/unassigns drivers to vehicles in a fleet management
+    platform — driver operations management. Evidence does not name qualification, rostering or hours-of-service
+    specifically, so no L2.
+- tag: Alerts
+  spec_file: loconav-alerts-api-openapi.yml
+  capability_id: BC-2430.40
+  capability_id_l1: BC-2430
+  capability_name: Fleet Telematics and Monitoring
+  confidence: 0.72
+  evidence: '"GET /integration/api/v1/vehicles/{vehicleId}/alerts  listAlerts  List Alerts"; "fleet telematics:
+    telematics data (sensor readings, GPS location...)"'
+  reason: Alerts here are vehicle telematics alerts (sensor/GPS conditions) on a fleet tracking platform
+    — continuous monitoring of asset position and condition, not financial-crime or IT alerting.
