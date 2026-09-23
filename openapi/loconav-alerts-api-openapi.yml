@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Alerts API
+  title: LocoNav Integration Alerts API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:
@@ -23,7 +23,109 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: "<p>This endpoint sends an HTTP GET request to retrieve alerts based on the specified start time, end time, and alert type.</p>\n<h3 id=\"request-parameters\">Request Parameters</h3>\n<ul>\n<li><p><code>startTime</code> (optional): The start time for retrieving alerts.</p>\n</li>\n<li><p><code>endTime</code> (optional): The end time for retrieving alerts.</p>\n</li>\n<li><p><code>alertType</code> (optional): The type of alert to be retrieved.</p>\n</li>\n</ul>\n<h3 id=\"response\">Response</h3>\n<p>The response of this request is a JSON schema describing the structure of the alert data that will be returned. The JSON schema will outline the properties and their data types for the alert objects.</p>\n<p>Example JSON Schema:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"><code class=\"language-json\">{\n  \"success\": \"boolean\",\n  \"data\": {\n    \"values\": [\n      {\n        \"id\": 0,\n        \"eventTime\": 0,\n        \"eventType\": \"string\",\n        \"localizeEventType\": \"string\",\n        \"startedTs\": 0,\n        \"startLocation\": {\n          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n        },\n        \"comments\": [],\n        \"supportsVt\": \"string\",\n        \"videoDetail\": null,\n        \"vehicle\": {\n          \"uuid\": \"string\",\n          \"number\": \"string\"\n        },\n        \"vehicleId\": 0,\n        \"endedTs\": 0,\n        \"endLocation\": {\n          \"lat\": 0,\n          \"long\": 0,\n          \"address\": \"string\"\n        }\n      }\n    ],\n    \"pagination\": {\n      \"page\": 0,\n      \"perPage\": 1,\n      \"more\": false,\n      \"total\": 1\n    },\n    \"metadata\": {}\n  }\n}\n\n</code></pre>\n"
+      description: 'This endpoint sends an HTTP GET request to retrieve alerts based on the specified start time, end time, and alert type.
+
+
+        Request Parameters
+
+
+        startTime (optional): The start time for retrieving alerts.
+
+
+        endTime (optional): The end time for retrieving alerts.
+
+
+        alertType (optional): The type of alert to be retrieved.
+
+
+        Response
+
+
+        The response of this request is a JSON schema describing the structure of the alert data that will be returned. The JSON schema will outline the properties and their data types for the alert objects.
+
+
+        Example JSON Schema:
+
+
+        {
+
+        "success": "boolean",
+
+        "data": {
+
+        "values": [
+
+        {
+
+        "id": 0,
+
+        "eventTime": 0,
+
+        "eventType": "string",
+
+        "localizeEventType": "string",
+
+        "startedTs": 0,
+
+        "startLocation": {
+
+        "lat": 0,
+
+        "long": 0,
+
+        "address": "string"
+
+        },
+
+        "comments": [],
+
+        "supportsVt": "string",
+
+        "videoDetail": null,
+
+        "vehicle": {
+
+        "uuid": "string",
+
+        "number": "string"
+
+        },
+
+        "vehicleId": 0,
+
+        "endedTs": 0,
+
+        "endLocation": {
+
+        "lat": 0,
+
+        "long": 0,
+
+        "address": "string"
+
+        }
+
+        }
+
+        ],
+
+        "pagination": {
+
+        "page": 0,
+
+        "perPage": 1,
+
+        "more": false,
+
+        "total": 1
+
+        },
+
+        "metadata": {}
+
+        }
+
+        }'
   /integration/api/v1/vehicles/{vehicleId}/alerts:
     get:
       operationId: listAlerts
@@ -33,97 +135,76 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview">Overview</h2>
+      description: 'Overview
 
-        <p>The Get Alerts API allows users to retrieve information about alerts triggered by vehicle-related events during a specified time range.</p>
 
-        <h2 id="request-parameters">Request Parameters</h2>
+        The Get Alerts API allows users to retrieve information about alerts triggered by vehicle-related events during a specified time range.
 
-        <ul>
 
-        <li><p><code>startTime</code> (integer, required): The timestamp indicating the start of the time range for fetching alerts.</p>
+        Request Parameters
 
-        </li>
 
-        <li><p><code>endTime</code> (integer, required): The timestamp indicating the end of the time range for fetching alerts.</p>
+        startTime (integer, required): The timestamp indicating the start of the time range for fetching alerts.
 
-        </li>
 
-        <li><p><code>alertType</code> (string, optional): Filter results according to the alert type (See list below for support types)</p>
+        endTime (integer, required): The timestamp indicating the end of the time range for fetching alerts.
 
-        </li>
 
-        </ul>
+        alertType (string, optional): Filter results according to the alert type (See list below for support types)
 
-        <p>Note:</p>
 
-        <ol>
+        Note:
 
-        <li><p>Difference between startTime and endTime should be less than a day.</p>
 
-        </li>
+        Difference between startTime and endTime should be less than a day.
 
-        <li><p>Difference between startTime and endTime should be more than 1 min</p>
 
-        </li>
+        Difference between startTime and endTime should be more than 1 min
 
-        <li><p>startTime and endTime should not be same</p>
 
-        </li>
+        startTime and endTime should not be same
 
-        <li><p>History data is available till last 6 months.</p>
 
-        </li>
+        History data is available till last 6 months.
 
-        </ol>
 
-        <h2 id="response-structure">Response Structure</h2>
+        Response Structure
 
-        <p>Each alert includes the following details:</p>
 
-        <ul>
+        Each alert includes the following details:
 
-        <li><p><code>id</code> (integer): Unique identifier for the alert.</p>
 
-        </li>
+        id (integer): Unique identifier for the alert.
 
-        <li><p><code>eventTime</code> (integer): Timestamp when the event occurred.</p>
 
-        </li>
+        eventTime (integer): Timestamp when the event occurred.
 
-        <li><p><code>eventType</code> (string): Type of the alert event.</p>
 
-        </li>
+        eventType (string): Type of the alert event.
 
-        <li><p><code>localizeEventType</code> (string): Localized type of the alert event.</p>
 
-        </li>
+        localizeEventType (string): Localized type of the alert event.
 
-        <li><p><code>startedTs</code> (integer): Timestamp when the alert event started.</p>
 
-        </li>
+        startedTs (integer): Timestamp when the alert event started.
 
-        <li><p><code>startLocation</code> (object): Details about the location where the alert event started.</p>
 
-        </li>
+        startLocation (object): Details about the location where the alert event started.
 
-        <li><p><code>comments</code> (array): Additional comments related to the alert.</p>
 
-        </li>
+        comments (array): Additional comments related to the alert.
 
-        <li><p><code>supportsVt</code> (boolean): Indicates if the alert supports video tracking.</p>
 
-        </li>
+        supportsVt (boolean): Indicates if the alert supports video tracking.
 
-        <li><p><code>videoDetail</code> (object): Details related to video tracking (if supported).</p>
 
-        </li>
+        videoDetail (object): Details related to video tracking (if supported).
 
-        <li><p><code>endedTs</code> (integer): Timestamp when the alert event ended (if applicable).</p>
 
-        </li>
+        endedTs (integer): Timestamp when the alert event ended (if applicable).
 
-        <li><p><'
+
+        <'
       parameters:
       - name: vehicleId
         in: path

@@ -1,18 +1,7 @@
 {
   "provider": "loconav",
   "sources": [
-    "loconav-alert-subscriptions-api-openapi.yml",
-    "loconav-alerts-api-openapi.yml",
-    "loconav-alerts-subscriptions-api-openapi.yml",
-    "loconav-drivers-api-openapi.yml",
-    "loconav-mobilization-api-openapi.yml",
-    "loconav-polygon-geofence-api-openapi.yml",
-    "loconav-trips-api-openapi.yml",
-    "loconav-users-api-openapi.yml",
-    "loconav-vehicles-api-openapi.yml",
-    "loconav-vehicles-telematics-api-openapi.yml",
-    "loconav-video-telematics-vt-live-stream-api-openapi.yml",
-    "loconav-video-telematics-vt-videos-api-openapi.yml"
+    "_original/loconav-integration-openapi.yml"
   ],
   "outputs": [
     "loconav-alert-subscriptions-api-openapi.yml",
@@ -31,6 +20,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "loconav-integration-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "loconav-alert-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-alerts-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-drivers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-mobilization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-polygon-geofence-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-trips-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-vehicles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-vehicles-telematics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-video-telematics-vt-live-stream-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "loconav-video-telematics-vt-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

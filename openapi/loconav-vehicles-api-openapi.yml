@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Vehicles API
+  title: LocoNav Integration Vehicles API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:
@@ -13,11 +13,10 @@ security:
 - UserAuthentication: []
 tags:
 - name: Vehicles
-  description: '<p>Loconav''s Vehicle APIs offer developers a powerful toolkit for real-time fleet management. The Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats API delivers live statistics.</p>
+  description: 'Loconav''s Vehicle APIs offer developers a powerful toolkit for real-time fleet management. The Fetch Vehicle Details API provides comprehensive vehicle insights, while the Last Known Stats API delivers live statistics.
 
-    <p>These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and analytics, enhancing operational efficiency and decision-making.</p>
 
-    '
+    These APIs enable developers to create efficient, data-driven solutions for fleet monitoring and analytics, enhancing operational efficiency and decision-making.'
 paths:
   /integration/api/v1/vehicles:
     get:
@@ -28,87 +27,70 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview">Overview</h2>
+      description: 'Overview
 
-        <p>The List Vehicles API enables users to retrieve a paginated list of vehicles along with their details like vehicle number, device details, subscription details and more.</p>
 
-        <h2 id="request-parameters">Request Parameters</h2>
+        The List Vehicles API enables users to retrieve a paginated list of vehicles along with their details like vehicle number, device details, subscription details and more.
 
-        <ul>
 
-        <li><p><code>vehicleNumber</code> (string, optional): The vehicle number for filtering</p>
+        Request Parameters
 
-        </li>
 
-        <li><p><code>deviceSerialNumber</code>(string, optional): The Device serial Number (IMEI) number</p>
+        vehicleNumber (string, optional): The vehicle number for filtering
 
-        </li>
 
-        <li><p><code>page</code> (integer): The page number for pagination. Default is 1.</p>
+        deviceSerialNumber(string, optional): The Device serial Number (IMEI) number
 
-        </li>
 
-        <li><p><code>perPage</code> (integer): The number of vehicles to be included per page. Default is 10.</p>
+        page (integer): The page number for pagination. Default is 1.
 
-        </li>
 
-        <li><p><code>vehicleNumbers</code> (string, optional):The vehicle numbers for filtering.</p>
+        perPage (integer): The number of vehicles to be included per page. Default is 10.
 
-        </li>
 
-        <li><p><code>vehicleUuids</code> (string, optional): The vehicleUuids for filtering.</p>
+        vehicleNumbers (string, optional):The vehicle numbers for filtering.
 
-        </li>
 
-        <li><p><code>fetchMobilizationDetails</code>(boolean,optional): Vehicle Mobilzation Status</p>
+        vehicleUuids (string, optional): The vehicleUuids for filtering.
 
-        </li>
 
-        </ul>
+        fetchMobilizationDetails(boolean,optional): Vehicle Mobilzation Status
 
-        <h2 id="response-structure">Response Structure</h2>
 
-        <p>Each vehicle entry includes the following details:</p>
+        Response Structure
 
-        <ul>
 
-        <li><p><code>number</code> (string): Vehicle registration number.</p>
+        Each vehicle entry includes the following details:
 
-        </li>
 
-        <li><p><code>deviceId</code> (string): Unique identifier for the associated device.</p>
+        number (string): Vehicle registration number.
 
-        </li>
 
-        <li><p><code>displayNumber</code> (string): Display name or identifier for the vehicle.</p>
+        deviceId (string): Unique identifier for the associated device.
 
-        </li>
 
-        <li><p><code>vehicleUuid</code> (string): Unique identifier for the vehicle.</p>
+        displayNumber (string): Display name or identifier for the vehicle.
 
-        </li>
 
-        <li><p><code>status</code> (boolean): Current status of the vehicle.</p>
+        vehicleUuid (string): Unique identifier for the vehicle.
 
-        </li>
 
-        <li><p><code>current_device</code> (object): Details about the associated device.</p>
+        status (boolean): Current status of the vehicle.
 
-        </li>
 
-        <li><p><code>subscription</code> (object): Details about the subscription, including expiration date.</p>
+        current_device (object): Details about the associated device.
 
-        </li>
 
-        <li><p><code>vehicleType</code> (string): Type or category of the vehicle.</p>
+        subscription (object): Details about the subscription, including expiration date.
 
-        </li>
 
-        <li><p><code>createdAt</code> (integer): Timestamp indicating when the vehicle record was created.</p>
+        vehicleType (string): Type or category of the vehicle.
 
-        </li>
 
-        <li><p><code>updatedAt</code> (integer): Timestamp indicating when the vehicle'
+        createdAt (integer): Timestamp indicating when the vehicle record was created.
+
+
+        updatedAt (integer): Timestamp indicating when the vehicle'
   /integration/api/v1/vehicles/{vehicleId}/score_card:
     get:
       operationId: getVehicleScoreCard
@@ -118,63 +100,77 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>The Vehicle Score card API provides detailed insights into the behavior and performance of a vehicle within a specified time range. Fleet managers can utilize this information to assess driver efficiency, safety, and overall performance.</p>
 
-        <h2 id="query-parameters">Query Parameters</h2>
+        The Vehicle Score card API provides detailed insights into the behavior and performance of a vehicle within a specified time range. Fleet managers can utilize this information to assess driver efficiency, safety, and overall performance.
 
-        <ul>
 
-        <li><code>startTime</code> (required): The start time of the time range in UNIX timestamp format.</li>
+        Query Parameters
 
-        <li><code>endTime</code> (required): The end time of the time range in UNIX timestamp format.</li>
 
-        </ul>
+        startTime (required): The start time of the time range in UNIX timestamp format.
 
-        <h3 id="response-fields">Response Fields</h3>
 
-        <ul>
+        endTime (required): The end time of the time range in UNIX timestamp format.
 
-        <li><code>runningTime</code>: Time the vehicle spent in motion (unit: minutes).</li>
 
-        <li><code>distance</code>: Total distance covered by the vehicle (unit: km).</li>
+        Response Fields
 
-        <li><code>stoppageTime</code>: Time the vehicle spent in stoppage (unit: minutes).</li>
 
-        <li><code>idleDuration</code>: Duration of engine idling (unit: minutes).</li>
+        runningTime: Time the vehicle spent in motion (unit: minutes).
 
-        <li><code>idlingEventsCount</code>: Number of idling events.</li>
 
-        <li><code>overspeedDuration</code>: Duration of overspeeding (unit: minutes).</li>
+        distance: Total distance covered by the vehicle (unit: km).
 
-        <li><code>overspeedEventsCount</code>: Number of overspeed events.</li>
 
-        <li><code>suddenBrakingEventsCount</code>: Number of sudden braking events.</li>
+        stoppageTime: Time the vehicle spent in stoppage (unit: minutes).
 
-        <li><code>suddenAccelerationEventsCount</code>: Number of sudden acceleration events.</li>
 
-        <li><code>sharpTurnEventsCount</code>: Number of sharp turn events.</li>
+        idleDuration: Duration of engine idling (unit: minutes).
 
-        <li><code>seatBeltEventsCount</code>: Number of seat belt events.</li>
 
-        <li><code>totalEvents</code>: Total number of events.</li>
+        idlingEventsCount: Number of idling events.
 
-        <li><code>overallScore</code>: Overall driver score (unit: points, ranging from 0 to 100).</li>
 
-        <li><code>distanceMetric</code>: Total distance covered metric (unit: km).</li>
+        overspeedDuration: Duration of overspeeding (unit: minutes).
 
-        <li><code>fuelConsumption</code>: Fuel consumption during the specified period (unit: liters).</li>
 
-        <li><code>mileage</code>: Vehicle mileage information (unit: km/h).</li>
+        overspeedEventsCount: Number of overspeed events.
 
-        <li><code>totalDuration</code>: Total duration of the specified period (unit: minutes).</li>
 
-        </ul>
+        suddenBrakingEventsCount: Number of sudden braking events.
 
-        <h2 id="notes">Notes</h2>
 
-        <ul>
+        suddenAccelerationEventsCount: Number of sudden acceleration events.
+
+
+        sharpTurnEventsCount: Number of sharp turn events.
+
+
+        seatBeltEventsCount: Number of seat belt events.
+
+
+        totalEvents: Total number of events.
+
+
+        overallScore: Overall driver score (unit: points, ranging from 0 to 100).
+
+
+        distanceMetric: Total distance covered metric (unit: km).
+
+
+        fuelConsumption: Fuel consumption during the specified period (unit: liters).
+
+
+        mileage: Vehicle mileage information (unit: km/h).
+
+
+        totalDuration: Total duration of the specified period (unit: minutes).
+
+
+        Notes
+
 
         <l'
       parameters:
@@ -207,45 +203,37 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>The Live Share Link API allows users to retrieve a shareable link for real-time tracking of a specific vehicle. This link can be shared with others to provide live updates on the vehicle''s location and status.</p>
 
-        <h3 id="request-headers">Request Headers</h3>
+        The Live Share Link API allows users to retrieve a shareable link for real-time tracking of a specific vehicle. This link can be shared with others to provide live updates on the vehicle''s location and status.
 
-        <ul>
 
-        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+        Request Headers
 
-        </ul>
 
-        <h3 id="path-parameters">Path Parameters</h3>
+        User-Authentication: The authentication token for accessing the API. Replace {{auth-token}} with the actual authentication token.
 
-        <ul>
 
-        <li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which the live share link is requested.</li>
+        Path Parameters
 
-        </ul>
 
-        <h3 id="response-structure">Response Structure</h3>
+        vehicleId (string, required): The unique identifier of the vehicle for which the live share link is requested.
 
-        <ul>
 
-        <li><code>shareLink</code> (string): The generated shareable link for live tracking of the vehicle. This is a public link and can be open in any browser.</li>
+        Response Structure
 
-        </ul>
 
-        <h3 id="status-codes">Status Codes</h3>
+        shareLink (string): The generated shareable link for live tracking of the vehicle. This is a public link and can be open in any browser.
 
-        <ul>
 
-        <li><code>200 OK</code>: The request was successful, and the shareable link is provided.</li>
+        Status Codes
 
-        <li><code>404 Not Found</code>: The requested vehicle was not found.</li>
 
-        </ul>
+        200 OK: The request was successful, and the shareable link is provided.
 
-        '
+
+        404 Not Found: The requested vehicle was not found.'
       parameters:
       - name: vehicleId
         in: path

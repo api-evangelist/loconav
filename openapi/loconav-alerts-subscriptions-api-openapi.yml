@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Alerts Subscriptions API
+  title: LocoNav Integration Alerts Subscriptions API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Trips API
+  title: LocoNav Integration Trips API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:
@@ -23,69 +23,70 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>This API allows users to retrieve a list of trips based on various filters such as unique ID, start time, end time, states, driver ID, sort column, sort order, page number, and number of trips per page.</p>
 
-        <h3 id="query-parameters"><strong>Query Parameters:</strong></h3>
+        This API allows users to retrieve a list of trips based on various filters such as unique ID, start time, end time, states, driver ID, sort column, sort order, page number, and number of trips per page.
 
-        <ul>
 
-        <li><code>uniqueId</code> (string, optional): Unique ID of the trip.</li>
+        Query Parameters:
 
-        <li><code>startTime</code> (integer, optional): Start time of the trip.</li>
 
-        <li><code>endTime</code> (integer, optional): End time of the trip.</li>
+        uniqueId (string, optional): Unique ID of the trip.
 
-        <li><code>states</code> (string, optional): Comma-separated list of states to filter trips by. <strong>{ initialized, trashed, ongoing, delayed, unsuccessful, completed }</strong></li>
 
-        <li><code>driverId</code> (integer, optional): ID of the driver associated with the trip.</li>
+        startTime (integer, optional): Start time of the trip.
 
-        <li><code>sortColumn</code> (string, optional): Column to sort the trips by. <strong>{shouldStartAt, createdAt}</strong></li>
 
-        <li><code>sortOrder</code> (string, optional): Order of sorting <strong>{asc, desc}</strong>.</li>
+        endTime (integer, optional): End time of the trip.
 
-        <li><code>page</code> (integer, optional): Page number of the results.</li>
 
-        <li><code>perPage</code> (integer, optional): Number of trips per page.</li>
+        states (string, optional): Comma-separated list of states to filter trips by. { initialized, trashed, ongoing, delayed, unsuccessful, completed }
 
-        <li><code>vehicleNumber</code> (string, optional): Number of the vehicle associated with the trip.</li>
 
-        </ul>
+        driverId (integer, optional): ID of the driver associated with the trip.
 
-        <h3 id="response-structure"><strong>Response Structure</strong></h3>
 
-        <ul>
+        sortColumn (string, optional): Column to sort the trips by. {shouldStartAt, createdAt}
 
-        <li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>
 
-        </li>
+        sortOrder (string, optional): Order of sorting {asc, desc}.
 
-        <li><p><code>data.values</code> (array): Array of trip objects.</p>
 
-        <ul>
+        page (integer, optional): Page number of the results.
 
-        <li><p><code>id</code> (integer): ID of the trip.</p>
 
-        </li>
+        perPage (integer, optional): Number of trips per page.
 
-        <li><p><code>vehicleNumber</code> (string): Number of the vehicle associated with the trip.</p>
 
-        </li>
+        vehicleNumber (string, optional): Number of the vehicle associated with the trip.
 
-        <li><p><code>vehicleId</code> (integer): ID of the vehicle associated with the trip.</p>
 
-        </li>
+        Response Structure
 
-        <li><p><code>uniqueId</code> (string): Unique ID of the trip.</p>
 
-        </li>
+        success (boolean): Indicates whether the request was successful.
 
-        <li><p><code>shouldStartTs</code> (integer): Start time of the trip.</p>
 
-        </li>
+        data.values (array): Array of trip objects.
 
-        <li><p><code>createdAt</code> (integer): Time'
+
+        id (integer): ID of the trip.
+
+
+        vehicleNumber (string): Number of the vehicle associated with the trip.
+
+
+        vehicleId (integer): ID of the vehicle associated with the trip.
+
+
+        uniqueId (string): Unique ID of the trip.
+
+
+        shouldStartTs (integer): Start time of the trip.
+
+
+        createdAt (integer): Time'
     post:
       operationId: createTrip
       summary: Create Trip
@@ -94,121 +95,83 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview"><strong>Overview</strong></h2>
+      description: 'Overview
 
-        <p>Create Trip.</p>
 
-        <ol>
+        Create Trip.
 
-        <li><p>Create trip using route name: Pass route name in the create trip API.</p>
 
-        </li>
+        Create trip using route name: Pass route name in the create trip API.
 
-        <li><p>Create trip using Route id: Pass route id in the create trip API.</p>
 
-        </li>
+        Create trip using Route id: Pass route id in the create trip API.
 
-        <li><p>Create trip using geofence: Pass geofence id in the create trip API</p>
 
-        </li>
+        Create trip using geofence: Pass geofence id in the create trip API
 
-        <li><p>Create Trip using the address and coordinates : Pass address and coordinates in source in the create trip API</p>
 
-        </li>
+        Create Trip using the address and coordinates : Pass address and coordinates in source in the create trip API
 
-        <li><p>Create Trip where the destination is not known</p>
 
-        </li>
+        Create Trip where the destination is not known
 
-        <li><p>Create Trip with multiple stops/checkpoints</p>
 
-        </li>
+        Create Trip with multiple stops/checkpoints
 
-        </ol>
 
-        <p>Create Trip Request</p>
+        Create Trip Request
 
-        <ol>
 
-        <li>Removing the <code>vehicle</code> json object from the body of the request will create a trip request instead of trip. (Trip state will be "requested" instead of "new"). For this "trip_request" feature should be enabled for User.</li>
+        Removing the vehicle json object from the body of the request will create a trip request instead of trip. (Trip state will be "requested" instead of "new"). For this "trip_request" feature should be enabled for User.
 
-        </ol>
 
-        <p><strong>Mandatory Fields</strong> :</p>
+        Mandatory Fields :
 
-        <ol>
 
-        <li><p><code>should_start_at</code></p>
+        should_start_at
 
-        </li>
 
-        <li><p><code>source</code></p>
+        source
 
-        <ol>
 
-        <li>"geofence_id" or "geofence_name" or a combination of ("coordinates" and "address")</li>
+        "geofence_id" or "geofence_name" or a combination of ("coordinates" and "address")
 
-        </ol>
 
-        </li>
+        Validations:
 
-        </ol>
 
-        <p><strong>Validations</strong>:</p>
+        etd (Estimated Time of Departure) > eta (Estimated Time of Arrival)
 
-        <ol>
 
-        <li><code>etd</code> (Estimated Time of Departure) &gt; <code>eta</code> (Estimated Time of Arrival)</li>
+        Cases:
 
-        </ol>
 
-        <p><strong>Cases:</strong></p>
+        Route[id, name], if either of id and name is present, it means we are using existing route. source, checkpoints, destination can be ignored.
 
-        <ol>
 
-        <li><p>Route[id, name], if either of id and name is present, it means we are using existing route. source, checkpoints, destination can be ignored.</p>
+        If Route[id, name] not present, send Source and CheckPoints. Destination is optional.
 
-        </li>
 
-        <li><p>If Route[id, name] not present, send Source and CheckPoints. Destination is optional.</p>
+        if create_new_vehicle_route is not present, route won''t be shown on UI.
 
-        <ol>
 
-        <li><p>if create_new_vehicle_route is not present, route won''t be shown on UI.</p>
+        if create_new vehicle route is present, route name is mandatory and will be shown on UI.
 
-        </li>
 
-        <li><p>if create_new vehicle route is present, route name is mandatory and will be shown on UI.</p>
+        Request Body
 
-        </li>
 
-        </ol>
+        vehicle
 
-        </li>
 
-        </ol>
+        id (integer)
 
-        <h2 id="request-body"><strong>Request Body</strong></h2>
 
-        <ul>
+        number (string)
 
-        <li><p><code>vehicle</code></p>
 
-        <ul>
+        route
 
-        <li><p><code>id</code> (integer)</p>
-
-        </li>
-
-        <li><p><code>number</code> (string)</p>
-
-        </li>
-
-        </ul>
-
-        </li>
-
-        <li><p><code>route</code></p>
 
         <ul'
       requestBody:
@@ -245,107 +208,106 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview">Overview</h2>
+      description: 'Overview
 
-        <p>This API endpoint allows users to update trip details such as the source location and actions.</p>
 
-        <p><strong>Action can have these 4 values</strong></p>
+        This API endpoint allows users to update trip details such as the source location and actions.
 
-        <ol>
 
-        <li><code>UPDATE_TRIP</code> - Can update any variables<ol>
+        Action can have these 4 values
 
-        <li>Mandatory Fields : action, source</li>
 
-        </ol>
+        UPDATE_TRIP - Can update any variables
 
-        </li>
 
-        <li><code>END_TRIP</code> - To end the trip: Only need "id" for this.<ol>
+        Mandatory Fields : action, source
 
-        <li>Mandatory Fields : action, source</li>
 
-        </ol>
+        END_TRIP - To end the trip: Only need "id" for this.
 
-        </li>
 
-        <li><code>PARTIAL_UPDATE_TRIP</code> - Can be used to update "custom_fields" only.<ol>
+        Mandatory Fields : action, source
 
-        <li>Mandatory Fields : action, custom_fields</li>
 
-        </ol>
+        PARTIAL_UPDATE_TRIP - Can be used to update "custom_fields" only.
 
-        </li>
 
-        <li><code>REJECT_TRIP</code> - To reject a trip which is in requested state.<ol>
+        Mandatory Fields : action, custom_fields
 
-        <li>Mandatory Fields: action</li>
 
-        </ol>
+        REJECT_TRIP - To reject a trip which is in requested state.
 
-        </li>
 
-        <li><code>START_TRIP</code> - To start the trip: Only need "id" for this.<ol>
+        Mandatory Fields: action
 
-        <li>Mandatory Fields : action</li>
 
-        </ol>
+        START_TRIP - To start the trip: Only need "id" for this.
 
-        </li>
 
-        </ol>
+        Mandatory Fields : action
 
-        <h2 id="path-variables">Path Variables</h2>
 
-        <ul>
+        Path Variables
 
-        <li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>
 
-        </ul>
+        tripId (integer): Unique identifier for the trip to be deleted.
 
-        <h2 id="request-body"><strong>Request Body</strong></h2>
 
-        <ul>
+        Request Body
 
-        <li><code>action</code> (string, required)</li>
 
-        <li><code>newVehicleRouteName</code> (string)</li>
+        action (string, required)
 
-        <li><code>shouldStartAt</code> (integer, epoch timestamp) Time by which trip should be started</li>
 
-        <li><code>expectedDistance</code> (integer)</li>
+        newVehicleRouteName (string)
 
-        <li><code>tripDelayAlertsEnabled</code> (boolean)</li>
 
-        <li><code>sourceName</code> (string)</li>
+        shouldStartAt (integer, epoch timestamp) Time by which trip should be started
 
-        <li><code>destinationName</code> (string)</li>
 
-        <li><code>shouldExpireOldTrips</code> (boolean) Mark True if you want to expire all active trips on the vehicle.</li>
+        expectedDistance (integer)
 
-        <li><code>checkPoints</code><ul>
 
-        <li><code>geofenceId</code> (integer)</li>
+        tripDelayAlertsEnabled (boolean)
 
-        <li><code>geofenceName</code> (string)</li>
 
-        <li><code>eta</code> (integer, epoch timestamp in seconds)</li>
+        sourceName (string)
 
-        <li><code>etd</code> (integer, epoch timestamp in seconds)</li>
 
-        <li><code>coordinates</code> (string, lat,long)</li>
+        destinationName (string)
 
-        <li><code>address</code> (string)</li>
 
-        <li><code>createGatepass</code> (boolean)</li>
+        shouldExpireOldTrips (boolean) Mark True if you want to expire all active trips on the vehicle.
 
-        </ul>
 
-        </li>
+        checkPoints
 
-        <li><code>source</code><ul>
 
-        <li><code>geofe'
+        geofenceId (integer)
+
+
+        geofenceName (string)
+
+
+        eta (integer, epoch timestamp in seconds)
+
+
+        etd (integer, epoch timestamp in seconds)
+
+
+        coordinates (string, lat,long)
+
+
+        address (string)
+
+
+        createGatepass (boolean)
+
+
+        source
+
+
+        geofe'
       parameters:
       - name: tripId
         in: path
@@ -375,41 +337,31 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview">Overview</h2>
+      description: 'Overview
 
-        <p>This API endpoint allows administrators to delete a trip based on its ID.</p>
 
-        <h2 id="request-parameters">Request Parameters</h2>
+        This API endpoint allows administrators to delete a trip based on its ID.
 
-        <ul>
 
-        <li><code>tripId</code> (integer): Unique identifier for the trip to be deleted.</li>
+        Request Parameters
 
-        </ul>
 
-        <h2 id="response-structure">Response Structure</h2>
+        tripId (integer): Unique identifier for the trip to be deleted.
 
-        <ul>
 
-        <li><p><code>success</code> (boolean): Indicates whether the request was successful.</p>
+        Response Structure
 
-        </li>
 
-        <li><p><code>message</code>(string): A message confirming the success of the deletion operation.</p>
+        success (boolean): Indicates whether the request was successful.
 
-        </li>
 
-        </ul>
+        message(string): A message confirming the success of the deletion operation.
 
-        <h3 id="notes">Notes</h3>
 
-        <ul>
+        Notes
 
-        <li>Replace <code>{trip_id}</code> in the URL with the actual ID of the trip to be deleted.</li>
 
-        </ul>
-
-        '
+        Replace {trip_id} in the URL with the actual ID of the trip to be deleted.'
       parameters:
       - name: tripId
         in: path
@@ -425,49 +377,43 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h2 id="overview"><strong>Overview</strong></h2>
+      description: 'Overview
 
-        <p>This API endpoint retrieves a <strong>public tracking URL</strong> for a specific trip, including given checkpoints, allowing users to monitor the trip''s progress in real-time.</p>
 
-        <p>Clients can send this URL directly to end customers for real time public tracking of the vehicle.</p>
+        This API endpoint retrieves a public tracking URL for a specific trip, including given checkpoints, allowing users to monitor the trip''s progress in real-time.
 
-        <h3 id="path-parameters"><strong>Path Parameters</strong></h3>
 
-        <ul>
+        Clients can send this URL directly to end customers for real time public tracking of the vehicle.
 
-        <li><code>{trip_id}</code> (integer): ID of the trip for which the tracking URL is requested.</li>
 
-        </ul>
+        Path Parameters
 
-        <h3 id="query-parameters"><strong>Query Parameters</strong></h3>
 
-        <ul>
+        {trip_id} (integer): ID of the trip for which the tracking URL is requested.
 
-        <li><code>allCheckPoints</code> (boolean): Indicates whether to include all checkpoints in the tracking URL. Set to <code>true</code> to include all checkpoints.</li>
 
-        <li><code>checkPointIds</code> (array of integer): If <code>allCheckPoints</code> param is <code>false</code> then user need to pass geofence ids that were passed in Create Trip API. (Eg: [23,45]). The map will only shows the mentioned check points.</li>
+        Query Parameters
 
-        </ul>
 
-        <h2 id="response-structure"><strong>Response Structure</strong></h2>
+        allCheckPoints (boolean): Indicates whether to include all checkpoints in the tracking URL. Set to true to include all checkpoints.
 
-        <ul>
 
-        <li><code>success</code> (boolean): Indicates whether the request was successful.</li>
+        checkPointIds (array of integer): If allCheckPoints param is false then user need to pass geofence ids that were passed in Create Trip API. (Eg: [23,45]). The map will only shows the mentioned check points.
 
-        <li><code>data</code><ul>
 
-        <li><code>tripTrackToken</code> (string): Token used to track the trip.</li>
+        Response Structure
 
-        <li><code>url</code> (string): Tracking URL for the trip.</li>
 
-        </ul>
+        success (boolean): Indicates whether the request was successful.
 
-        </li>
 
-        </ul>
+        data
 
-        '
+
+        tripTrackToken (string): Token used to track the trip.
+
+
+        url (string): Tracking URL for the trip.'
       parameters:
       - name: tripId
         in: path

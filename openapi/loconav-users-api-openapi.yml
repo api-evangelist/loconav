@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Users API
+  title: LocoNav Integration Users API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:
@@ -23,89 +23,64 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>The User Details API allows users to retrieve detailed information about the currently authenticated user in the LocoNav system. This information includes the user''s name, email, phone numbers, role, and account details.</p>
 
-        <h3 id="request-headers">Request Headers</h3>
+        The User Details API allows users to retrieve detailed information about the currently authenticated user in the LocoNav system. This information includes the user''s name, email, phone numbers, role, and account details.
 
-        <ul>
 
-        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+        Request Headers
 
-        </ul>
 
-        <h3 id="response-fields">Response Fields</h3>
+        User-Authentication: The authentication token for accessing the API. Replace {{auth-token}} with the actual authentication token.
 
-        <ul>
 
-        <li><p><code>id</code> (integer): The unique identifier of the user.</p>
+        Response Fields
 
-        </li>
 
-        <li><p><code>name</code> (string): The name of the user.</p>
+        id (integer): The unique identifier of the user.
 
-        </li>
 
-        <li><p><code>email</code> (string): The email address of the user.</p>
+        name (string): The name of the user.
 
-        </li>
 
-        <li><p><code>createdAt</code> (string): The timestamp of when the user account was created.</p>
+        email (string): The email address of the user.
 
-        </li>
 
-        <li><p><code>updatedAt</code> (string): The timestamp of when the user account was last updated.</p>
+        createdAt (string): The timestamp of when the user account was created.
 
-        </li>
 
-        <li><p><code>phoneNumbers</code> (string): The phone numbers associated with the user.</p>
+        updatedAt (string): The timestamp of when the user account was last updated.
 
-        </li>
 
-        <li><p><code>role</code> (string): The role of the user in the system.</p>
+        phoneNumbers (string): The phone numbers associated with the user.
 
-        </li>
 
-        <li><p><code>account</code> (object): An object containing details about the user''s account.</p>
+        role (string): The role of the user in the system.
 
-        <ul>
 
-        <li><p><code>id</code> (integer): The unique identifier of the user''s account.</p>
+        account (object): An object containing details about the user''s account.
 
-        </li>
 
-        <li><p><code>name</code> (string): The name of the user''s account.</p>
+        id (integer): The unique identifier of the user''s account.
 
-        </li>
 
-        <li><p><code>email</code> (string): The email address of the user''s account.</p>
+        name (string): The name of the user''s account.
 
-        </li>
 
-        <li><p><code>createdAt</code> (string): The timestamp of when the user''s account was created.</p>
+        email (string): The email address of the user''s account.
 
-        </li>
 
-        <li><p><code>updatedAt</code> (string): The timestamp of when the user''s account was last updated.</p>
+        createdAt (string): The timestamp of when the user''s account was created.
 
-        </li>
 
-        <li><p><code>active</code> (boolean): Indicates if the user''s account is active.</p>
+        updatedAt (string): The timestamp of when the user''s account was last updated.
 
-        </li>
 
-        <li><p><code>alertsPusher</code> (boolean): Indicates if the user has alerts pusher enabled.</p>
+        active (boolean): Indicates if the user''s account is active.
 
-        </li>
 
-        </ul>
-
-        </li>
-
-        </ul>
-
-        '
+        alertsPusher (boolean): Indicates if the user has alerts pusher enabled.'
 components:
   securitySchemes:
     UserAuthentication:

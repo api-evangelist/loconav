@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: LocoNav Integration Alert Subscriptions Mobilization API
+  title: LocoNav Integration Mobilization API
   version: v1
   description: 'LocoNav''s REST APIs for fleet telematics integration: telematics (sensor/GPS/video/live-stream), CRUD resource management (drivers, vehicles, trips, geofences, users), safety and connected-driver features, alerts and alert-subscriptions, and immobilization. Converted from LocoNav''s published Postman documentation at developers.loconav.com. All listing endpoints are paginated (page/perPage); time parameters use epoch seconds.'
   contact:
@@ -23,49 +23,43 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>The Immobilizer Requests API allows users to send requests to immobilize or mobilize a specific vehicle. This can be useful for security and safety purposes, enabling the control of a vehicle''s movement remotely.</p>
 
-        <p>This is a async operation and will take some time. Call Get Mobilization requests API to know the status</p>
+        The Immobilizer Requests API allows users to send requests to immobilize or mobilize a specific vehicle. This can be useful for security and safety purposes, enabling the control of a vehicle''s movement remotely.
 
-        <h3 id="path-parameters">Path Parameters</h3>
 
-        <ul>
+        This is a async operation and will take some time. Call Get Mobilization requests API to know the status
 
-        <li><code>vehicleId</code> (string, required): The unique identifier of the vehicle for which the immobilizer request is made.</li>
 
-        </ul>
+        Path Parameters
 
-        <h3 id="request-body">Request Body</h3>
 
-        <ul>
+        vehicleId (string, required): The unique identifier of the vehicle for which the immobilizer request is made.
 
-        <li><code>value</code> (string, required): The action to be performed on the immobilizer. Possible values are "MOBILIZE" or "IMMOBILIZE".</li>
 
-        </ul>
+        Request Body
 
-        <h3 id="response-body">Response Body</h3>
 
-        <ul>
+        value (string, required): The action to be performed on the immobilizer. Possible values are "MOBILIZE" or "IMMOBILIZE".
 
-        <li><code>id</code> (integer): The unique identifier of the immobilizer request. Customers can use this Id and call Get Mobilization request to find the status of the operation</li>
 
-        </ul>
+        Response Body
 
-        <h3 id="status-codes">Status Codes</h3>
 
-        <ul>
+        id (integer): The unique identifier of the immobilizer request. Customers can use this Id and call Get Mobilization request to find the status of the operation
 
-        <li><code>200 OK</code>: The request was successful, and the immobilizer request was processed.</li>
 
-        <li><code>400 Bad Request</code>: The request body contains invalid data.</li>
+        Status Codes
 
-        <li><code>422 Unprocessable Entity</code>: The specified vehicle is not set up for immobilization.</li>
 
-        </ul>
+        200 OK: The request was successful, and the immobilizer request was processed.
 
-        '
+
+        400 Bad Request: The request body contains invalid data.
+
+
+        422 Unprocessable Entity: The specified vehicle is not set up for immobilization.'
       parameters:
       - name: vehicleId
         in: path
@@ -89,71 +83,58 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<h3 id="overview">Overview</h3>
+      description: 'Overview
 
-        <p>The Immobilization Request Details API allows users to retrieve details about a specific immobilization request made for a vehicle. This includes information such as the status of the request, the reason for immobilization, and the user who initiated the request.</p>
 
-        <h3 id="request-headers">Request Headers</h3>
+        The Immobilization Request Details API allows users to retrieve details about a specific immobilization request made for a vehicle. This includes information such as the status of the request, the reason for immobilization, and the user who initiated the request.
 
-        <ul>
 
-        <li><code>User-Authentication</code>: The authentication token for accessing the API. Replace <code>{{auth-token}}</code> with the actual authentication token.</li>
+        Request Headers
 
-        </ul>
 
-        <h3 id="path-parameters">Path Parameters</h3>
+        User-Authentication: The authentication token for accessing the API. Replace {{auth-token}} with the actual authentication token.
 
-        <ul>
 
-        <li><code>immobilizationRequestId</code> (string, required): The unique identifier of the immobilization request for which details are requested.</li>
+        Path Parameters
 
-        </ul>
 
-        <h3 id="response-body">Response Body</h3>
+        immobilizationRequestId (string, required): The unique identifier of the immobilization request for which details are requested.
 
-        <ul>
 
-        <li><p><code>id</code> (integer): The unique identifier of the immobilization request.</p>
+        Response Body
 
-        </li>
 
-        <li><p><code>truck_id</code> (integer): The identifier of the truck associated with the request.</p>
+        id (integer): The unique identifier of the immobilization request.
 
-        </li>
 
-        <li><p><code>status</code> (string): The status of the immobilization request (e.g., "success", "pending", "failed").</p>
+        truck_id (integer): The identifier of the truck associated with the request.
 
-        </li>
 
-        <li><p><code>message</code> (string): A message indicating the result of the immobilization request.</p>
+        status (string): The status of the immobilization request (e.g., "success", "pending", "failed").
 
-        </li>
 
-        <li><p><code>mobilize</code> (boolean): Indicates whether the request was for mobilization (<code>true</code>) or immobilization (<code>false</code>).</p>
+        message (string): A message indicating the result of the immobilization request.
 
-        </li>
 
-        <li><p><code>created_via</code> (string): The method or platform through which the request was created.</p>
+        mobilize (boolean): Indicates whether the request was for mobilization (true) or immobilization (false).
 
-        </li>
 
-        <li><p><code>created_at</code> (integer): The timestamp when the request was created.</p>
+        created_via (string): The method or platform through which the request was created.
 
-        </li>
 
-        <li><p><code>updated_at</code> (integer): The timestamp when the request was last updated.</p>
+        created_at (integer): The timestamp when the request was created.
 
-        </li>
 
-        <li><p><code>creator_type</code> (string): The type of user who initiated the request (e.g., "User", "Admin").</p>
+        updated_at (integer): The timestamp when the request was last updated.
 
-        </li>
 
-        <li><p><code>creator_email</code> (string): The email address of the user who initiated the request.</p>
+        creator_type (string): The type of user who initiated the request (e.g., "User", "Admin").
 
-        </li>
 
-        <li><p><code>reason</code> (string): The reason provided for the immobili'
+        creator_email (string): The email address of the user who initiated the request.
+
+
+        reason (string): The reason provided for the immobili'
       parameters:
       - name: immobilizationRequestId
         in: path

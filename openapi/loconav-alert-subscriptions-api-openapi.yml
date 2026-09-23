@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: LocoNav Integration Alert Subscriptions API
   version: v1
@@ -13,9 +13,7 @@ security:
 - UserAuthentication: []
 tags:
 - name: Alert Subscriptions
-  description: '<p>With our Alert subscription APIs, you can manage the alerts effectively on a platform</p>
-
-    '
+  description: With our Alert subscription APIs, you can manage the alerts effectively on a platform
 paths:
   /integration/api/v1/vehicles/alerts/subscriptions:
     post:
@@ -26,33 +24,146 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: '<p>Each kind of alert will have different fields for alert_config, specific config is below :</p>
+      description: 'Each kind of alert will have different fields for alert_config, specific config is below :
 
-        <p>“vehicle_numbers” : [], // array of vehicle number, wether this or id only one is processed, id first priority</p>
 
-        <p>in all kind either use vehicle id or number whichever applicable.</p>
+        “vehicle_numbers” : [], // array of vehicle number, wether this or id only one is processed, id first priority
 
-        <p><strong>Overspeed</strong><br />“kind”: “overspeed”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br />“speedLimit”: “200”,<br />“minDurationInMinutes”: “100”,<br />“minDurationInSeconds”: “10”<br />}<br /><strong>Entry_exit</strong><br />kind”: “entry_exit”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,<br />“alertConfig”:{<br />“polygonIds”: [],<br />“includeAllPolygons”: 0/1<br />}</p>
 
-        <p><strong>Sudden Braking</strong><br />“kind”: “sudden_braking”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,</p>
+        in all kind either use vehicle id or number whichever applicable.
 
-        <p><strong>Sudden acceleration</strong><br />“kind”: “sudden_acceleration”,<br />“vehicleIds” : [], // array of vehicle ids<br />“includeAll” : “0”,</p>
 
-        <p><strong>Vehicle Idling Alert</strong><br />“Kind” : “vehicle_idle”,<br />“vehicleIds” : [],<br />“includeAll” : “0”,<br />“alertConfig” : {<br />“minDuration” : “10”<br />}</p>
+        Overspeed
 
-        <p><strong>Fatigue Alert</strong><br />“kind” : “fatigue”,<br />"vehicleIds" : [],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“fatigueDurationInMinutes” : “100”,<br />“stoppageTimeToIgnoreInMinutes” : “15”<br />}</p>
+        “kind”: “overspeed”,
 
-        <p><strong>Antitheft Alert</strong><br />“kind” : “anti_theft”,<br />"vehicleIds" : ["2"],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“startTime” : “15:35”,<br />“endTime” : “15:45”<br />}</p>
+        “vehicleIds” : [], // array of vehicle ids
 
-        <p><strong>Over rev Alert</strong><br />“kind” : “over_rev”,<br />"vehicleIds" : [],<br />"includeAll" : "0",<br />“alertConfig” : {<br />“rpmValue” : “40”,<br />“minDurationInMinutes”: “100”,<br />“minDurationInSeconds”: “10”<br />}</p>
+        “includeAll” : “0”,
 
-        <p><strong>TowAway Alert</strong></p>
+        “alertConfig”:{
 
-        <p>“kind” : “tow_away”,</p>
+        “speedLimit”: “200”,
 
-        <p>"vehicleIds" : []</p>
+        “minDurationInMinutes”: “100”,
 
-        <p>}<'
+        “minDurationInSeconds”: “10”
+
+        }
+
+        Entry_exit
+
+        kind”: “entry_exit”,
+
+        “vehicleIds” : [], // array of vehicle ids
+
+        “includeAll” : “0”,
+
+        “alertConfig”:{
+
+        “polygonIds”: [],
+
+        “includeAllPolygons”: 0/1
+
+        }
+
+
+        Sudden Braking
+
+        “kind”: “sudden_braking”,
+
+        “vehicleIds” : [], // array of vehicle ids
+
+        “includeAll” : “0”,
+
+
+        Sudden acceleration
+
+        “kind”: “sudden_acceleration”,
+
+        “vehicleIds” : [], // array of vehicle ids
+
+        “includeAll” : “0”,
+
+
+        Vehicle Idling Alert
+
+        “Kind” : “vehicle_idle”,
+
+        “vehicleIds” : [],
+
+        “includeAll” : “0”,
+
+        “alertConfig” : {
+
+        “minDuration” : “10”
+
+        }
+
+
+        Fatigue Alert
+
+        “kind” : “fatigue”,
+
+        "vehicleIds" : [],
+
+        "includeAll" : "0",
+
+        “alertConfig” : {
+
+        “fatigueDurationInMinutes” : “100”,
+
+        “stoppageTimeToIgnoreInMinutes” : “15”
+
+        }
+
+
+        Antitheft Alert
+
+        “kind” : “anti_theft”,
+
+        "vehicleIds" : ["2"],
+
+        "includeAll" : "0",
+
+        “alertConfig” : {
+
+        “startTime” : “15:35”,
+
+        “endTime” : “15:45”
+
+        }
+
+
+        Over rev Alert
+
+        “kind” : “over_rev”,
+
+        "vehicleIds" : [],
+
+        "includeAll" : "0",
+
+        “alertConfig” : {
+
+        “rpmValue” : “40”,
+
+        “minDurationInMinutes”: “100”,
+
+        “minDurationInSeconds”: “10”
+
+        }
+
+
+        TowAway Alert
+
+
+        “kind” : “tow_away”,
+
+
+        "vehicleIds" : []
+
+
+        }<'
       requestBody:
         required: true
         content:
@@ -77,7 +188,64 @@ paths:
       responses:
         '200':
           description: Successful response
-      description: "<h3 id=\"update-vehicle-alert-subscriptions\">Update Vehicle Alert Subscriptions</h3>\n<p>This endpoint allows the user to update the alert subscriptions for vehicles.</p>\n<h4 id=\"request-body\">Request Body</h4>\n<ul>\n<li><p><code>alertSubscriptions</code> (array of objects) - An array containing the details of alert subscriptions.</p>\n<ul>\n<li><p><code>id</code> (number) - The ID of the alert subscription.</p>\n</li>\n<li><p><code>kind</code> (string) - The type of alert subscription.</p>\n</li>\n<li><p><code>vehicleIds</code> (array of strings) - An array of vehicle IDs for which the alert subscription is being updated.</p>\n</li>\n<li><p><code>alertConfig</code> (object) - The configuration for the alert subscription.</p>\n<ul>\n<li><p><code>minDurationInMinutes</code> (number) - The minimum duration in minutes for the alert.</p>\n</li>\n<li><p><code>minDurationInSeconds</code> (number) - The minimum duration in seconds for the alert.</p>\n</li>\n<li><p><code>speedLimit</code> (number) - The speed limit for the alert.</p>\n</li>\n<li><p><code>subUserIds</code> (array of numbers) - An array of user IDs for the alert subscription.</p>\n</li>\n<li><p><code>vehicleGroupIds</code> (array of numbers) - An array of vehicle group IDs for the alert subscription.</p>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<h4 id=\"response\">Response</h4>\n<ul>\n<li><p><code>status</code> (boolean) - Indicates the status of the request. <code>true</code> for success.</p>\n</li>\n<li><p><code>data</code> (string) - Additional data related to the request.</p>\n</li>\n</ul>\n<p>Example Response:</p>\n<pre class=\"click-to-expand-wrapper is-snippet-wrapper\"><code class=\"language-json\">{\n    \"status\": true,\n    \"data\": \"\"\n}\n\n</code></pre>\n"
+      description: 'Update Vehicle Alert Subscriptions
+
+
+        This endpoint allows the user to update the alert subscriptions for vehicles.
+
+
+        Request Body
+
+
+        alertSubscriptions (array of objects) - An array containing the details of alert subscriptions.
+
+
+        id (number) - The ID of the alert subscription.
+
+
+        kind (string) - The type of alert subscription.
+
+
+        vehicleIds (array of strings) - An array of vehicle IDs for which the alert subscription is being updated.
+
+
+        alertConfig (object) - The configuration for the alert subscription.
+
+
+        minDurationInMinutes (number) - The minimum duration in minutes for the alert.
+
+
+        minDurationInSeconds (number) - The minimum duration in seconds for the alert.
+
+
+        speedLimit (number) - The speed limit for the alert.
+
+
+        subUserIds (array of numbers) - An array of user IDs for the alert subscription.
+
+
+        vehicleGroupIds (array of numbers) - An array of vehicle group IDs for the alert subscription.
+
+
+        Response
+
+
+        status (boolean) - Indicates the status of the request. true for success.
+
+
+        data (string) - Additional data related to the request.
+
+
+        Example Response:
+
+
+        {
+
+        "status": true,
+
+        "data": ""
+
+        }'
       requestBody:
         required: true
         content:
