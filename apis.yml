@@ -434,6 +434,8 @@ apis:
   - type: Webhooks
     url: asyncapi/loconav-webhooks.yml
 common:
+- type: RateLimits
+  url: rate-limits/loconav-rate-limits.yml
 - type: CapabilityMap
   url: capabilities/loconav-capability-edges.yml
   name: LocoNav Business Capability Map
